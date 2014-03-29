@@ -6,11 +6,9 @@
 from scrapy.item import Item, Field
 
 class ScrapyItem(Item):
-    # define the fields for your item here like:
-    # name = Field()
-    title = Field()
-    link = Field()
-    desc = Field()
+  title = Field()
+  link = Field()
+  desc = Field()
 
 class TagItem(Item):
   tag = Field()
