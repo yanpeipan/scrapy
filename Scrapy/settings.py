@@ -10,6 +10,14 @@ BOT_NAME = 'Scrapy'
 
 SPIDER_MODULES = ['Scrapy.spiders']
 NEWSPIDER_MODULE = 'Scrapy.spiders'
+ITEM_PIPELINES = {
+    'Scrapy.pipelines.ScrapyPipeline': 300,
+    }
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'Scrapy (+http://www.yourdomain.com)'
+
+MONGODB_HOST = 'localhost'
+MONGODB_PORT = 27017
+MONGODB_DATABASE = 'Scrapy'
+MONGODB_COLLECTION = 'movie'
