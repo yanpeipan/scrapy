@@ -29,7 +29,7 @@ class DoubanSpider(Spider):
         movieItem['collect_count'] = movie['collect_count']
         movieItem['original_title'] = movie['original_title']
         movieItem['year'] = movie['year']
-        movieItem['alt'] = movie['alt']
+        #movieItem['alt'] = movie['alt']
         movieItem['id'] = movie['id']
         movieItem['images'] = movie['images']
         movieItem['subtype'] = movie['subtype']
