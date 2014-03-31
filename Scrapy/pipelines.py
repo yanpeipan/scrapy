@@ -8,6 +8,6 @@ class ScrapyPipeline(object):
   def process_item(self, item, spider):
     mongo = MongoClient().scrapy
     #print spider.collection
-    print item
+    #print item
     #mongo.tags.insert(dict(item))
     return item
