@@ -13,10 +13,15 @@ class DoubanSpider(Spider):
   allowed_domins = ['http://www.douban.com', 'https://api.douban.com']
   start_urls = ['http://movie.douban.com/tag/']
 
-  def parseList(self, response):
+  def parseMovie(self, response):
     movie = json.loads(response.body_as_unicode())
-    if len(movie['subjects'])>0:
-      for movie in movie['subjects']:
+    if len(movie)>0:
+      pass
+
+  def parseList(self, response):
+    movies = json.loads(response.body_as_unicode())
+    if len(movies['subjects'])>0:
+      for movie in movies['subjects']:
         movieItem = MovieItem()
         movieItem['rating'] = movie['rating']
         movieItem['title'] = movie['title']
