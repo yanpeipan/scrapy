@@ -16,6 +16,7 @@ class DoubanSpider(Spider):
   def parseMovie(self, response):
     movie = json.loads(response.body_as_unicode())
     if len(movie)>0:
+      movieItem = MovieItem()
       pass
 
   def parseList(self, response):
