@@ -13,3 +13,14 @@ class ScrapyItem(Item):
 class TagItem(Item):
   tag = Field()
   num = Field()
+
+class MovieItem(Item):
+  rating = Field()
+  title = Field()
+  collect_count = Field()
+  original_title = Field()
+  subtype = Field()
+  year = Field()
+  images = Field()
+  alt = Field()
+  id = Field()
