@@ -1,3 +1,4 @@
+from scrapy.contrib.spiders import CrawlSpider
 from scrapy.spider import Spider
 from scrapy .selector import Selector
 from pymongo import MongoClient
@@ -24,19 +25,18 @@ class DoubanSpider(Spider):
   def parseSubject(self, response):
     sel = Selector(response)
     movieItem = MovieItem()
-    movieItem['id'] = response.meta['']
+    movieItem['id'] = response.meta['id']
     #parse writers
     writerLinks = sel.xpath('//*[@id="info"]/span[2]/a')
     writerLinks.extract()
+    writers = []
     for index, link in enumerate(writerLinks):
       writer = {'id':link.xpath('@href').re(r"/celebrity/(\d+)/"), 'name':link.xpath('text()').extract()}
-      movieItem['writers'].append(writer)
-
-    imdbtt = sel.xpath('//*[@id="info"]/a').re(r"http://www.imdb.com/title/(tt\d+)")
+      writers.append(writer)
+    movieItem['writers'] = writers
+    movieItem['imdb_id'] = sel.xpath('//*[@id="info"]/a').re(r"http://www.imdb.com/title/(tt\d+)").pop()
     tags = sel.xpath('//*[@id="content"]/div/div[2]/div[3]/div/a').extract()
     recommendations = sel.xpath('//*[@id="recommendations"]/div/dl/dd/a').re(r"/subject/(\d+)")
-    print recommendations
-    pass
 
   def parseMovie(self, response):
     movie = json.loads(response.body_as_unicode())
@@ -51,10 +51,7 @@ class DoubanSpider(Spider):
       yield Request(url = 'http://movie.douban.com/subject/' + movie['id'], callback = self.parseSubject, meta = {'id':movie['id']})
 
   def parseList(self, response):
-    print response.meta
-    return
     movies = json.loads(response.body_as_unicode())
-    print movies
     if len(movies['subjects'])>0:
       for movie in movies['subjects']:
         yield Request(url = 'https://api.douban.com/v2/movie/subject/' + movie['id'], callback = self.parseMovie)
@@ -72,4 +69,4 @@ class DoubanSpider(Spider):
       tagItem['num'] = item.xpath('b/text()').re(r"\d+").pop()
       yield tagItem
       yield Request(url = 'https://api.douban.com/v2/movie/search?tag=' + tagItem['tag'] + '&start=0', callback = self.parseList)
-      return
+      return#yan wait for dd

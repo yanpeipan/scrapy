@@ -59,3 +59,4 @@ class MovieItem(Item):
   ratings_count= Field()
   aka= Field()
   writers = Field()
+  imdb_id = Field()
