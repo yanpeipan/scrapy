@@ -1,8 +1,8 @@
 from scrapy.spider import Spider
 from scrapy .selector import Selector
-from Scrapy.items import TagItem,MovieItem
 from pymongo import MongoClient
 from scrapy.http import Request
+from Scrapy.items import *
 
 from urlparse import urlparse,parse_qs
 import json
@@ -13,41 +13,63 @@ class DoubanSpider(Spider):
   allowed_domins = ['http://www.douban.com', 'https://api.douban.com']
   start_urls = ['http://movie.douban.com/tag/']
 
+  def parseCelebrity(self, response):
+    celebrity = json.loads(response.body_as_unicode())
+    if len(celebrity)>0:
+      celebrityItem = CelebrityItem()
+      for k,v in celebrity.iteritems():
+        celebrityItem[k] = v
+        yield celebrityItem
+
+  def parseSubject(self, response):
+    sel = Selector(response)
+    movieItem = MovieItem()
+    movieItem['id'] = response.meta['']
+    #parse writers
+    writerLinks = sel.xpath('//*[@id="info"]/span[2]/a')
+    writerLinks.extract()
+    for index, link in enumerate(writerLinks):
+      writer = {'id':link.xpath('@href').re(r"/celebrity/(\d+)/"), 'name':link.xpath('text()').extract()}
+      movieItem['writers'].append(writer)
+
+    imdbtt = sel.xpath('//*[@id="info"]/a').re(r"http://www.imdb.com/title/(tt\d+)")
+    tags = sel.xpath('//*[@id="content"]/div/div[2]/div[3]/div/a').extract()
+    recommendations = sel.xpath('//*[@id="recommendations"]/div/dl/dd/a').re(r"/subject/(\d+)")
+    print recommendations
+    pass
+
   def parseMovie(self, response):
     movie = json.loads(response.body_as_unicode())
     if len(movie)>0:
       movieItem = MovieItem()
-      pass
+      for k, v in movie.iteritems():
+        movieItem[k] = v
+      yield movieItem
+      for celebrity in (movie['casts'] + movie['directors']):
+        if id in celebrity:
+          yield Request(url = 'https://api.douban.com/v2/movie/celebrity/' + celebrity['id'], callback = self.parseCelebrity)
+      yield Request(url = 'http://movie.douban.com/subject/' + movie['id'], callback = self.parseSubject, meta = {'id':movie['id']})
 
   def parseList(self, response):
+    print response.meta
+    return
     movies = json.loads(response.body_as_unicode())
+    print movies
     if len(movies['subjects'])>0:
       for movie in movies['subjects']:
-        movieItem = MovieItem()
-        movieItem['rating'] = movie['rating']
-        movieItem['title'] = movie['title']
-        movieItem['collect_count'] = movie['collect_count']
-        movieItem['original_title'] = movie['original_title']
-        movieItem['year'] = movie['year']
-        #movieItem['alt'] = movie['alt']
-        movieItem['id'] = movie['id']
-        movieItem['images'] = movie['images']
-        movieItem['subtype'] = movie['subtype']
-        yield movieItem
+        yield Request(url = 'https://api.douban.com/v2/movie/subject/' + movie['id'], callback = self.parseMovie)
       params = parse_qs(urlparse(response.url).query)
-      start = (int)(params['start'].pop()) + 20
+      start = (int)(params['start'].pop()) + 20 #also can be translated by request.meta
       tag = params['tag'].pop()
-      yield Request(url = 'https://api.douban.com/v2/movie/search?tag=' + tag + '&start=' + str(start), callback = self.parseList)
+      #yield Request(url = 'https://api.douban.com/v2/movie/search?tag=' + tag + '&start=' + str(start), callback = self.parseList)
 
   def parse(self, response):
-    mongo = MongoClient().scrapy
     sel = Selector(response)
     items = sel.xpath('//table[@class="tagCol"]//td')
-    tags = []
     for item in items:
       tagItem = TagItem()
       tagItem['tag'] = item.xpath('a/text()').extract().pop()
       tagItem['num'] = item.xpath('b/text()').re(r"\d+").pop()
-      tags.append(TagItem)
-      start = 0
-      yield Request(url = 'https://api.douban.com/v2/movie/search?tag=' + tagItem['tag'] + '&start=' + unicode(start), callback = self.parseList)
+      yield tagItem
+      yield Request(url = 'https://api.douban.com/v2/movie/search?tag=' + tagItem['tag'] + '&start=0', callback = self.parseList)
+      return

@@ -12,6 +12,9 @@ SPIDER_MODULES = ['Scrapy.spiders']
 NEWSPIDER_MODULE = 'Scrapy.spiders'
 ITEM_PIPELINES = {
     'Scrapy.pipelines.ScrapyPipeline': 300,
+    'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 110,
+    'Scrapy.middlewares.ProxyMiddleware': 100,
+    'scrapy.contrib.downloadermiddleware.retry.RetryMiddleware': 90,
     }
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
