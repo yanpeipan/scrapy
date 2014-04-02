@@ -16,8 +16,7 @@ ITEM_PIPELINES = {
     }
 
 DOWNLOADER_MIDDLEWARES = {
-    'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 2,
-    'Scrapy.middlewares.ProxyMiddleware': 100
+    'Scrapy.middlewares.ProxyMiddleware': 100,
     }
 
 SPIDER_MIDDLEWARES = {

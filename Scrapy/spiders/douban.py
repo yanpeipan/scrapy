@@ -8,7 +8,7 @@ from Scrapy.items import *
 from urlparse import urlparse,parse_qs
 import json
 
-class DoubanSpider(Spider):
+class DoubanSpider(CrawlSpider):
   name = 'douban'
   pipeline = ['DoubanSpider']
   allowed_domins = ['http://www.douban.com', 'https://api.douban.com']
@@ -51,6 +51,7 @@ class DoubanSpider(Spider):
       yield Request(url = 'http://movie.douban.com/subject/' + movie['id'], callback = self.parseSubject, meta = {'id':movie['id']})
 
   def parseList(self, response):
+    print response.url
     movies = json.loads(response.body_as_unicode())
     if len(movies['subjects'])>0:
       for movie in movies['subjects']:
