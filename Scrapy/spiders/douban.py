@@ -1,5 +1,6 @@
 from scrapy.contrib.spiders import CrawlSpider
 from scrapy.spider import Spider
+from scrapy.exceptions import CloseSpider
 from scrapy .selector import Selector
 from pymongo import MongoClient
 from scrapy.http import Request
@@ -34,8 +35,18 @@ class DoubanSpider(CrawlSpider):
       writer = {'id':link.xpath('@href').re(r"/celebrity/(\d+)/"), 'name':link.xpath('text()').extract()}
       writers.append(writer)
     movieItem['writers'] = writers
+    #prase imdb_id
     movieItem['imdb_id'] = sel.xpath('//*[@id="info"]/a').re(r"http://www.imdb.com/title/(tt\d+)").pop()
-    tags = sel.xpath('//*[@id="content"]/div/div[2]/div[3]/div/a').extract()
+    #parse tags
+    tagsXpath = sel.xpath('//div[@class="tags-body"]/a')
+    tagsXpath.extract()
+    print tagsXpath
+    tags = []
+    for index, link in enumerate(tagsXpath):
+      tagItem = TagItem()
+      tag = {'tag':link.xpath('//text()').extract(), 'num':link.xpath('//span/text()').re(r"(\d+)")}
+      print tag
+      raise CloseSpider() yield tagItem
     recommendations = sel.xpath('//*[@id="recommendations"]/div/dl/dd/a').re(r"/subject/(\d+)")
 
   def parseMovie(self, response):
@@ -51,7 +62,6 @@ class DoubanSpider(CrawlSpider):
       yield Request(url = 'http://movie.douban.com/subject/' + movie['id'], callback = self.parseSubject, meta = {'id':movie['id']})
 
   def parseList(self, response):
-    print response.url
     movies = json.loads(response.body_as_unicode())
     if len(movies['subjects'])>0:
       for movie in movies['subjects']:

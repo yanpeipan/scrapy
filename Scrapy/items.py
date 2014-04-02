@@ -60,3 +60,5 @@ class MovieItem(Item):
   aka= Field()
   writers = Field()
   imdb_id = Field()
+  tags = Field()
+  recommendations = Field()
