@@ -8,7 +8,7 @@ from Scrapy.items import *
 class ScrapyPipeline(object):
   def process_item(self, item, spider):
     mongo = MongoClient().scrapy
-    if id in item:
+    if 'id' in item:
       if isinstance(item, MovieItem):
         mongo.movies.update({'id' : item['id']}, {'$set':dict(item)}, upsert = True)
       elif isinstance(item, CelebrityItem):

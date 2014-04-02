@@ -32,12 +32,7 @@ class DoubanSpider(CrawlSpider):
     writerLinks.extract()
     writers = []
     for index, link in enumerate(writerLinks):
-      writerId = link.xpath('@href').re(r"/celebrity/(\d+)/")
-      if len(writerId)>0:
-        celebrity = writerId.pop()
-      else:
-        celebrity = None
-      writer = {'id':celebrity, 'name':link.xpath('text()').extract().pop()}
+      writer = {'id':link.xpath('@href').re(r"/celebrity/(\d+)/").pop(), 'name':link.xpath('text()').extract().pop()}
       writers.append(writer)
     movieItem['writers'] = writers
     #prase imdb_id
@@ -53,14 +48,10 @@ class DoubanSpider(CrawlSpider):
     movieItem['tags'] = tags
     #yield tagItem
     #parse recommendations
-    links = sel.xpath('//*[@id="recommendations"]/div/dl/dd/a')
-    links.extract()
-    recommendations = []
-    for index, recommend in enumerate(links):
-      movieId = recommend.xpath('@href').re(r"/subject/(\d+)").pop()
-      movieTitle = recommend.xpath('text()').extract().pop()
-      recommendations.append({'id':movieId, 'title':movieTitle})
-      movieItem['recommendations'] = recommendations
+    recommendations = sel.xpath('//*[@id="recommendations"]/div/dl/dd/a')
+    recommendations.extract()
+    print recommendations.xpath('@href').re(r"/subject/(\d+)")
+    print recommendations.xpath('text()').extract()
     yield movieItem
 
   def parseMovie(self, response):
