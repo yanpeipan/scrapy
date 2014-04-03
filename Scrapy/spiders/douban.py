@@ -5,7 +5,6 @@ from scrapy .selector import Selector
 from pymongo import MongoClient
 from scrapy.http import Request
 from Scrapy.items import *
-
 from urlparse import urlparse,parse_qs
 import json
 
@@ -22,6 +21,26 @@ class DoubanSpider(CrawlSpider):
       for k,v in celebrity.iteritems():
         celebrityItem[k] = v
         yield celebrityItem
+
+  def parseComment(self, response):
+    sel = Selector(response)
+    movieItem = MovieItem()
+    movieItem['id'] = response.meta['id']
+    commentLinks = sel.xpath('//div[@id="comments"]/div[contains(@class, "comment")]')
+    commentLinks.extract()
+    comments = []
+    for index, commentLink in enumerate(commentLinks):
+      avatar = commentLink.xpath('div[@class="avatar"]/a/img/@src').extract()
+      print avatar
+      uid = commentLink.xpath('div[@class="comment"]').extract()
+      print uid
+      name = commentLink.xpath()
+      comment = commentLink.xpath()
+      date = commentLink.xpath()
+    pass
+
+  def parseReview(self, response):
+    pass
 
   def parseSubject(self, response):
     sel = Selector(response)
@@ -74,6 +93,7 @@ class DoubanSpider(CrawlSpider):
         if id in celebrity:
           yield Request(url = 'https://api.douban.com/v2/movie/celebrity/' + celebrity['id'], callback = self.parseCelebrity)
       yield Request(url = 'http://movie.douban.com/subject/' + movie['id'], callback = self.parseSubject, meta = {'id':movie['id']})
+      yield Request(url = 'http://movie.douban.com/subject/' + movie['id'] + '/comments', callback = self.parseComment, meta = {'id':movie['id']})
 
   def parseList(self, response):
     movies = json.loads(response.body_as_unicode())

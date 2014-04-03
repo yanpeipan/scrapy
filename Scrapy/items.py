@@ -27,6 +27,13 @@ class CelebrityItem(Item):
   born_place = Field()
   alt = Field()
 
+class Person(Item):
+  id = Field()
+  name = Field()
+  icon = Field()
+  collect = Field()
+  wish = Field()
+
 class MovieItem(Item):
   rating = Field()
   title = Field()
