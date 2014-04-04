@@ -11,9 +11,8 @@ class ProxyMiddleware(object):
         request = request.replace(url = "%s&apikey=00d8ef49d1c2b3bb028acddd75481b31" % request.url)
       else:
         return
-      return request
     elif url.scheme == 'http':
-      request.meta['proxy'] = 'http://1.179.147.2:8080'
+      request.meta['proxy'] = 'http://61.155.95.28:8080'
   def process_response(self, request, response, spider):
     return response
 
