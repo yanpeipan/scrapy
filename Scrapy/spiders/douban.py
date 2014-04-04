@@ -15,6 +15,20 @@ class DoubanSpider(CrawlSpider):
   allowed_domins = ['http://www.douban.com', 'https://api.douban.com']
   start_urls = ['http://movie.douban.com/tag/']
 
+  def __init__(self, test = None, *args, **kwargs):
+    #print test
+    pass
+
+  def parseCollect(self, response):
+    sel = Selector(response)
+    links = sel.xpath('//div[@class="grid-view"]/div')
+    links.extract()
+    for index, link in enumerate(links):
+      movieId = link.xpath('div[@class="info"]//a[contains(@href, "http://movie.douban.com/subject/")]').re(r"http://movie.douban.com/subject/(\d+)/")
+    nextLink = sel.xpath('//div[@class="paginator"]/span[@class="next"]/a/@href').extract()
+    if len(nextLink) > 0:
+      yield Request(url = nextLink.pop(), callback = self.parseCollect)
+
   def parseCelebrity(self, response):
     celebrity = json.loads(response.body_as_unicode())
     if len(celebrity)>0:
@@ -68,7 +82,11 @@ class DoubanSpider(CrawlSpider):
       writers.append(writer)
     movieItem['writers'] = writers
     #prase imdb_id
-    movieItem['imdb_id'] = sel.xpath('//*[@id="info"]/a').re(r"http://www.imdb.com/title/(tt\d+)").pop()
+    imdbId = sel.xpath('//*[@id="info"]/a').re(r"http://www.imdb.com/title/(tt\d+)")
+    if len(imdbId) > 0:
+      movieItem['imdb_id'] = imdbId.pop()
+    else:
+      movieItem['imdb_id'] = None
     #parse tags
     tagLinks = sel.xpath("//div[contains(@class, 'tags-body')]/a")
     tags = []
