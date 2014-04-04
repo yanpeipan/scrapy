@@ -10,6 +10,10 @@ class ScrapyPipeline(object):
     mongo = MongoClient().scrapy
     if 'id' in item:
       if isinstance(item, MovieItem):
+        if 'comments' in item:
+          comments = item['comments']
+          del(item['comments'])
+          mongo.movies.update({'id' : item['id']}, {'$push':{'comments': {'$each':comments}}})
         mongo.movies.update({'id' : item['id']}, {'$set':dict(item)}, upsert = True)
       elif isinstance(item, CelebrityItem):
         mongo.celebritys.update({'id' : item['id']}, {'$set':dict(item)}, upsert = True)

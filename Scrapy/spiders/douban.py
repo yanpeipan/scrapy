@@ -7,6 +7,7 @@ from scrapy.http import Request
 from Scrapy.items import *
 from urlparse import urlparse,parse_qs
 import json
+from datetime import datetime, date, time
 
 class DoubanSpider(CrawlSpider):
   name = 'douban'
@@ -26,18 +27,25 @@ class DoubanSpider(CrawlSpider):
     sel = Selector(response)
     movieItem = MovieItem()
     movieItem['id'] = response.meta['id']
-    commentLinks = sel.xpath('//div[@id="comments"]/div[contains(@class, "comment")]')
+    commentLinks = sel.xpath('//div[@id="comments"]/div[contains(@class, "comment-item")]')
     commentLinks.extract()
     comments = []
     for index, commentLink in enumerate(commentLinks):
-      avatar = commentLink.xpath('div[@class="avatar"]/a/img/@src').extract()
-      print avatar
-      uid = commentLink.xpath('div[@class="comment"]').extract()
-      print uid
-      name = commentLink.xpath()
-      comment = commentLink.xpath()
-      date = commentLink.xpath()
-    pass
+      comment = {}
+      comment['avatar'] = commentLink.xpath('div[@class="avatar"]/a/img/@src').extract().pop()
+      comment['uid'] = commentLink.xpath('div[@class="comment"]//span[@class="comment-info"]/a/@href').re(r"http://movie.douban.com/people/(.*)/").pop()
+      comment['name'] = commentLink.xpath('div[@class="comment"]//span[@class="comment-info"]/a/text()').extract().pop()
+      comment['comment'] = commentLink.xpath('div[@class="comment"]/p/text()').extract().pop()
+      dateStr = commentLink.xpath('div[@class="comment"]/h3/span[@class="comment-info"]/span/text()').re(r'\d+-\d+-\d+').pop()
+      comment['date']= datetime.strptime(dateStr, "%Y-%m-%d")
+      comment['vote'] = int(commentLink.xpath('div[@class="comment"]//span[@class="comment-vote"]/span[contains(@class, "votes")]/text()').extract().pop())
+      comments.append(comment)
+    movieItem['comments'] = comments
+    yield movieItem
+    paginator = sel.xpath('//div[@id="paginator"]/a[@class="next"]/@href').extract()
+    parsedUrl = urlparse(response.url)
+    return#yan dd
+    yield Request(url = parsedUrl.scheme + '://' + parsedUrl.netloc + parsedUrl.path + paginator.pop(), callback = self.parseComment, meta = {'id':response.meta['id']})
 
   def parseReview(self, response):
     pass
@@ -80,6 +88,7 @@ class DoubanSpider(CrawlSpider):
       movieTitle = recommend.xpath('text()').extract().pop()
       recommendations.append({'id':movieId, 'title':movieTitle})
       movieItem['recommendations'] = recommendations
+      yield Request(url = 'https://api.douban.com/v2/movie/subject/' + movieId, callback = self.parseMovie)
     yield movieItem
 
   def parseMovie(self, response):
@@ -94,6 +103,7 @@ class DoubanSpider(CrawlSpider):
           yield Request(url = 'https://api.douban.com/v2/movie/celebrity/' + celebrity['id'], callback = self.parseCelebrity)
       yield Request(url = 'http://movie.douban.com/subject/' + movie['id'], callback = self.parseSubject, meta = {'id':movie['id']})
       yield Request(url = 'http://movie.douban.com/subject/' + movie['id'] + '/comments', callback = self.parseComment, meta = {'id':movie['id']})
+      yield Request(url = 'http://movie.douban.com/subject/' + movie['id'] + '/reviews', callback = self.parseReview, meta = {'id':movie['id']})
 
   def parseList(self, response):
     movies = json.loads(response.body_as_unicode())

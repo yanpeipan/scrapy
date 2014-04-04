@@ -69,3 +69,5 @@ class MovieItem(Item):
   imdb_id = Field()
   tags = Field()
   recommendations = Field()
+  comments = Field()
+  reviews = Field()

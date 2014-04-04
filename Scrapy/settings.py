@@ -20,7 +20,7 @@ DOWNLOADER_MIDDLEWARES = {
     }
 
 SPIDER_MIDDLEWARES = {
-    'Scrapy.middlewares.UrlMiddleware': 1
+    'Scrapy.middlewares.UrlMiddleware':1
     }
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
