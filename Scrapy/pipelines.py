@@ -17,5 +17,4 @@ class ScrapyPipeline(object):
         mongo.movies.update({'id' : item['id']}, {'$set':dict(item)}, upsert = True)
       elif isinstance(item, CelebrityItem):
         mongo.celebritys.update({'id' : item['id']}, {'$set':dict(item)}, upsert = True)
-
     return item
