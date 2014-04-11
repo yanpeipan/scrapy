@@ -1,6 +1,7 @@
 from scrapy.spider import Spider
 from scrapy.spider import Request
 from scrapy.selector import Selector
+from scrapy.conf import settings
 
 import scrapy.settings
 import socket
@@ -21,20 +22,12 @@ class ProxySpider(Spider):
       return
 
   def parseYoudaili(self, response):
+    settings.overrides['DOWNLOAD_TIMEOUT'] = 5
+    settings.overrides['CONCURRENT_REQUESTS'] = 32
     sel = Selector(response)
     proxys = sel.xpath('//div[@class="cont_font"]/p').re(r"\d+.\d+.\d+.\d+:\d+")
     for proxy in proxys:
-      proxy = 'http://' + proxy
-      yield Request(url = proxy, callback = self.parseProxy)
-
-  def CheckProxy(ip,port):
-    sk = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sk.settimeout(1)#设置链连接时时间
-    try:
-      sk.connect((ip,port))
-      print 'OK'
-    except Exception:
-      print 'NO'
+      yield Request(url='http://www.baidu.com?' + proxy, meta={"proxy":'http://' + proxy}, callback=self.parseProxy)
 
   def parseProxy(self, response):
-    print response.headers
+    print response.status
