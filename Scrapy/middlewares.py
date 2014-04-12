@@ -12,7 +12,8 @@ class ProxyMiddleware(object):
       else:
         return
     elif url.scheme == 'http':
-      request.meta['proxy'] = 'http://139.210.98.86:8080'
+      #request.meta['proxy'] = 'http://139.210.98.86:8080'
+      request.meta['proxy'] = 'http://67.198.179.35'
   def process_response(self, request, response, spider):
     return response
 
