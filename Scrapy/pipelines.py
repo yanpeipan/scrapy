@@ -8,6 +8,9 @@ from Scrapy.items import *
 class ScrapyPipeline(object):
   def process_item(self, item, spider):
     mongo = MongoClient().scrapy
+    if 'ProxySpider' in spider.pipeline:
+      mongo.proxy.save(dict(item))
+
     if 'id' in item:
       if isinstance(item, MovieItem):
         if 'comments' in item:

@@ -71,3 +71,9 @@ class MovieItem(Item):
   recommendations = Field()
   comments = Field()
   reviews = Field()
+
+class ProxyItem(Item):
+  ip = Field()
+  delay = Field()
+  type = Field()
+  status = Field()
