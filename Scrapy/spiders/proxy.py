@@ -18,7 +18,7 @@ class ProxySpider(Spider):
     if response.status == 200:
       self.url = response.url
       for proxy, url in self.urls.iteritems():
-        yield Request(url = url, callback = self.parseYoudaili)
+        yield Request(url = url, callback = getattr(self, 'parse' + proxy))
       return
 
   def parseYoudaili(self, response):
