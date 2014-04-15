@@ -8,14 +8,16 @@ from Scrapy.items import *
 from os import path
 from datetime import datetime
 from scrapy import log
+class BasePipeline(object):
+  pass
 
-class ScrapyPipeline(object):
+class DoubanMoviePipeline(BasePipeline):
   def process_item(self, item, spider):
     mongo = MongoClient().scrapy
-    if 'ProxySpider' in spider.pipeline:
+    if 'ProxySpider' in spider.pipelines:
       mongo.proxy.save(dict(item))
 
-    if 'id' in item:
+    if 'ProxySpider' in spider.pipelines:
       if isinstance(item, MovieItem):
         if 'comments' in item:
           comments = item['comments']
@@ -40,20 +42,23 @@ class ProxyCrawlerPipeline(object):
             self._res_filename = path.join(res_dir,  datetime.today().strftime('proxies_%Y_%m_%d_%H_%M.lst'))
             if path.exists(self._res_filename):
                 os.remove(self._res_filename)
-                log.msg("Remove previously created %s" % self._res_filename, log.WARNING)
+                #log.msg("Remove previously created %s" % self._res_filename, log.WARNING)
         else:
             self._res_filename = result_file
 
-        self._out_file = open(self._res_filename, 'a')
-        log.msg("Will write extracted addresses to %s" % self._res_filename, log.INFO)
+        #self._out_file = open(self._res_filename, 'a')
+        #log.msg("Will write extracted addresses to %s" % self._res_filename, log.INFO)
 
         self._timeout = timeout
         log.msg("Connection timeout is %s" % self._timeout, log.INFO)
 
     def process_item(self, item, spider):
-        log.msg("Gonna write %s" % item['address'], log.DEBUG)
-        print >> self._out_file, item['address']
+      if 'ProxyCrawlerSpider' in spider.pipelines:
+        pass
+        #log.msg("Gonna write %s" % item['address'], log.DEBUG)
+        #print >> self._out_file, item['address']
 
     def close_spider(self, spider):
-        self._out_file.flush()
-        self._out_file.close()
+      pass
+      #self._out_file.flush()
+      #self._out_file.close()

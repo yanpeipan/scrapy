@@ -12,7 +12,7 @@ class ProxySpider(Spider):
   urls = {
       'Youdaili':'http://www.youdaili.cn/Daili/http/',
       'Hidemyass':'https://hidemyass.com/proxy-list/',
-      'cnproxy':'http://www.cnproxy.com/proxy1.html'
+      'Cnproxy':'http://www.cnproxy.com/proxy1.html'
       }
 
   def __init__(self, *args, **kwargs):
@@ -25,10 +25,11 @@ class ProxySpider(Spider):
         yield Request(url = url, callback = getattr(self, 'parse' + proxy))
       return
 
-  def paraeHidemyass(self, response):
+  def parseCnproxy(self, response):
     return
-    sel = Selector(response)
-    pass
+
+  def parseHidemyass(self, response):
+    return
 
   def parseYoudaili(self, response):
     sel = Selector(response)
@@ -40,12 +41,12 @@ class ProxySpider(Spider):
     sel = Selector(response)
     proxys = sel.xpath('//div[@class="cont_font"]/p').re(r"\d+.\d+.\d+.\d+:\d+")
     for proxy in proxys:
-      yield Request(url=self.url + proxy, method="HEAD", meta={"proxy":'http://' + proxy, "download_timeout":10}, callback=self.parseProxy)
+      yield Request(url=self.url + '?' + proxy, method="HEAD", meta={"proxy":'http://' + proxy, "download_timeout":10}, callback=self.parseProxy)
 
   def parseProxy(self, response):
-    if response.status == 200:
-      proxyItem = ProxyItem()
-      proxyItem['ip'] = response.meta['proxy']
-      proxyItem['delay'] = response.meta['endTime'] - response.meta['startTime']
-      proxyItem['status'] = response.status
-      yield proxyItem
+    proxyItem = ProxyItem()
+    proxyItem['ip'] = response.meta['proxy']
+    proxyItem['delay'] = response.meta['endTime'] - response.meta['startTime']
+    proxyItem['status'] = response.status
+    proxyItem['time'] = time.time()
+    yield proxyItem

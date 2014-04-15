@@ -7,13 +7,12 @@
 #
 
 BOT_NAME = 'Scrapy'
-USER_AGENT = 'w3m/0.5.3+cvs-1.1055'
 
 SPIDER_MODULES = ['Scrapy.spiders']
 NEWSPIDER_MODULE = 'Scrapy.spiders'
 
 ITEM_PIPELINES = {
-    'Scrapy.pipelines.ScrapyPipeline': 100,
+    'Scrapy.pipelines.DoubanMoviePipeline': 100,
     'Scrapy.pipelines.ProxyCrawlerPipeline':'110'
     }
 
@@ -33,8 +32,8 @@ COOKIES_ENABLED = True
 
 CONCURRENT_ITEMS = 1000
 
-#LOG_ENABLED = True
-#LOG_FILE = 'proxy.log'
-#LOG_LEVEL = 'INFO'
+LOG_ENABLED = True
+LOG_FILE = 'proxy.log'
+LOG_LEVEL = 'INFO'
 
 DOWNLOAD_DELAY = 0.25
