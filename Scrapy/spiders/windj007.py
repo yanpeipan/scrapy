@@ -7,7 +7,7 @@ import re
 
 class Windj007Spider(CrawlSpider):
     name = 'Windj007'
-    start_urls = ['http://www.google.ru/search?q=%2B%94%3A8080+%2B%94%3A3128+%2B%94%3A80+filetype%3Atxt&hl=ru&source=hp&btnG=%CF%EE%E8%F1%EA+%E2+Google&gbv=1',
+    start_urls = ['http://www.google.ru/search?q=%2B%94%3A8080+%2B%94%3A3128+%2B%94%3A80+filetype%3Atxt&hl=ru&source=hp&btnG=%CF%EE%E8%F1%EA+%E2+Google&gbv=1&d=1',
                   'http://www.google.ru/search?q=%2B%94%3A8080+%2B%94%3A3128+%2B%94%3A80+filetype%3Atxt&hl=ru&source=hp&btnG=%CF%EE%E8%F1%EA+%E2+Google&gbv=1&start=10',
                   'http://www.google.ru/search?q=%2B%94%3A8080+%2B%94%3A3128+%2B%94%3A80+filetype%3Atxt&hl=ru&source=hp&btnG=%CF%EE%E8%F1%EA+%E2+Google&gbv=1&start=20',
                   'http://www.google.ru/search?q=%2B%94%3A8080+%2B%94%3A3128+%2B%94%3A80+filetype%3Atxt&hl=ru&source=hp&btnG=%CF%EE%E8%F1%EA+%E2+Google&gbv=1&start=30',

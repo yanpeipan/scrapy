@@ -78,3 +78,4 @@ class ProxyItem(Item):
   type = Field()
   anonymity = Field()
   status = Field()
+  lastTestTime = Field()
