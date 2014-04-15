@@ -76,4 +76,5 @@ class ProxyItem(Item):
   ip = Field()
   delay = Field()
   type = Field()
+  anonymity = Field()
   status = Field()

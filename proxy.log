@@ -1,0 +1,601 @@
+2014-04-15 10:50:51+0800 [scrapy] INFO: Scrapy 0.22.2 started (bot: Scrapy)
+2014-04-15 10:50:51+0800 [scrapy] INFO: Optional features available: ssl, http11
+2014-04-15 10:50:51+0800 [scrapy] INFO: Overridden settings: {'NEWSPIDER_MODULE': 'Scrapy.spiders', 'LOG_LEVEL': 'INFO', 'SPIDER_MODULES': ['Scrapy.spiders'], 'BOT_NAME': 'Scrapy', 'CONCURRENT_ITEMS': 1000, 'USER_AGENT': 'w3m/0.5.3+cvs-1.1055', 'LOG_FILE': 'proxy.log', 'DOWNLOAD_DELAY': 0.25}
+2014-04-15 10:50:52+0800 [scrapy] INFO: Enabled extensions: LogStats, TelnetConsole, CloseSpider, WebService, CoreStats, SpiderState
+2014-04-15 10:50:52+0800 [scrapy] INFO: Enabled downloader middlewares: ProxyMiddleware, DownloadTimer, HttpAuthMiddleware, DownloadTimeoutMiddleware, UserAgentMiddleware, RetryMiddleware, DefaultHeadersMiddleware, MetaRefreshMiddleware, HttpCompressionMiddleware, RedirectMiddleware, CookiesMiddleware, ChunkedTransferMiddleware, DownloaderStats
+2014-04-15 10:50:52+0800 [scrapy] INFO: Enabled spider middlewares: UrlMiddleware, HttpErrorMiddleware, OffsiteMiddleware, RefererMiddleware, UrlLengthMiddleware, DepthMiddleware
+2014-04-15 10:51:29+0800 [scrapy] INFO: Scrapy 0.22.2 started (bot: Scrapy)
+2014-04-15 10:51:29+0800 [scrapy] INFO: Optional features available: ssl, http11
+2014-04-15 10:51:29+0800 [scrapy] INFO: Overridden settings: {'NEWSPIDER_MODULE': 'Scrapy.spiders', 'LOG_LEVEL': 'INFO', 'SPIDER_MODULES': ['Scrapy.spiders'], 'BOT_NAME': 'Scrapy', 'CONCURRENT_ITEMS': 1000, 'USER_AGENT': 'w3m/0.5.3+cvs-1.1055', 'LOG_FILE': 'proxy.log', 'DOWNLOAD_DELAY': 0.25}
+2014-04-15 10:51:29+0800 [scrapy] INFO: Enabled extensions: LogStats, TelnetConsole, CloseSpider, WebService, CoreStats, SpiderState
+2014-04-15 10:51:29+0800 [scrapy] INFO: Enabled downloader middlewares: ProxyMiddleware, DownloadTimer, HttpAuthMiddleware, DownloadTimeoutMiddleware, UserAgentMiddleware, RetryMiddleware, DefaultHeadersMiddleware, MetaRefreshMiddleware, HttpCompressionMiddleware, RedirectMiddleware, CookiesMiddleware, ChunkedTransferMiddleware, DownloaderStats
+2014-04-15 10:51:29+0800 [scrapy] INFO: Enabled spider middlewares: UrlMiddleware, HttpErrorMiddleware, OffsiteMiddleware, RefererMiddleware, UrlLengthMiddleware, DepthMiddleware
+2014-04-15 10:53:50+0800 [scrapy] INFO: Scrapy 0.22.2 started (bot: Scrapy)
+2014-04-15 10:53:50+0800 [scrapy] INFO: Optional features available: ssl, http11
+2014-04-15 10:53:50+0800 [scrapy] INFO: Overridden settings: {'NEWSPIDER_MODULE': 'Scrapy.spiders', 'LOG_LEVEL': 'INFO', 'SPIDER_MODULES': ['Scrapy.spiders'], 'BOT_NAME': 'Scrapy', 'CONCURRENT_ITEMS': 1000, 'USER_AGENT': 'w3m/0.5.3+cvs-1.1055', 'LOG_FILE': 'proxy.log', 'DOWNLOAD_DELAY': 0.25}
+2014-04-15 10:53:50+0800 [scrapy] INFO: Enabled extensions: LogStats, TelnetConsole, CloseSpider, WebService, CoreStats, SpiderState
+2014-04-15 10:53:50+0800 [scrapy] INFO: Enabled downloader middlewares: ProxyMiddleware, DownloadTimer, HttpAuthMiddleware, DownloadTimeoutMiddleware, UserAgentMiddleware, RetryMiddleware, DefaultHeadersMiddleware, MetaRefreshMiddleware, HttpCompressionMiddleware, RedirectMiddleware, CookiesMiddleware, ChunkedTransferMiddleware, DownloaderStats
+2014-04-15 10:53:50+0800 [scrapy] INFO: Enabled spider middlewares: UrlMiddleware, HttpErrorMiddleware, OffsiteMiddleware, RefererMiddleware, UrlLengthMiddleware, DepthMiddleware
+2014-04-15 10:53:50+0800 [scrapy] INFO: Will write extracted addresses to /home/quanzelin/Scrapy/Scrapy/proxies_2014_04_15_10_53.lst
+2014-04-15 10:53:50+0800 [scrapy] INFO: Connection timeout is 10.0
+2014-04-15 10:53:50+0800 [scrapy] INFO: Enabled item pipelines: ScrapyPipeline, ProxyCrawlerPipeline
+2014-04-15 10:53:50+0800 [Windj007] INFO: Spider opened
+2014-04-15 10:53:50+0800 [Windj007] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2014-04-15 10:53:58+0800 [scrapy] INFO: Got response on http://webanet.ucoz.ru/freeproxy/proxylist_at_16.03.2014.txt
+2014-04-15 10:53:58+0800 [Windj007] ERROR: Spider error processing <GET http://webanet.ucoz.ru/freeproxy/proxylist_at_16.03.2014.txt>
+	Traceback (most recent call last):
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/base.py", line 824, in runUntilCurrent
+	    call.func(*call.args, **call.kw)
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/task.py", line 638, in _tick
+	    taskObj._oneWorkUnit()
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/task.py", line 484, in _oneWorkUnit
+	    result = next(self._iterator)
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/utils/defer.py", line 57, in <genexpr>
+	    work = (callable(elem, *args, **named) for elem in iterable)
+	--- <exception caught here> ---
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/utils/defer.py", line 96, in iter_errback
+	    yield next(it)
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/offsite.py", line 23, in process_spider_output
+	    for x in result:
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/referer.py", line 22, in <genexpr>
+	    return (_set_referer(r) for r in result or ())
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/urllength.py", line 33, in <genexpr>
+	    return (r for r in result or () if _filter(r))
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/depth.py", line 50, in <genexpr>
+	    return (r for r in result or () if _filter(r))
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spiders/crawl.py", line 69, in _parse_response
+	    for requests_or_item in iterate_spider_output(cb_res):
+	  File "/home/quanzelin/Scrapy/Scrapy/spiders/windj007.py", line 35, in parse_proxylist
+	    addresses_parsed = ProxySpider._address_re.finditer(response.body)
+	exceptions.NameError: global name 'ProxySpider' is not defined
+	
+2014-04-15 10:53:58+0800 [scrapy] INFO: Got response on http://white55.narod.ru/downloads/proxyold.txt
+2014-04-15 10:53:58+0800 [Windj007] ERROR: Spider error processing <GET http://white55.narod.ru/downloads/proxyold.txt>
+	Traceback (most recent call last):
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/base.py", line 824, in runUntilCurrent
+	    call.func(*call.args, **call.kw)
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/task.py", line 638, in _tick
+	    taskObj._oneWorkUnit()
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/task.py", line 484, in _oneWorkUnit
+	    result = next(self._iterator)
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/utils/defer.py", line 57, in <genexpr>
+	    work = (callable(elem, *args, **named) for elem in iterable)
+	--- <exception caught here> ---
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/utils/defer.py", line 96, in iter_errback
+	    yield next(it)
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/offsite.py", line 23, in process_spider_output
+	    for x in result:
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/referer.py", line 22, in <genexpr>
+	    return (_set_referer(r) for r in result or ())
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/urllength.py", line 33, in <genexpr>
+	    return (r for r in result or () if _filter(r))
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/depth.py", line 50, in <genexpr>
+	    return (r for r in result or () if _filter(r))
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spiders/crawl.py", line 69, in _parse_response
+	    for requests_or_item in iterate_spider_output(cb_res):
+	  File "/home/quanzelin/Scrapy/Scrapy/spiders/windj007.py", line 35, in parse_proxylist
+	    addresses_parsed = ProxySpider._address_re.finditer(response.body)
+	exceptions.NameError: global name 'ProxySpider' is not defined
+	
+2014-04-15 10:54:00+0800 [scrapy] INFO: Got response on http://www.tubeincreaser.com/proxylist.txt
+2014-04-15 10:54:00+0800 [Windj007] ERROR: Spider error processing <GET http://www.tubeincreaser.com/proxylist.txt>
+	Traceback (most recent call last):
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/base.py", line 824, in runUntilCurrent
+	    call.func(*call.args, **call.kw)
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/task.py", line 638, in _tick
+	    taskObj._oneWorkUnit()
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/task.py", line 484, in _oneWorkUnit
+	    result = next(self._iterator)
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/utils/defer.py", line 57, in <genexpr>
+	    work = (callable(elem, *args, **named) for elem in iterable)
+	--- <exception caught here> ---
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/utils/defer.py", line 96, in iter_errback
+	    yield next(it)
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/offsite.py", line 23, in process_spider_output
+	    for x in result:
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/referer.py", line 22, in <genexpr>
+	    return (_set_referer(r) for r in result or ())
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/urllength.py", line 33, in <genexpr>
+	    return (r for r in result or () if _filter(r))
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/depth.py", line 50, in <genexpr>
+	    return (r for r in result or () if _filter(r))
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spiders/crawl.py", line 69, in _parse_response
+	    for requests_or_item in iterate_spider_output(cb_res):
+	  File "/home/quanzelin/Scrapy/Scrapy/spiders/windj007.py", line 35, in parse_proxylist
+	    addresses_parsed = ProxySpider._address_re.finditer(response.body)
+	exceptions.NameError: global name 'ProxySpider' is not defined
+	
+2014-04-15 10:54:00+0800 [scrapy] INFO: Got response on http://www.arunonline.com.np/uploaded/News/proxy.txt
+2014-04-15 10:54:00+0800 [Windj007] ERROR: Spider error processing <GET http://www.arunonline.com.np/uploaded/News/proxy.txt>
+	Traceback (most recent call last):
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/base.py", line 824, in runUntilCurrent
+	    call.func(*call.args, **call.kw)
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/task.py", line 638, in _tick
+	    taskObj._oneWorkUnit()
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/task.py", line 484, in _oneWorkUnit
+	    result = next(self._iterator)
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/utils/defer.py", line 57, in <genexpr>
+	    work = (callable(elem, *args, **named) for elem in iterable)
+	--- <exception caught here> ---
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/utils/defer.py", line 96, in iter_errback
+	    yield next(it)
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/offsite.py", line 23, in process_spider_output
+	    for x in result:
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/referer.py", line 22, in <genexpr>
+	    return (_set_referer(r) for r in result or ())
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/urllength.py", line 33, in <genexpr>
+	    return (r for r in result or () if _filter(r))
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/depth.py", line 50, in <genexpr>
+	    return (r for r in result or () if _filter(r))
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spiders/crawl.py", line 69, in _parse_response
+	    for requests_or_item in iterate_spider_output(cb_res):
+	  File "/home/quanzelin/Scrapy/Scrapy/spiders/windj007.py", line 35, in parse_proxylist
+	    addresses_parsed = ProxySpider._address_re.finditer(response.body)
+	exceptions.NameError: global name 'ProxySpider' is not defined
+	
+2014-04-15 10:54:04+0800 [scrapy] INFO: Got response on http://www.google.ru/url?ei=Pp9MU9nGCtL78QXcqIDYDQ&q=http%3A%2F%2Fs2.docme.ru%2Fstore%2Fdata%2F000067517.txt%3Fkey%3Ddec35504884449ae762feaa5c09f0b8b%26r%3D1%26fn%3D10socks.txt&sa=U&usg=AFQjCNH2-PdqBpdlshumqeUF4pTf2JMG3g&ved=0CC4QFjADOB4
+2014-04-15 10:54:04+0800 [Windj007] ERROR: Spider error processing <GET http://www.google.ru/url?ei=Pp9MU9nGCtL78QXcqIDYDQ&q=http%3A%2F%2Fs2.docme.ru%2Fstore%2Fdata%2F000067517.txt%3Fkey%3Ddec35504884449ae762feaa5c09f0b8b%26r%3D1%26fn%3D10socks.txt&sa=U&usg=AFQjCNH2-PdqBpdlshumqeUF4pTf2JMG3g&ved=0CC4QFjADOB4>
+	Traceback (most recent call last):
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/base.py", line 824, in runUntilCurrent
+	    call.func(*call.args, **call.kw)
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/task.py", line 638, in _tick
+	    taskObj._oneWorkUnit()
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/task.py", line 484, in _oneWorkUnit
+	    result = next(self._iterator)
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/utils/defer.py", line 57, in <genexpr>
+	    work = (callable(elem, *args, **named) for elem in iterable)
+	--- <exception caught here> ---
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/utils/defer.py", line 96, in iter_errback
+	    yield next(it)
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/offsite.py", line 23, in process_spider_output
+	    for x in result:
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/referer.py", line 22, in <genexpr>
+	    return (_set_referer(r) for r in result or ())
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/urllength.py", line 33, in <genexpr>
+	    return (r for r in result or () if _filter(r))
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/depth.py", line 50, in <genexpr>
+	    return (r for r in result or () if _filter(r))
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spiders/crawl.py", line 69, in _parse_response
+	    for requests_or_item in iterate_spider_output(cb_res):
+	  File "/home/quanzelin/Scrapy/Scrapy/spiders/windj007.py", line 35, in parse_proxylist
+	    addresses_parsed = ProxySpider._address_re.finditer(response.body)
+	exceptions.NameError: global name 'ProxySpider' is not defined
+	
+2014-04-15 10:54:14+0800 [scrapy] INFO: Got response on http://www.planetnana.co.il/adirbuskila//vips.txt
+2014-04-15 10:54:14+0800 [Windj007] ERROR: Spider error processing <GET http://www.planetnana.co.il/adirbuskila//vips.txt>
+	Traceback (most recent call last):
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/base.py", line 824, in runUntilCurrent
+	    call.func(*call.args, **call.kw)
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/task.py", line 638, in _tick
+	    taskObj._oneWorkUnit()
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/task.py", line 484, in _oneWorkUnit
+	    result = next(self._iterator)
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/utils/defer.py", line 57, in <genexpr>
+	    work = (callable(elem, *args, **named) for elem in iterable)
+	--- <exception caught here> ---
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/utils/defer.py", line 96, in iter_errback
+	    yield next(it)
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/offsite.py", line 23, in process_spider_output
+	    for x in result:
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/referer.py", line 22, in <genexpr>
+	    return (_set_referer(r) for r in result or ())
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/urllength.py", line 33, in <genexpr>
+	    return (r for r in result or () if _filter(r))
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/depth.py", line 50, in <genexpr>
+	    return (r for r in result or () if _filter(r))
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spiders/crawl.py", line 69, in _parse_response
+	    for requests_or_item in iterate_spider_output(cb_res):
+	  File "/home/quanzelin/Scrapy/Scrapy/spiders/windj007.py", line 35, in parse_proxylist
+	    addresses_parsed = ProxySpider._address_re.finditer(response.body)
+	exceptions.NameError: global name 'ProxySpider' is not defined
+	
+2014-04-15 10:54:23+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=Pp9MU_fTIIzt8AXkpYC4BQ&q=http%3A%2F%2Fwww.zarb.org%2F%7Esaispo%2Fproxylist.txt&sa=U&usg=AFQjCNH_47ZPRhnu3nyJ3Ko09gu8_d0RPg&ved=0CDgQFjAGOCg>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:23+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=Pp9MU_fTIIzt8AXkpYC4BQ&q=http%3A%2F%2Forg.pc-freak.net%2Fprojects%2Fanonproxys.txt&sa=U&usg=AFQjCNGDi6Stus6k5AylMtVDqWrleznimA&ved=0CD0QFjAHOCg>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:23+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=Pp9MU_fTIIzt8AXkpYC4BQ&q=http%3A%2F%2Ffile.oboz.ua%2Ffiles%2Fvf4fc029f8d92c0_201252635520.txt&sa=U&usg=AFQjCNHr5bZVyAtgfw6dfworBA44KCMPWw&ved=0CEMQFjAIOCg>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:23+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=Pp9MU_fTIIzt8AXkpYC4BQ&q=http%3A%2F%2Ffile.oboz.ua%2Ffiles%2Fvf4fc4d11108cc1_2012529163721.txt&sa=U&usg=AFQjCNF5ZiSjyniEn35967Al-JDfWsv91g&ved=0CEUQFjAJOCg>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:24+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=Pp9MU9nGCtL78QXcqIDYDQ&q=http%3A%2F%2Fwww.angelfire.com%2Fpro%2Fcracking101%2Fproxies.txt&sa=U&usg=AFQjCNFY9pNypmJDhEgE34O2qFSW3Es4KA&ved=0CFAQFjAJOB4>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:24+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=PZ9MU-TQO8v08QXVsYG4CQ&q=http%3A%2F%2Fproxybank.net%2Fproxy_list.txt&sa=U&usg=AFQjCNEqshCEz-ODWK_0gkPjUAGzaQuPFA&ved=0CEsQFjAJOBQ>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:24+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=PZ9MU76SI9CgiQf40YDAAw&q=http%3A%2F%2Fwww.binary-zone.com%2Ffiles%2FMyProxyList.txt&sa=U&usg=AFQjCNFYINkSsgGv9qgNYUWmjwq8QDtaWQ&ved=0CEEQFjAH>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:24+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=PZ9MU76SI9CgiQf40YDAAw&q=http%3A%2F%2Fab57.ru%2Fdownloads%2Fproxyold.txt&sa=U&usg=AFQjCNHouGFYkbUIWQbIShDOd3fWMr1poQ&ved=0CEcQFjAI>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:25+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=PZ9MU76SI9CgiQf40YDAAw&q=http%3A%2F%2Finav.chat.ru%2Fftp%2Fproxy.txt&sa=U&usg=AFQjCNH4A0swzmou5VExhnTkqp9EmccpqA&ved=0CEwQFjAJ>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:25+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=PZ9MU8muJsHc8AWZw4KwAw&q=http%3A%2F%2Fdl.get.freesoft.ru%2F7004522612%2F114621%2F111111111111.txt&sa=U&usg=AFQjCNGpQeamd7jH-zbCJLigKBPgqg4qjw&ved=0CB0QFjAAOAo>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:25+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=PZ9MU8muJsHc8AWZw4KwAw&q=http%3A%2F%2Fwww.ovrload.ru%2Ff%2F9659_http.txt&sa=U&usg=AFQjCNGxiFlPMQL0jO2WFujAx1xzziYU6Q&ved=0CCIQFjABOAo>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:26+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=PZ9MU8muJsHc8AWZw4KwAw&q=http%3A%2F%2Fwww.ovrload.ru%2Ff%2F9278_http.txt&sa=U&usg=AFQjCNHyAVh86uGhGHb2AI3xA-CwOXdPHw&ved=0CCcQFjACOAo>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:26+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=PZ9MU8muJsHc8AWZw4KwAw&q=http%3A%2F%2Fwww.ipdizhi.com%2F20140329-all-ip.txt&sa=U&usg=AFQjCNHu4gK4AznnYPx0wfrWgApwFL1TuQ&ved=0CCwQFjADOAo>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:26+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=PZ9MU8muJsHc8AWZw4KwAw&q=http%3A%2F%2Fqsp.su%2Fmisc%2Fplist.txt&sa=U&usg=AFQjCNHrcXZFLel8uTzkg8snzVeqsvlapA&ved=0CDIQFjAEOAo>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:26+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=PZ9MU8muJsHc8AWZw4KwAw&q=http%3A%2F%2Fcs.usu.edu.ru%2Fhome%2Fpsixoz%2Fdata%2Fiiisem%2Fmany.txt&sa=U&usg=AFQjCNFKdwGO2kO_u-Ex8IKD1RPSjxfyUQ&ved=0CDcQFjAFOAo>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:27+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=PZ9MU8muJsHc8AWZw4KwAw&q=http%3A%2F%2Fwww.sshour.com%2Fwp-content%2Fuploads%2F2013%2F09%2F20130918-proxy-ip.txt&sa=U&usg=AFQjCNFolr2L6_3vzHMS-H6lPEZT364cBA&ved=0CDwQFjAGOAo>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:27+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=Pp9MU_fTIIzt8AXkpYC4BQ&q=http%3A%2F%2Fyeeupnet1.ipage.com%2Ftech%2Fwp-content%2Fuploads%2F2014%2F01%2F01132014.txt&sa=U&usg=AFQjCNGrtZH3eSHcuGewga54mcmi7xJW3Q&ved=0CDMQFjAFOCg>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:27+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=Pp9MU_fTIIzt8AXkpYC4BQ&q=http%3A%2F%2Framm-icq.ru%2F_fr%2F0%2F12.04.08.txt&sa=U&usg=AFQjCNEAWzjbNJEx8wm__cISghUHtLc7oQ&ved=0CC4QFjAEOCg>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:28+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=Pp9MU_fTIIzt8AXkpYC4BQ&q=http%3A%2F%2Fpokontaktu.ru%2Fimages%2Fproxy.txt&sa=U&usg=AFQjCNFVuJmPyvJgGbQ_bEnnGRsr2L-lUQ&ved=0CCkQFjADOCg>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:28+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=Pp9MU_fTIIzt8AXkpYC4BQ&q=http%3A%2F%2Fnaxalyvu.narod.ru%2Ffiles%2F29.10.2010.txt&sa=U&usg=AFQjCNFLhMiyd9jOenrrU5gXE9ACNgLYLw&ved=0CCQQFjACOCg>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:28+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=Pp9MU_fTIIzt8AXkpYC4BQ&q=http%3A%2F%2Fmyminicity.fr.yuku.com%2Fattach%2Fma%2Fpost-23-1203940382.txt&sa=U&usg=AFQjCNHtCv0E--VsFbcKkmVB4kmdhWtaDA&ved=0CCIQFjABOCg>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:28+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=Pp9MU_fTIIzt8AXkpYC4BQ&q=http%3A%2F%2Fitsecure.org.ua%2Fproxy%2Fp100109.txt&sa=U&usg=AFQjCNH7hh0K_DRZ0uKREuvvA0rxxLW_Ag&ved=0CB0QFjAAOCg>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:29+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=Pp9MU9nGCtL78QXcqIDYDQ&q=http%3A%2F%2Fwww.netrooper.com%2Ffiles%2Fproxylist.txt&sa=U&usg=AFQjCNFnBmrYCvv0kjXODO5ct2fTSWCeJw&ved=0CEkQFjAIOB4>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:29+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=Pp9MU9nGCtL78QXcqIDYDQ&q=http%3A%2F%2Flategoodies.tripod.com%2F14_list_by_nations.txt&sa=U&usg=AFQjCNETBETJBgOGES3Lo7IApjYUvx3YRw&ved=0CEMQFjAHOB4>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:29+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=Pp9MU9nGCtL78QXcqIDYDQ&q=http%3A%2F%2Fwww.freeproxy.ru%2Fexamples%2Fdest_filt.txt&sa=U&usg=AFQjCNHYICEbRp6kBWN468Z8b8SzpkWijg&ved=0CD4QFjAGOB4>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:30+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=Pp9MU9nGCtL78QXcqIDYDQ&q=http%3A%2F%2Ftxt.proxyspy.net%2Fproxy.txt&sa=U&usg=AFQjCNFyE32EUES1Y-6rCQ6d4t0CrxRIMg&ved=0CDkQFjAFOB4>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:30+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=Pp9MU9nGCtL78QXcqIDYDQ&q=https%3A%2F%2Fgithub.com%2F2naive%2FAngryCurl%2Fblob%2Fmaster%2Fimport%2Fproxy_list.txt&sa=U&usg=AFQjCNH3_fQc9rYTX4VjMHyA3KKP-9YoRA&ved=0CCcQFjACOB4>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:30+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=Pp9MU9nGCtL78QXcqIDYDQ&q=http%3A%2F%2Fwww.riokou.co.uk%2Fsin%2Fproxies_2.txt&sa=U&usg=AFQjCNFRFS3ycH3gVshiV_BeQrUCHshSug&ved=0CCIQFjABOB4>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:31+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=Pp9MU9nGCtL78QXcqIDYDQ&q=http%3A%2F%2Fsocks24.ru%2Fproxy%2FhttpProxies.txt&sa=U&usg=AFQjCNHsL3W15wgEAHAocKnfrl8mhgpLTw&ved=0CB0QFjAAOB4>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:31+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=PZ9MU76SI9CgiQf40YDAAw&q=http%3A%2F%2Fwebanet.ucoz.ru%2Ffreeproxy%2Fproxylist_at_23.03.2014.txt&sa=U&usg=AFQjCNGlLG7qYuKQTzYtOg5wrYh5ylI-0Q&ved=0CCIQFjAB>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:31+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=PZ9MU76SI9CgiQf40YDAAw&q=http%3A%2F%2Fwebanet.ucoz.ru%2Ffreeproxy%2Fproxylist_at_29.03.2014.txt&sa=U&usg=AFQjCNGeVxtPuRXkv-MVvD0Y-6HJyKMk_w&ved=0CCcQFjAC>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:31+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=PZ9MU76SI9CgiQf40YDAAw&q=http%3A%2F%2Fwww.rmccurdy.com%2Fscripts%2Fproxy%2Fgood.txt&sa=U&usg=AFQjCNE6KUOXetZ7sn2IpYXRMCccYAMb_g&ved=0CCwQFjAD>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:32+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=PZ9MU76SI9CgiQf40YDAAw&q=http%3A%2F%2Fpva.wen.ru%2Fwapmaster%2Fproxy%2Fproxylist_2.txt&sa=U&usg=AFQjCNFhh5DtXWh6gyo2LkXZYcAJjM7XGQ&ved=0CDIQFjAE>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:32+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=PZ9MU76SI9CgiQf40YDAAw&q=http%3A%2F%2Fpva.wen.ru%2Fwapmaster%2Fproxy%2Fproxylist.txt&sa=U&usg=AFQjCNF_bp2c3pTb6oCgzC0tAPh-uKdFAQ&ved=0CDcQFjAF>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:32+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=PZ9MU-TQO8v08QXVsYG4CQ&q=http%3A%2F%2Fwhite55.ru%2Fdownloads%2Fproxylist.txt&sa=U&usg=AFQjCNHrW7b9kD2l5N7hCKddJx57xxU0WQ&ved=0CCcQFjACOBQ>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:33+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=PZ9MU76SI9CgiQf40YDAAw&q=http%3A%2F%2Fkodsweb.ru%2Ffiles%2Fproxies%2Fproxies%2F08.08.07.txt&sa=U&usg=AFQjCNFvcQugKojQRii_jSR5IB2M94zKqQ&ved=0CDwQFjAG>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:33+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=PZ9MU-TQO8v08QXVsYG4CQ&q=http%3A%2F%2Fl2topvote.ucoz.com%2F_fr%2F1%2Fproxy.txt&sa=U&usg=AFQjCNGuRPSCNkE3r0bhf4TQF3BDC5Ufyw&ved=0CB0QFjAAOBQ>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:33+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=PZ9MU-TQO8v08QXVsYG4CQ&q=http%3A%2F%2Fantiforum.3dn.ru%2F_fr%2F0%2Fproxy.txt&sa=U&usg=AFQjCNHIW1lsgtCWh_dOKTGUn4r_WdtgIg&ved=0CCIQFjABOBQ>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:34+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=PZ9MU-TQO8v08QXVsYG4CQ&q=http%3A%2F%2Fmytargets.ru%2FProxy-Free.txt&sa=U&usg=AFQjCNGrPrprRLK7fTPwHPsgZQqEm-FrUg&ved=0CCwQFjADOBQ>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:34+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=PZ9MU-TQO8v08QXVsYG4CQ&q=http%3A%2F%2Fwww.gurbuz.net%2FTurk%2FVery%2520high%2520factor%2520of%2520safety%2520Proxy%2520list.txt&sa=U&usg=AFQjCNH9k7CGWBrP9TDIfBqnZfaYPNJQBw&ved=0CDEQFjAEOBQ>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:34+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=PZ9MU-TQO8v08QXVsYG4CQ&q=http%3A%2F%2Fcs15.userfiles.me%2Ff%2F0%2F1396302255%2F2110375%2F1%2Ffd7b5aeba50ceed1eb98a4ebf1883c58%2Fproxy-spaces.ru.txt&sa=U&usg=AFQjCNHXJsXBLASs8C7wXoRGOek6JWP4sg&ved=0CDYQFjAFOBQ>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:35+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=PZ9MU-TQO8v08QXVsYG4CQ&q=http%3A%2F%2Fweb.unideb.hu%2Faurel192%2Fproxylist.txt&sa=U&usg=AFQjCNEQ82bmYdLGOJUsqZHeZ4OeCWy38A&ved=0CDsQFjAGOBQ>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:35+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=PZ9MU-TQO8v08QXVsYG4CQ&q=http%3A%2F%2Fpuu.sh%2F7xsra.txt&sa=U&usg=AFQjCNFpl6SBvMOcQBtRtIMCojQE3u339Q&ved=0CEEQFjAHOBQ>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:35+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=PZ9MU-TQO8v08QXVsYG4CQ&q=http%3A%2F%2Fityouth.ru%2F_fr%2F0%2F72158934.txt&sa=U&usg=AFQjCNEzgl6tQkDepl7sRDp58NKWeTLiAA&ved=0CEYQFjAIOBQ>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:54:35+0800 [Windj007] INFO: Closing spider (finished)
+2014-04-15 10:54:35+0800 [Windj007] INFO: Dumping Scrapy stats:
+	{'downloader/exception_count': 132,
+	 'downloader/exception_type_count/twisted.internet.error.ConnectError': 1,
+	 'downloader/exception_type_count/twisted.web._newclient.ResponseNeverReceived': 131,
+	 'downloader/request_bytes': 104870,
+	 'downloader/request_count': 148,
+	 'downloader/request_method_count/GET': 148,
+	 'downloader/response_bytes': 253224,
+	 'downloader/response_count': 16,
+	 'downloader/response_status_count/200': 11,
+	 'downloader/response_status_count/302': 5,
+	 'finish_reason': 'finished',
+	 'finish_time': datetime.datetime(2014, 4, 15, 2, 54, 35, 518233),
+	 'log_count/ERROR': 50,
+	 'log_count/INFO': 15,
+	 'request_depth_max': 1,
+	 'response_received_count': 11,
+	 'scheduler/dequeued': 148,
+	 'scheduler/dequeued/memory': 148,
+	 'scheduler/enqueued': 148,
+	 'scheduler/enqueued/memory': 148,
+	 'spider_exceptions/NameError': 6,
+	 'start_time': datetime.datetime(2014, 4, 15, 2, 53, 50, 928998)}
+2014-04-15 10:54:35+0800 [Windj007] INFO: Spider closed (finished)
+2014-04-15 10:55:15+0800 [scrapy] INFO: Scrapy 0.22.2 started (bot: Scrapy)
+2014-04-15 10:55:15+0800 [scrapy] INFO: Optional features available: ssl, http11
+2014-04-15 10:55:15+0800 [scrapy] INFO: Overridden settings: {'NEWSPIDER_MODULE': 'Scrapy.spiders', 'LOG_LEVEL': 'INFO', 'SPIDER_MODULES': ['Scrapy.spiders'], 'BOT_NAME': 'Scrapy', 'CONCURRENT_ITEMS': 1000, 'USER_AGENT': 'w3m/0.5.3+cvs-1.1055', 'LOG_FILE': 'proxy.log', 'DOWNLOAD_DELAY': 0.25}
+2014-04-15 10:55:15+0800 [scrapy] INFO: Enabled extensions: LogStats, TelnetConsole, CloseSpider, WebService, CoreStats, SpiderState
+2014-04-15 10:55:16+0800 [scrapy] INFO: Enabled downloader middlewares: ProxyMiddleware, DownloadTimer, HttpAuthMiddleware, DownloadTimeoutMiddleware, UserAgentMiddleware, RetryMiddleware, DefaultHeadersMiddleware, MetaRefreshMiddleware, HttpCompressionMiddleware, RedirectMiddleware, CookiesMiddleware, ChunkedTransferMiddleware, DownloaderStats
+2014-04-15 10:55:16+0800 [scrapy] INFO: Enabled spider middlewares: UrlMiddleware, HttpErrorMiddleware, OffsiteMiddleware, RefererMiddleware, UrlLengthMiddleware, DepthMiddleware
+2014-04-15 10:55:16+0800 [scrapy] INFO: Will write extracted addresses to /home/quanzelin/Scrapy/Scrapy/proxies_2014_04_15_10_55.lst
+2014-04-15 10:55:16+0800 [scrapy] INFO: Connection timeout is 10.0
+2014-04-15 10:55:16+0800 [scrapy] INFO: Enabled item pipelines: ScrapyPipeline, ProxyCrawlerPipeline
+2014-04-15 10:55:16+0800 [Windj007] INFO: Spider opened
+2014-04-15 10:55:16+0800 [Windj007] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2014-04-15 10:55:18+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/search?q=%2B%94%3A8080+%2B%94%3A3128+%2B%94%3A80+filetype%3Atxt&hl=ru&source=hp&btnG=%CF%EE%E8%F1%EA+%E2+Google&gbv=1>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:55:18+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/search?q=%2B%94%3A8080+%2B%94%3A3128+%2B%94%3A80+filetype%3Atxt&hl=ru&source=hp&btnG=%CF%EE%E8%F1%EA+%E2+Google&gbv=1&start=20>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:55:18+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/search?q=%2B%94%3A8080+%2B%94%3A3128+%2B%94%3A80+filetype%3Atxt&hl=ru&source=hp&btnG=%CF%EE%E8%F1%EA+%E2+Google&gbv=1&start=30>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:55:19+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/search?q=%2B%94%3A8080+%2B%94%3A3128+%2B%94%3A80+filetype%3Atxt&hl=ru&source=hp&btnG=%CF%EE%E8%F1%EA+%E2+Google&gbv=1&start=40>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:55:21+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/search?q=%2B%94%3A8080+%2B%94%3A3128+%2B%94%3A80+filetype%3Atxt&hl=ru&source=hp&btnG=%CF%EE%E8%F1%EA+%E2+Google&gbv=1&start=10>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:55:21+0800 [Windj007] INFO: Closing spider (finished)
+2014-04-15 10:55:21+0800 [Windj007] INFO: Dumping Scrapy stats:
+	{'downloader/exception_count': 15,
+	 'downloader/exception_type_count/twisted.web._newclient.ResponseNeverReceived': 15,
+	 'downloader/request_bytes': 4833,
+	 'downloader/request_count': 15,
+	 'downloader/request_method_count/GET': 15,
+	 'finish_reason': 'finished',
+	 'finish_time': datetime.datetime(2014, 4, 15, 2, 55, 21, 957071),
+	 'log_count/ERROR': 5,
+	 'log_count/INFO': 9,
+	 'scheduler/dequeued': 15,
+	 'scheduler/dequeued/memory': 15,
+	 'scheduler/enqueued': 15,
+	 'scheduler/enqueued/memory': 15,
+	 'start_time': datetime.datetime(2014, 4, 15, 2, 55, 16, 9780)}
+2014-04-15 10:55:21+0800 [Windj007] INFO: Spider closed (finished)
+2014-04-15 10:55:47+0800 [scrapy] INFO: Scrapy 0.22.2 started (bot: Scrapy)
+2014-04-15 10:55:47+0800 [scrapy] INFO: Optional features available: ssl, http11
+2014-04-15 10:55:47+0800 [scrapy] INFO: Overridden settings: {'NEWSPIDER_MODULE': 'Scrapy.spiders', 'LOG_LEVEL': 'INFO', 'SPIDER_MODULES': ['Scrapy.spiders'], 'BOT_NAME': 'Scrapy', 'CONCURRENT_ITEMS': 1000, 'USER_AGENT': 'w3m/0.5.3+cvs-1.1055', 'LOG_FILE': 'proxy.log', 'DOWNLOAD_DELAY': 0.25}
+2014-04-15 10:55:47+0800 [scrapy] INFO: Enabled extensions: LogStats, TelnetConsole, CloseSpider, WebService, CoreStats, SpiderState
+2014-04-15 10:55:47+0800 [scrapy] INFO: Enabled downloader middlewares: ProxyMiddleware, DownloadTimer, HttpAuthMiddleware, DownloadTimeoutMiddleware, UserAgentMiddleware, RetryMiddleware, DefaultHeadersMiddleware, MetaRefreshMiddleware, HttpCompressionMiddleware, RedirectMiddleware, CookiesMiddleware, ChunkedTransferMiddleware, DownloaderStats
+2014-04-15 10:55:47+0800 [scrapy] INFO: Enabled spider middlewares: UrlMiddleware, HttpErrorMiddleware, OffsiteMiddleware, RefererMiddleware, UrlLengthMiddleware, DepthMiddleware
+2014-04-15 10:55:47+0800 [scrapy] WARNING: Remove previously created /home/quanzelin/Scrapy/Scrapy/proxies_2014_04_15_10_55.lst
+2014-04-15 10:55:47+0800 [scrapy] INFO: Will write extracted addresses to /home/quanzelin/Scrapy/Scrapy/proxies_2014_04_15_10_55.lst
+2014-04-15 10:55:47+0800 [scrapy] INFO: Connection timeout is 10.0
+2014-04-15 10:55:47+0800 [scrapy] INFO: Enabled item pipelines: ScrapyPipeline, ProxyCrawlerPipeline
+2014-04-15 10:55:47+0800 [Windj007] INFO: Spider opened
+2014-04-15 10:55:47+0800 [Windj007] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2014-04-15 10:55:53+0800 [scrapy] INFO: Got response on http://webanet.ucoz.ru/freeproxy/proxylist_at_16.03.2014.txt
+2014-04-15 10:55:53+0800 [Windj007] ERROR: Spider error processing <GET http://webanet.ucoz.ru/freeproxy/proxylist_at_16.03.2014.txt>
+	Traceback (most recent call last):
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/base.py", line 824, in runUntilCurrent
+	    call.func(*call.args, **call.kw)
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/task.py", line 638, in _tick
+	    taskObj._oneWorkUnit()
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/task.py", line 484, in _oneWorkUnit
+	    result = next(self._iterator)
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/utils/defer.py", line 57, in <genexpr>
+	    work = (callable(elem, *args, **named) for elem in iterable)
+	--- <exception caught here> ---
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/utils/defer.py", line 96, in iter_errback
+	    yield next(it)
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/offsite.py", line 23, in process_spider_output
+	    for x in result:
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/referer.py", line 22, in <genexpr>
+	    return (_set_referer(r) for r in result or ())
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/urllength.py", line 33, in <genexpr>
+	    return (r for r in result or () if _filter(r))
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/depth.py", line 50, in <genexpr>
+	    return (r for r in result or () if _filter(r))
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spiders/crawl.py", line 69, in _parse_response
+	    for requests_or_item in iterate_spider_output(cb_res):
+	  File "/home/quanzelin/Scrapy/Scrapy/spiders/windj007.py", line 35, in parse_proxylist
+	    addresses_parsed = ProxySpider._address_re.finditer(response.body)
+	exceptions.NameError: global name 'ProxySpider' is not defined
+	
+2014-04-15 10:55:54+0800 [scrapy] INFO: Got response on http://white55.narod.ru/downloads/proxyold.txt
+2014-04-15 10:55:54+0800 [Windj007] ERROR: Spider error processing <GET http://white55.narod.ru/downloads/proxyold.txt>
+	Traceback (most recent call last):
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/base.py", line 824, in runUntilCurrent
+	    call.func(*call.args, **call.kw)
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/task.py", line 638, in _tick
+	    taskObj._oneWorkUnit()
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/task.py", line 484, in _oneWorkUnit
+	    result = next(self._iterator)
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/utils/defer.py", line 57, in <genexpr>
+	    work = (callable(elem, *args, **named) for elem in iterable)
+	--- <exception caught here> ---
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/utils/defer.py", line 96, in iter_errback
+	    yield next(it)
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/offsite.py", line 23, in process_spider_output
+	    for x in result:
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/referer.py", line 22, in <genexpr>
+	    return (_set_referer(r) for r in result or ())
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/urllength.py", line 33, in <genexpr>
+	    return (r for r in result or () if _filter(r))
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/depth.py", line 50, in <genexpr>
+	    return (r for r in result or () if _filter(r))
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spiders/crawl.py", line 69, in _parse_response
+	    for requests_or_item in iterate_spider_output(cb_res):
+	  File "/home/quanzelin/Scrapy/Scrapy/spiders/windj007.py", line 35, in parse_proxylist
+	    addresses_parsed = ProxySpider._address_re.finditer(response.body)
+	exceptions.NameError: global name 'ProxySpider' is not defined
+	
+2014-04-15 10:55:55+0800 [scrapy] INFO: Got response on http://www.tubeincreaser.com/proxylist.txt
+2014-04-15 10:55:55+0800 [Windj007] ERROR: Spider error processing <GET http://www.tubeincreaser.com/proxylist.txt>
+	Traceback (most recent call last):
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/base.py", line 824, in runUntilCurrent
+	    call.func(*call.args, **call.kw)
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/task.py", line 638, in _tick
+	    taskObj._oneWorkUnit()
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/task.py", line 484, in _oneWorkUnit
+	    result = next(self._iterator)
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/utils/defer.py", line 57, in <genexpr>
+	    work = (callable(elem, *args, **named) for elem in iterable)
+	--- <exception caught here> ---
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/utils/defer.py", line 96, in iter_errback
+	    yield next(it)
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/offsite.py", line 23, in process_spider_output
+	    for x in result:
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/referer.py", line 22, in <genexpr>
+	    return (_set_referer(r) for r in result or ())
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/urllength.py", line 33, in <genexpr>
+	    return (r for r in result or () if _filter(r))
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/depth.py", line 50, in <genexpr>
+	    return (r for r in result or () if _filter(r))
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spiders/crawl.py", line 69, in _parse_response
+	    for requests_or_item in iterate_spider_output(cb_res):
+	  File "/home/quanzelin/Scrapy/Scrapy/spiders/windj007.py", line 35, in parse_proxylist
+	    addresses_parsed = ProxySpider._address_re.finditer(response.body)
+	exceptions.NameError: global name 'ProxySpider' is not defined
+	
+2014-04-15 10:55:55+0800 [scrapy] INFO: Got response on http://www.arunonline.com.np/uploaded/News/proxy.txt
+2014-04-15 10:55:55+0800 [Windj007] ERROR: Spider error processing <GET http://www.arunonline.com.np/uploaded/News/proxy.txt>
+	Traceback (most recent call last):
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/base.py", line 824, in runUntilCurrent
+	    call.func(*call.args, **call.kw)
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/task.py", line 638, in _tick
+	    taskObj._oneWorkUnit()
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/task.py", line 484, in _oneWorkUnit
+	    result = next(self._iterator)
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/utils/defer.py", line 57, in <genexpr>
+	    work = (callable(elem, *args, **named) for elem in iterable)
+	--- <exception caught here> ---
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/utils/defer.py", line 96, in iter_errback
+	    yield next(it)
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/offsite.py", line 23, in process_spider_output
+	    for x in result:
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/referer.py", line 22, in <genexpr>
+	    return (_set_referer(r) for r in result or ())
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/urllength.py", line 33, in <genexpr>
+	    return (r for r in result or () if _filter(r))
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/depth.py", line 50, in <genexpr>
+	    return (r for r in result or () if _filter(r))
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spiders/crawl.py", line 69, in _parse_response
+	    for requests_or_item in iterate_spider_output(cb_res):
+	  File "/home/quanzelin/Scrapy/Scrapy/spiders/windj007.py", line 35, in parse_proxylist
+	    addresses_parsed = ProxySpider._address_re.finditer(response.body)
+	exceptions.NameError: global name 'ProxySpider' is not defined
+	
+2014-04-15 10:56:01+0800 [scrapy] INFO: Received SIGINT, shutting down gracefully. Send again to force 
+2014-04-15 10:56:01+0800 [Windj007] INFO: Closing spider (shutdown)
+2014-04-15 10:56:02+0800 [scrapy] INFO: Received SIGINT twice, forcing unclean shutdown
+2014-04-15 10:56:21+0800 [scrapy] INFO: Scrapy 0.22.2 started (bot: Scrapy)
+2014-04-15 10:56:21+0800 [scrapy] INFO: Optional features available: ssl, http11
+2014-04-15 10:56:21+0800 [scrapy] INFO: Overridden settings: {'NEWSPIDER_MODULE': 'Scrapy.spiders', 'LOG_LEVEL': 'INFO', 'SPIDER_MODULES': ['Scrapy.spiders'], 'BOT_NAME': 'Scrapy', 'CONCURRENT_ITEMS': 1000, 'USER_AGENT': 'w3m/0.5.3+cvs-1.1055', 'LOG_FILE': 'proxy.log', 'DOWNLOAD_DELAY': 0.25}
+2014-04-15 10:56:21+0800 [scrapy] INFO: Enabled extensions: LogStats, TelnetConsole, CloseSpider, WebService, CoreStats, SpiderState
+2014-04-15 10:56:21+0800 [scrapy] INFO: Enabled downloader middlewares: ProxyMiddleware, DownloadTimer, HttpAuthMiddleware, DownloadTimeoutMiddleware, UserAgentMiddleware, RetryMiddleware, DefaultHeadersMiddleware, MetaRefreshMiddleware, HttpCompressionMiddleware, RedirectMiddleware, CookiesMiddleware, ChunkedTransferMiddleware, DownloaderStats
+2014-04-15 10:56:21+0800 [scrapy] INFO: Enabled spider middlewares: UrlMiddleware, HttpErrorMiddleware, OffsiteMiddleware, RefererMiddleware, UrlLengthMiddleware, DepthMiddleware
+2014-04-15 10:56:21+0800 [scrapy] INFO: Will write extracted addresses to /home/quanzelin/Scrapy/Scrapy/proxies_2014_04_15_10_56.lst
+2014-04-15 10:56:21+0800 [scrapy] INFO: Connection timeout is 10.0
+2014-04-15 10:56:21+0800 [scrapy] INFO: Enabled item pipelines: ScrapyPipeline, ProxyCrawlerPipeline
+2014-04-15 10:56:21+0800 [Windj007] INFO: Spider opened
+2014-04-15 10:56:21+0800 [Windj007] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2014-04-15 10:56:28+0800 [scrapy] INFO: Got response on http://white55.narod.ru/downloads/proxyold.txt
+2014-04-15 10:56:28+0800 [Windj007] ERROR: Spider error processing <GET http://white55.narod.ru/downloads/proxyold.txt>
+	Traceback (most recent call last):
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/base.py", line 824, in runUntilCurrent
+	    call.func(*call.args, **call.kw)
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/task.py", line 638, in _tick
+	    taskObj._oneWorkUnit()
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/task.py", line 484, in _oneWorkUnit
+	    result = next(self._iterator)
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/utils/defer.py", line 57, in <genexpr>
+	    work = (callable(elem, *args, **named) for elem in iterable)
+	--- <exception caught here> ---
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/utils/defer.py", line 96, in iter_errback
+	    yield next(it)
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/offsite.py", line 23, in process_spider_output
+	    for x in result:
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/referer.py", line 22, in <genexpr>
+	    return (_set_referer(r) for r in result or ())
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/urllength.py", line 33, in <genexpr>
+	    return (r for r in result or () if _filter(r))
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/depth.py", line 50, in <genexpr>
+	    return (r for r in result or () if _filter(r))
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spiders/crawl.py", line 69, in _parse_response
+	    for requests_or_item in iterate_spider_output(cb_res):
+	  File "/home/quanzelin/Scrapy/Scrapy/spiders/windj007.py", line 35, in parse_proxylist
+	    addresses_parsed = ProxySpider._address_re.finditer(response.body)
+	exceptions.NameError: global name 'ProxySpider' is not defined
+	
+2014-04-15 10:56:32+0800 [scrapy] INFO: Got response on http://www.tubeincreaser.com/proxylist.txt
+2014-04-15 10:56:32+0800 [Windj007] ERROR: Spider error processing <GET http://www.tubeincreaser.com/proxylist.txt>
+	Traceback (most recent call last):
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/base.py", line 824, in runUntilCurrent
+	    call.func(*call.args, **call.kw)
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/task.py", line 638, in _tick
+	    taskObj._oneWorkUnit()
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/task.py", line 484, in _oneWorkUnit
+	    result = next(self._iterator)
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/utils/defer.py", line 57, in <genexpr>
+	    work = (callable(elem, *args, **named) for elem in iterable)
+	--- <exception caught here> ---
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/utils/defer.py", line 96, in iter_errback
+	    yield next(it)
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/offsite.py", line 23, in process_spider_output
+	    for x in result:
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/referer.py", line 22, in <genexpr>
+	    return (_set_referer(r) for r in result or ())
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/urllength.py", line 33, in <genexpr>
+	    return (r for r in result or () if _filter(r))
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/depth.py", line 50, in <genexpr>
+	    return (r for r in result or () if _filter(r))
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spiders/crawl.py", line 69, in _parse_response
+	    for requests_or_item in iterate_spider_output(cb_res):
+	  File "/home/quanzelin/Scrapy/Scrapy/spiders/windj007.py", line 35, in parse_proxylist
+	    addresses_parsed = ProxySpider._address_re.finditer(response.body)
+	exceptions.NameError: global name 'ProxySpider' is not defined
+	
+2014-04-15 10:56:35+0800 [scrapy] INFO: Got response on http://www.arunonline.com.np/uploaded/News/proxy.txt
+2014-04-15 10:56:35+0800 [Windj007] ERROR: Spider error processing <GET http://www.arunonline.com.np/uploaded/News/proxy.txt>
+	Traceback (most recent call last):
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/base.py", line 824, in runUntilCurrent
+	    call.func(*call.args, **call.kw)
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/task.py", line 638, in _tick
+	    taskObj._oneWorkUnit()
+	  File "/usr/local/lib/python2.7/dist-packages/twisted/internet/task.py", line 484, in _oneWorkUnit
+	    result = next(self._iterator)
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/utils/defer.py", line 57, in <genexpr>
+	    work = (callable(elem, *args, **named) for elem in iterable)
+	--- <exception caught here> ---
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/utils/defer.py", line 96, in iter_errback
+	    yield next(it)
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/offsite.py", line 23, in process_spider_output
+	    for x in result:
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/referer.py", line 22, in <genexpr>
+	    return (_set_referer(r) for r in result or ())
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/urllength.py", line 33, in <genexpr>
+	    return (r for r in result or () if _filter(r))
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spidermiddleware/depth.py", line 50, in <genexpr>
+	    return (r for r in result or () if _filter(r))
+	  File "/usr/local/lib/python2.7/dist-packages/scrapy/contrib/spiders/crawl.py", line 69, in _parse_response
+	    for requests_or_item in iterate_spider_output(cb_res):
+	  File "/home/quanzelin/Scrapy/Scrapy/spiders/windj007.py", line 35, in parse_proxylist
+	    addresses_parsed = ProxySpider._address_re.finditer(response.body)
+	exceptions.NameError: global name 'ProxySpider' is not defined
+	
+2014-04-15 10:56:52+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1Z9MU_KgBIqaiQfxv4HIAg&q=http%3A%2F%2Forg.pc-freak.net%2Fprojects%2Fanonproxys.txt&sa=U&usg=AFQjCNEQt8Te8BfnP1jFodmaJQbj9GUIcw&ved=0CD0QFjAHOCg>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:56:53+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1Z9MU_KgBIqaiQfxv4HIAg&q=http%3A%2F%2Ffile.oboz.ua%2Ffiles%2Fvf4fc029f8d92c0_201252635520.txt&sa=U&usg=AFQjCNE3xEmuLOVEb5Qvtb0CeZi7210DIQ&ved=0CEMQFjAIOCg>: An error occurred while connecting: 104: Connection reset by peer.
+2014-04-15 10:56:53+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1Z9MU_KgBIqaiQfxv4HIAg&q=http%3A%2F%2Ffile.oboz.ua%2Ffiles%2Fvf4fc4d11108cc1_2012529163721.txt&sa=U&usg=AFQjCNHM4zNo0RZliAExYv77oKUT3a-i3Q&ved=0CEUQFjAJOCg>: An error occurred while connecting: 104: Connection reset by peer.
+2014-04-15 10:56:53+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1J9MU42xC4e5iAeQhYE4&q=http%3A%2F%2Finav.chat.ru%2Fftp%2Fproxy.txt&sa=U&usg=AFQjCNGQRB4DNzTLNM9fJ7_M3DqtXlGf4Q&ved=0CEwQFjAJ>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:56:54+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1J9MU-6ENoiziAfC2oCoCQ&q=http%3A%2F%2Fwww.angelfire.com%2Fpro%2Fcracking101%2Fproxies.txt&sa=U&usg=AFQjCNFUCSMb9rJyaW7HPQ1VmEPN76xrOg&ved=0CFEQFjAJOB4>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:56:54+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1J9MU_C-JImBiQfx8IDoCQ&q=http%3A%2F%2Fweb.unideb.hu%2Faurel192%2Fproxylist.txt&sa=U&usg=AFQjCNEUwK-2Q-oVywHuIe50VtMiN2_SWg&ved=0CDsQFjAGOBQ>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:56:54+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1J9MU_C-JImBiQfx8IDoCQ&q=http%3A%2F%2Fpuu.sh%2F7xsra.txt&sa=U&usg=AFQjCNEntriWeZfp8tY6f_Q7AjD2XssWqQ&ved=0CEEQFjAHOBQ>: An error occurred while connecting: 104: Connection reset by peer.
+2014-04-15 10:56:55+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1J9MU_C-JImBiQfx8IDoCQ&q=http%3A%2F%2Fityouth.ru%2F_fr%2F0%2F72158934.txt&sa=U&usg=AFQjCNFhwRXX6SpKHZB5BD3STlbmY3_EdA&ved=0CEYQFjAIOBQ>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:56:55+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1J9MU_C-JImBiQfx8IDoCQ&q=http%3A%2F%2Fsocks24.ru%2Fproxy%2FhttpProxies.txt&sa=U&usg=AFQjCNFrUTZUsH3C986AWu99mrihk11-Iw&ved=0CEsQFjAJOBQ>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:56:55+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1J9MU6_iD8KyiAfK_oCwAw&q=http%3A%2F%2Fdl.get.freesoft.ru%2F7004522612%2F114621%2F111111111111.txt&sa=U&usg=AFQjCNHLjXZYMWvxFZEwTKa6Vgaso7o0RA&ved=0CB0QFjAAOAo>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:56:56+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1J9MU6_iD8KyiAfK_oCwAw&q=http%3A%2F%2Fwww.ovrload.ru%2Ff%2F9659_http.txt&sa=U&usg=AFQjCNFOSkL8JovtK9lYHmezyoL9xOgUEw&ved=0CCIQFjABOAo>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:56:56+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1J9MU6_iD8KyiAfK_oCwAw&q=http%3A%2F%2Fwww.ovrload.ru%2Ff%2F9278_http.txt&sa=U&usg=AFQjCNHU2sLV6o5_WzPe0zKWVF9-T_pN4w&ved=0CCcQFjACOAo>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:56:56+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1J9MU6_iD8KyiAfK_oCwAw&q=http%3A%2F%2Fwww.ipdizhi.com%2F20140329-all-ip.txt&sa=U&usg=AFQjCNHVFTsoB_2EAr0Ot0pdoSlhO03TLQ&ved=0CCwQFjADOAo>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:56:57+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1J9MU6_iD8KyiAfK_oCwAw&q=http%3A%2F%2Fqsp.su%2Fmisc%2Fplist.txt&sa=U&usg=AFQjCNEDFGPgkZNLR01GudeCgmIhG9-Ohg&ved=0CDIQFjAEOAo>: An error occurred while connecting: 104: Connection reset by peer.
+2014-04-15 10:56:57+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1J9MU6_iD8KyiAfK_oCwAw&q=http%3A%2F%2Fcs.usu.edu.ru%2Fhome%2Fpsixoz%2Fdata%2Fiiisem%2Fmany.txt&sa=U&usg=AFQjCNEoEDCM5QU4-J5a4yasvaFRejEB8w&ved=0CDcQFjAFOAo>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:56:57+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1J9MU6_iD8KyiAfK_oCwAw&q=http%3A%2F%2Fwww.sshour.com%2Fwp-content%2Fuploads%2F2013%2F09%2F20130918-proxy-ip.txt&sa=U&usg=AFQjCNGwdYvuYc1z4mxB5mzwC2H7HUW88g&ved=0CDwQFjAGOAo>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:56:58+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1Z9MU_KgBIqaiQfxv4HIAg&q=http%3A%2F%2Fwww.zarb.org%2F%7Esaispo%2Fproxylist.txt&sa=U&usg=AFQjCNHgtmar3G3npGZNWT2QZmukIaPx5Q&ved=0CDgQFjAGOCg>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:56:58+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1Z9MU_KgBIqaiQfxv4HIAg&q=http%3A%2F%2Fyeeupnet1.ipage.com%2Ftech%2Fwp-content%2Fuploads%2F2014%2F01%2F01132014.txt&sa=U&usg=AFQjCNH0bORU2d_7FbQJHy6Z5OiNXOLqBg&ved=0CDMQFjAFOCg>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:56:58+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1Z9MU_KgBIqaiQfxv4HIAg&q=http%3A%2F%2Framm-icq.ru%2F_fr%2F0%2F12.04.08.txt&sa=U&usg=AFQjCNE_vvr-9YTxdRocUFL7O1anCpY7Yg&ved=0CC4QFjAEOCg>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:56:58+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1Z9MU_KgBIqaiQfxv4HIAg&q=http%3A%2F%2Fpokontaktu.ru%2Fimages%2Fproxy.txt&sa=U&usg=AFQjCNGGc9i2mAyoGOhETu7vtz2wfWhFMw&ved=0CCkQFjADOCg>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:56:59+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1Z9MU_KgBIqaiQfxv4HIAg&q=http%3A%2F%2Fnaxalyvu.narod.ru%2Ffiles%2F29.10.2010.txt&sa=U&usg=AFQjCNHBXqTS9PWFZjiI54d3EcqT49nBtw&ved=0CCQQFjACOCg>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:56:59+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1Z9MU_KgBIqaiQfxv4HIAg&q=http%3A%2F%2Fmyminicity.fr.yuku.com%2Fattach%2Fma%2Fpost-23-1203940382.txt&sa=U&usg=AFQjCNEVGHYPOJUHsAptmcTa1gR09WMMqQ&ved=0CCIQFjABOCg>: An error occurred while connecting: 104: Connection reset by peer.
+2014-04-15 10:56:59+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1Z9MU_KgBIqaiQfxv4HIAg&q=http%3A%2F%2Fitsecure.org.ua%2Fproxy%2Fp100109.txt&sa=U&usg=AFQjCNEHG4YTZ7WUX8fa2RV4gBQrwNj6hw&ved=0CB0QFjAAOCg>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:57:00+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1J9MU42xC4e5iAeQhYE4&q=http%3A%2F%2Fab57.ru%2Fdownloads%2Fproxyold.txt&sa=U&usg=AFQjCNFKI9yWKxm56qGNEfk7axuo91QmGA&ved=0CEcQFjAI>: An error occurred while connecting: 104: Connection reset by peer.
+2014-04-15 10:57:00+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1J9MU42xC4e5iAeQhYE4&q=http%3A%2F%2Fwww.binary-zone.com%2Ffiles%2FMyProxyList.txt&sa=U&usg=AFQjCNF4w17z3XDkw2qyYicWaU2meQ5kPQ&ved=0CEEQFjAH>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:57:00+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1J9MU42xC4e5iAeQhYE4&q=http%3A%2F%2Fkodsweb.ru%2Ffiles%2Fproxies%2Fproxies%2F08.08.07.txt&sa=U&usg=AFQjCNFHnq_Mjxq7gZpzmlHSxjWb6KIUWQ&ved=0CDwQFjAG>: An error occurred while connecting: 104: Connection reset by peer.
+2014-04-15 10:57:01+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1J9MU42xC4e5iAeQhYE4&q=http%3A%2F%2Fpva.wen.ru%2Fwapmaster%2Fproxy%2Fproxylist.txt&sa=U&usg=AFQjCNGPwVaScWnYaGONZU0hny9sGTGibg&ved=0CDcQFjAF>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:57:01+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1J9MU42xC4e5iAeQhYE4&q=http%3A%2F%2Fpva.wen.ru%2Fwapmaster%2Fproxy%2Fproxylist_2.txt&sa=U&usg=AFQjCNENL_ViuGSBmjnGvrqoMFhIdcN6lg&ved=0CDIQFjAE>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:57:01+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1J9MU42xC4e5iAeQhYE4&q=http%3A%2F%2Fwww.rmccurdy.com%2Fscripts%2Fproxy%2Fgood.txt&sa=U&usg=AFQjCNEPLwKs57hktlPPkPNQMVjarhb6qg&ved=0CCwQFjAD>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:57:01+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1J9MU42xC4e5iAeQhYE4&q=http%3A%2F%2Fwebanet.ucoz.ru%2Ffreeproxy%2Fproxylist_at_29.03.2014.txt&sa=U&usg=AFQjCNHHpY--b7Z0J4-ePxNvSPmAmrDxNw&ved=0CCcQFjAC>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:57:02+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1J9MU42xC4e5iAeQhYE4&q=http%3A%2F%2Fwebanet.ucoz.ru%2Ffreeproxy%2Fproxylist_at_23.03.2014.txt&sa=U&usg=AFQjCNH8e76RlHJntNv4IU6k7xl7_RFotA&ved=0CCIQFjAB>: An error occurred while connecting: 104: Connection reset by peer.
+2014-04-15 10:57:02+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1J9MU_C-JImBiQfx8IDoCQ&q=http%3A%2F%2Fl2topvote.ucoz.com%2F_fr%2F1%2Fproxy.txt&sa=U&usg=AFQjCNGXan7APGY5BkCoLl2k_s2JAQ_Tkw&ved=0CB0QFjAAOBQ>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:57:02+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1J9MU_C-JImBiQfx8IDoCQ&q=http%3A%2F%2Fantiforum.3dn.ru%2F_fr%2F0%2Fproxy.txt&sa=U&usg=AFQjCNHDCZ5nubdHlyOiheJ5L_T0SYBTCg&ved=0CCIQFjABOBQ>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:57:02+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1J9MU_C-JImBiQfx8IDoCQ&q=http%3A%2F%2Fwhite55.ru%2Fdownloads%2Fproxylist.txt&sa=U&usg=AFQjCNHFeoUTA0VfcN0AuIePQAi0i9oi2w&ved=0CCcQFjACOBQ>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:57:03+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1J9MU_C-JImBiQfx8IDoCQ&q=http%3A%2F%2Fmytargets.ru%2FProxy-Free.txt&sa=U&usg=AFQjCNFLt772OiG1pDJBuXErmgMLxfASqw&ved=0CCwQFjADOBQ>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:57:03+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1J9MU_C-JImBiQfx8IDoCQ&q=http%3A%2F%2Fwww.gurbuz.net%2FTurk%2FVery%2520high%2520factor%2520of%2520safety%2520Proxy%2520list.txt&sa=U&usg=AFQjCNF5r5yKVT1O_5E2wbA91cd8BB1P0g&ved=0CDEQFjAEOBQ>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:57:03+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1J9MU_C-JImBiQfx8IDoCQ&q=http%3A%2F%2Fcs15.userfiles.me%2Ff%2F0%2F1396302255%2F2110375%2F1%2Ffd7b5aeba50ceed1eb98a4ebf1883c58%2Fproxy-spaces.ru.txt&sa=U&usg=AFQjCNFqVf1Mp9WZJMCUV4Dk_Z19qOvy1A&ved=0CDYQFjAFOBQ>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:57:04+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1J9MU-6ENoiziAfC2oCoCQ&q=http%3A%2F%2Fproxybank.net%2Fproxy_list.txt&sa=U&usg=AFQjCNF37w96ATtpDxL1nvPCL5of2VAEQw&ved=0CB0QFjAAOB4>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:57:04+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1J9MU-6ENoiziAfC2oCoCQ&q=http%3A%2F%2Fwww.riokou.co.uk%2Fsin%2Fproxies_2.txt&sa=U&usg=AFQjCNEHEaT1XWKg4JPsPpW3VISXqo2mJg&ved=0CCMQFjABOB4>: An error occurred while connecting: 104: Connection reset by peer.
+2014-04-15 10:57:04+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1J9MU-6ENoiziAfC2oCoCQ&q=https%3A%2F%2Fgithub.com%2F2naive%2FAngryCurl%2Fblob%2Fmaster%2Fimport%2Fproxy_list.txt&sa=U&usg=AFQjCNFJTiD4GOiLAMo0Jb8Kg_KYvqRQyw&ved=0CCgQFjACOB4>: An error occurred while connecting: 104: Connection reset by peer.
+2014-04-15 10:57:05+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1J9MU-6ENoiziAfC2oCoCQ&q=http%3A%2F%2Fs2.docme.ru%2Fstore%2Fdata%2F000067517.txt%3Fkey%3Ddec35504884449ae762feaa5c09f0b8b%26r%3D1%26fn%3D10socks.txt&sa=U&usg=AFQjCNFS32XLEuN6EGZEgw-6H298Ew7LJA&ved=0CC8QFjADOB4>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:57:05+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1J9MU-6ENoiziAfC2oCoCQ&q=http%3A%2F%2Fwww.planetnana.co.il%2Fadirbuskila%2F%2Fvips.txt&sa=U&usg=AFQjCNFurJfzwpuyRShkIIOtsGAPOZ_Z8A&ved=0CDQQFjAEOB4>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:57:05+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1J9MU-6ENoiziAfC2oCoCQ&q=http%3A%2F%2Ftxt.proxyspy.net%2Fproxy.txt&sa=U&usg=AFQjCNHI2ZRegud5i-XCS0D8yNZ8-fn7YQ&ved=0CDoQFjAFOB4>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:57:06+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1J9MU42xC4e5iAeQhYE4&q=http%3A%2F%2Fwebanet.ucoz.ru%2Ffreeproxy%2Fproxylist_at_16.03.2014.txt&sa=U&usg=AFQjCNGysxxNV4yaTQMywRjNmiH7pcrdpQ&ved=0CB0QFjAA>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:57:06+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1J9MU-6ENoiziAfC2oCoCQ&q=http%3A%2F%2Fwww.freeproxy.ru%2Fexamples%2Fdest_filt.txt&sa=U&usg=AFQjCNGS8vCmHG-9gpGq1MCRvKtNL_gVVg&ved=0CD8QFjAGOB4>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:57:06+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1J9MU-6ENoiziAfC2oCoCQ&q=http%3A%2F%2Flategoodies.tripod.com%2F14_list_by_nations.txt&sa=U&usg=AFQjCNE5aOI1g5ohnCcfB-nvuqq_nhM-YQ&ved=0CEQQFjAHOB4>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:57:06+0800 [Windj007] ERROR: Error downloading <GET http://www.google.ru/url?ei=1J9MU-6ENoiziAfC2oCoCQ&q=http%3A%2F%2Fwww.netrooper.com%2Ffiles%2Fproxylist.txt&sa=U&usg=AFQjCNGS-TXd93fyPoOaqkYNwZxBOszXeg&ved=0CEoQFjAIOB4>: [<twisted.python.failure.Failure <class 'twisted.internet.error.ConnectionLost'>>]
+2014-04-15 10:57:06+0800 [Windj007] INFO: Closing spider (finished)
+2014-04-15 10:57:06+0800 [Windj007] INFO: Dumping Scrapy stats:
+	{'downloader/exception_count': 141,
+	 'downloader/exception_type_count/twisted.internet.error.ConnectError': 11,
+	 'downloader/exception_type_count/twisted.web._newclient.ResponseNeverReceived': 130,
+	 'downloader/request_bytes': 108586,
+	 'downloader/request_count': 152,
+	 'downloader/request_method_count/GET': 152,
+	 'downloader/response_bytes': 219221,
+	 'downloader/response_count': 11,
+	 'downloader/response_status_count/200': 8,
+	 'downloader/response_status_count/302': 3,
+	 'finish_reason': 'finished',
+	 'finish_time': datetime.datetime(2014, 4, 15, 2, 57, 6, 982848),
+	 'log_count/ERROR': 50,
+	 'log_count/INFO': 12,
+	 'request_depth_max': 1,
+	 'response_received_count': 8,
+	 'scheduler/dequeued': 152,
+	 'scheduler/dequeued/memory': 152,
+	 'scheduler/enqueued': 152,
+	 'scheduler/enqueued/memory': 152,
+	 'spider_exceptions/NameError': 3,
+	 'start_time': datetime.datetime(2014, 4, 15, 2, 56, 21, 602308)}
+2014-04-15 10:57:06+0800 [Windj007] INFO: Spider closed (finished)
+2014-04-15 15:59:29+0800 [scrapy] INFO: Scrapy 0.22.2 started (bot: Scrapy)
+2014-04-15 15:59:29+0800 [scrapy] INFO: Optional features available: ssl, http11
+2014-04-15 15:59:29+0800 [scrapy] INFO: Overridden settings: {'NEWSPIDER_MODULE': 'Scrapy.spiders', 'LOG_LEVEL': 'INFO', 'SPIDER_MODULES': ['Scrapy.spiders'], 'BOT_NAME': 'Scrapy', 'CONCURRENT_ITEMS': 1000, 'USER_AGENT': 'w3m/0.5.3+cvs-1.1055', 'LOG_FILE': 'proxy.log', 'DOWNLOAD_DELAY': 0.25}
+2014-04-15 15:59:29+0800 [scrapy] INFO: Enabled extensions: LogStats, TelnetConsole, CloseSpider, WebService, CoreStats, SpiderState
+2014-04-15 15:59:29+0800 [scrapy] INFO: Enabled downloader middlewares: ProxyMiddleware, DownloadTimer, HttpAuthMiddleware, DownloadTimeoutMiddleware, UserAgentMiddleware, RetryMiddleware, DefaultHeadersMiddleware, MetaRefreshMiddleware, HttpCompressionMiddleware, RedirectMiddleware, CookiesMiddleware, ChunkedTransferMiddleware, DownloaderStats
+2014-04-15 15:59:29+0800 [scrapy] INFO: Enabled spider middlewares: UrlMiddleware, HttpErrorMiddleware, OffsiteMiddleware, RefererMiddleware, UrlLengthMiddleware, DepthMiddleware
+2014-04-15 15:59:29+0800 [scrapy] INFO: Will write extracted addresses to /home/quanzelin/Scrapy/Scrapy/proxies_2014_04_15_15_59.lst
+2014-04-15 15:59:29+0800 [scrapy] INFO: Connection timeout is 10.0
+2014-04-15 15:59:29+0800 [scrapy] INFO: Enabled item pipelines: ScrapyPipeline, ProxyCrawlerPipeline
+2014-04-15 15:59:29+0800 [Windj007] INFO: Spider opened
+2014-04-15 15:59:29+0800 [Windj007] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2014-04-15 15:59:30+0800 [scrapy] INFO: Received SIGINT, shutting down gracefully. Send again to force 
+2014-04-15 15:59:30+0800 [Windj007] INFO: Closing spider (shutdown)
+2014-04-15 15:59:30+0800 [scrapy] INFO: Received SIGINT twice, forcing unclean shutdown

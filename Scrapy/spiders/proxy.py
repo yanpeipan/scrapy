@@ -9,7 +9,11 @@ class ProxySpider(Spider):
   name = 'proxy'
   pipeline = ['ProxySpider']
   start_urls = ['http://www.baidu.com']
-  urls = {'Youdaili':'http://www.youdaili.cn/Daili/http/'}
+  urls = {
+      'Youdaili':'http://www.youdaili.cn/Daili/http/',
+      'Hidemyass':'https://hidemyass.com/proxy-list/',
+      'cnproxy':'http://www.cnproxy.com/proxy1.html'
+      }
 
   def __init__(self, *args, **kwargs):
     pass
@@ -20,6 +24,11 @@ class ProxySpider(Spider):
       for proxy, url in self.urls.iteritems():
         yield Request(url = url, callback = getattr(self, 'parse' + proxy))
       return
+
+  def paraeHidemyass(self, response):
+    return
+    sel = Selector(response)
+    pass
 
   def parseYoudaili(self, response):
     sel = Selector(response)
