@@ -25,6 +25,8 @@ class ProxyMiddleware(object):
         request.meta['proxy'] = proxy['ip']
 
   def process_response(self, request, response, spider):
+    if response.status != 200:
+      print request.meta
     return response
 
 class UrlMiddleware(object):

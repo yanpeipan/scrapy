@@ -7,7 +7,7 @@ import time
 
 class ProxySpider(Spider):
   name = 'proxy'
-  pipeline = ['ProxySpider']
+  pipelines = ['ProxySpider']
   start_urls = ['http://www.baidu.com']
   urls = {
       'Youdaili':'http://www.youdaili.cn/Daili/http/',
@@ -36,6 +36,7 @@ class ProxySpider(Spider):
     links = sel.xpath('//ul[@class="newslist_line"]/li/a/@href').extract()
     for key, link in enumerate(links):
       yield Request(url = link, callback = self.parseYoudailiDetail)
+      return
 
   def parseYoudailiDetail(self, response):
     sel = Selector(response)
