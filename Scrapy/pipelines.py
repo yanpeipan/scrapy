@@ -17,7 +17,7 @@ class DoubanMoviePipeline(BasePipeline):
     if 'ProxySpider' in spider.pipelines:
       mongo.proxy.save(dict(item))
 
-    if 'ProxySpider' in spider.pipelines:
+    if 'DoubanSpider' in spider.pipelines:
       if isinstance(item, MovieItem):
         if 'comments' in item:
           comments = item['comments']
