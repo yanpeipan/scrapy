@@ -26,12 +26,16 @@ class ProxySpider(Spider):
       return
 
   def parseCnproxy(self, response):
+    sel = Selector(response)
+    trs = sel.xpath('//*[@id="proxylisttb"]/table[3]/tbody/tr')
+    print trs.extract()
     return
 
   def parseHidemyass(self, response):
     return
 
   def parseYoudaili(self, response):
+    return
     sel = Selector(response)
     links = sel.xpath('//ul[@class="newslist_line"]/li/a/@href').extract()
     for key, link in enumerate(links):
