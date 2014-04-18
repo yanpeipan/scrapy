@@ -32,8 +32,8 @@ COOKIES_ENABLED = True
 
 CONCURRENT_ITEMS = 1000
 
-LOG_ENABLED = True
-#LOG_FILE = 'proxy.log'
+#LOG_ENABLED = True
+#LOG_FILE = 'ScrapyCrawl.log'
 #LOG_LEVEL = 'INFO'
 
 DOWNLOAD_DELAY = 0.25

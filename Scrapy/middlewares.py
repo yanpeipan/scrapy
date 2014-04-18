@@ -6,8 +6,9 @@ class ProxyMiddleware(object):
   def __init__(self):
     mongo = MongoClient().scrapy
     self.proxys = list(mongo.proxy.find({'status':200}))
+
   def process_request(self, request, spider):
-    if 'DoubanSpider' in getattr(spider, 'pipelines', []):
+    if 'DoubanApiKeys' in getattr(spider, 'middlewares', []):
       url = urlparse(request.url)
       params = parse_qs(url.query)
       if url.scheme == 'https':
@@ -26,8 +27,11 @@ class ProxyMiddleware(object):
 
   def process_response(self, request, response, spider):
     if response.status != 200:
-      print request.meta
+      pass
     return response
+  def process_exception(request, exception, spider):
+    print 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+    print exception
 
 class UrlMiddleware(object):
   def process_request(self, request, spider):
