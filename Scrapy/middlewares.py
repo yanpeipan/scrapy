@@ -30,7 +30,6 @@ class ProxyMiddleware(object):
       pass
     return response
   def process_exception(request, exception, spider):
-    print 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
     print exception
 
 class UrlMiddleware(object):
