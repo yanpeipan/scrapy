@@ -17,7 +17,6 @@ class DoubanSpider(CrawlSpider):
   start_urls = ['http://movie.douban.com/tag/']
 
   def __init__(self, test = None, *args, **kwargs):
-    #print test
     pass
 
   def parseCollect(self, response):
@@ -132,7 +131,7 @@ class DoubanSpider(CrawlSpider):
       params = parse_qs(urlparse(response.url).query)
       start = (int)(params['start'].pop()) + 20 #also can be translated by request.meta
       tag = params['tag'].pop()
-      #yield Request(url = 'https://api.douban.com/v2/movie/search?tag=' + tag + '&start=' + str(start), callback = self.parseList)
+      yield Request(url = 'https://api.douban.com/v2/movie/search?tag=' + tag + '&start=' + str(start), callback = self.parseList)
 
   def parse(self, response):
     sel = Selector(response)
@@ -143,4 +142,3 @@ class DoubanSpider(CrawlSpider):
       tagItem['num'] = item.xpath('b/text()').re(r"\d+").pop()
       yield tagItem
       yield Request(url = 'https://api.douban.com/v2/movie/search?tag=' + tagItem['tag'] + '&start=0', callback = self.parseList)
-      return#yan wait for dd

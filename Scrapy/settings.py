@@ -21,12 +21,10 @@ DOWNLOADER_MIDDLEWARES = {
     'Scrapy.middlewares.DownloadTimer': 100,
     }
 
-SPIDER_MIDDLEWARES = {
-    'Scrapy.middlewares.UrlMiddleware':1
-    }
+#SPIDER_MIDDLEWARES = {
+#    'Scrapy.middlewares.UrlMiddleware':1
+#    }
 
-# Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'Scrapy (+http://www.yourdomain.com)'
 
 COOKIES_ENABLED = False
 
@@ -37,3 +35,5 @@ CONCURRENT_ITEMS = 1000
 #LOG_LEVEL = 'INFO'
 
 DOWNLOAD_DELAY = 0.25
+
+STATS_CLASS = 'Scrapy.graphite.RedisGraphiteStatsCollector'

@@ -55,3 +55,4 @@ class ProxySpider(Spider):
     proxyItem['status'] = response.status
     proxyItem['time'] = time.time()
     yield proxyItem
+
