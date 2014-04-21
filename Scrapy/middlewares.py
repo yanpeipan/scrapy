@@ -3,6 +3,7 @@ from pymongo import MongoClient
 import time
 import random
 from scrapy.contrib.downloadermiddleware.useragent import UserAgentMiddleware
+from selenium import webdriver
 
 class ProxyMiddleware(object):
   def __init__(self):
@@ -26,6 +27,10 @@ class ProxyMiddleware(object):
         proxy['time'] = time.time()
         self.proxys.insert(0, proxy)
         request.meta['proxy'] = proxy['ip']
+    elif 'Selenium' in getattr(spider, 'middlewares', []):
+      pass
+      #browser = webdriver.Firefox()
+      #browser.get(request.url)
 
   def process_response(self, request, response, spider):
     if response.status != 200:
