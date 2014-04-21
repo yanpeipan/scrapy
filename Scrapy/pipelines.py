@@ -9,23 +9,25 @@ from os import path
 from datetime import datetime
 from scrapy import log
 class BasePipeline(object):
+  def __init__(self):
+    self.mongo = MongoClient().scrapy
   pass
 
 class DoubanMoviePipeline(BasePipeline):
   def process_item(self, item, spider):
-    mongo = MongoClient().scrapy
+    self.mongo = MongoClient().scrapy
     if 'ProxySpider' in spider.pipelines:
-      mongo.proxy.save(dict(item))
+      self.mongo.proxy.save(dict(item))
 
-    if 'DoubanSpider' in spider.pipelines:
+    if 'DoubanMoviePipeline' in spider.pipelines:
       if isinstance(item, MovieItem):
         if 'comments' in item:
           comments = item['comments']
           del(item['comments'])
-          mongo.movies.update({'id' : item['id']}, {'$push':{'comments': {'$each':comments}}})
-        mongo.movies.update({'id' : item['id']}, {'$set':dict(item)}, upsert = True)
+          self.mongo.movies.update({'id' : item['id']}, {'$push':{'comments': {'$each':comments}}})
+        self.mongo.movies.update({'id' : item['id']}, {'$set':dict(item)}, upsert = True)
       elif isinstance(item, CelebrityItem):
-        mongo.celebritys.update({'id' : item['id']}, {'$set':dict(item)}, upsert = True)
+        self.mongo.celebritys.update({'id' : item['id']}, {'$set':dict(item)}, upsert = True)
     return item
 
 class ProxyCrawlerPipeline(object):
@@ -56,7 +58,6 @@ class ProxyCrawlerPipeline(object):
       if 'ProxyCrawlerSpider' in spider.pipelines:
         pass
         #log.msg("Gonna write %s" % item['address'], log.DEBUG)
-        #print >> self._out_file, item['address']
 
     def close_spider(self, spider):
       pass

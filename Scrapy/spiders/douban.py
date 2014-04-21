@@ -11,7 +11,8 @@ from datetime import datetime, date, time
 
 class DoubanSpider(CrawlSpider):
   name = 'douban'
-  pipelines = ['DoubanSpider']
+  pipelines = ['DoubanMovie']
+  middlewares = ['DoubanApiKey']
   allowed_domins = ['http://www.douban.com', 'https://api.douban.com']
   start_urls = ['http://movie.douban.com/tag/']
 

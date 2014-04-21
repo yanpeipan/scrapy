@@ -28,12 +28,12 @@ SPIDER_MIDDLEWARES = {
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'Scrapy (+http://www.yourdomain.com)'
 
-COOKIES_ENABLED = True
+COOKIES_ENABLED = False
 
 CONCURRENT_ITEMS = 1000
 
-LOG_ENABLED = True
-#LOG_FILE = 'proxy.log'
+#LOG_ENABLED = True
+#LOG_FILE = 'ScrapyCrawl.log'
 #LOG_LEVEL = 'INFO'
 
 DOWNLOAD_DELAY = 0.25
