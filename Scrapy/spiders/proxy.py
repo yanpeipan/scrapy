@@ -26,6 +26,9 @@ class ProxySpider(Spider):
       for proxy, url in self.urls.iteritems():
         yield Request(url = url, callback = getattr(self, 'parse' + proxy))
 
+  def parseCnproxyDetail(self, response):
+    pass
+
   def parseCnproxy(self, response):
     dr=webdriver.PhantomJS()
     dr.get(response.url)
@@ -38,21 +41,6 @@ class ProxySpider(Spider):
       if len(result) == 2:
         proxy = result[0] + result[1]
         yield Request(url=self.url + '?' + proxy, method="HEAD", meta={"proxy":'http://' + proxy, "download_timeout":10}, callback=self.parseProxy)
-
-    #trs = sel.xpath('//*[@id="proxylisttb"]/table[3]/tr[1]/following-sibling::*')
-    trs = sel.xpath('//*[@id="proxylisttb"]/table')
-    ips = trs.re(r'\d+(?:\.\d+){3}')
-    ports = trs.re(r'(?::)\d+')
-    print ips
-    print ports
-    #dr.get_screenshot_as_file('google.png')
-    return
-    sel = Selector(response)
-    trs = sel.xpath('//*[@id="proxylisttb"]/table[3]/tr[1]/following-sibling::*')
-    ips = trs.re(r'\d+(?:\.\d+){3}')
-    ports = trs.re(r'(?::).*')
-    print ips
-    print ports
 
   def parseHidemyass(self, response):
     return
