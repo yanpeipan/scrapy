@@ -34,7 +34,6 @@ class ProxyMiddleware(object):
 
   def process_response(self, request, response, spider):
     if response.status != 200:
-      print 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
       pass
     return response
   def process_exception(request, exception, spider):

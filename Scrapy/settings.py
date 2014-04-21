@@ -36,4 +36,6 @@ CONCURRENT_ITEMS = 1000
 
 DOWNLOAD_DELAY = 0.25
 
+GRAPHITE_HOST = '127.0.0.1'
+GRAPHITE_PORT = 2003
 STATS_CLASS = 'Scrapy.graphite.RedisGraphiteStatsCollector'
