@@ -16,6 +16,10 @@ class BasePipeline(object):
 class DoubanMoviePipeline(BasePipeline):
   def process_item(self, item, spider):
     self.mongo = MongoClient().scrapy
+    try:
+        spider.pipelines
+    except NameError:
+        return item
 
     if 'ProxySpider' in spider.pipelines:
       self.mongo.proxy.save(dict(item))

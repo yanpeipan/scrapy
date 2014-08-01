@@ -13,6 +13,7 @@ class ScrapyItem(Item):
 class TagItem(Item):
   tag = Field()
   num = Field()
+  url = Field()
 
 class CelebrityItem(Item):
   mobile_url = Field()

@@ -118,10 +118,11 @@ class DoubanSpider(CrawlSpider):
       yield movieItem
       for celebrity in (movie['casts'] + movie['directors']):
         if id in celebrity:
-          yield Request(url = 'https://api.douban.com/v2/movie/celebrity/' + celebrity['id'], callback = self.parseCelebrity)
-      yield Request(url = 'http://movie.douban.com/subject/' + movie['id'], callback = self.parseSubject, meta = {'id':movie['id']})
-      yield Request(url = 'http://movie.douban.com/subject/' + movie['id'] + '/comments', callback = self.parseComment, meta = {'id':movie['id']})
-      yield Request(url = 'http://movie.douban.com/subject/' + movie['id'] + '/reviews', callback = self.parseReview, meta = {'id':movie['id']})
+          pass
+          #yield Request(url = 'https://api.douban.com/v2/movie/celebrity/' + celebrity['id'], callback = self.parseCelebrity)
+      #yield Request(url = 'http://movie.douban.com/subject/' + movie['id'], callback = self.parseSubject, meta = {'id':movie['id']})
+      #yield Request(url = 'http://movie.douban.com/subject/' + movie['id'] + '/comments', callback = self.parseComment, meta = {'id':movie['id']})
+      #yield Request(url = 'http://movie.douban.com/subject/' + movie['id'] + '/reviews', callback = self.parseReview, meta = {'id':movie['id']})
 
   def parseList(self, response):
     movies = json.loads(response.body_as_unicode())

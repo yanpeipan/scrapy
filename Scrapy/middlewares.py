@@ -16,9 +16,9 @@ class ProxyMiddleware(object):
       params = parse_qs(url.query)
       if url.scheme == 'https':
         if len(url.query) == 0:
-          request = request.replace(url = "%s?apikey=00d8ef49d1c2b3bb028acddd75481b31" % request.url)
+          request = request.replace(url = "%s?apikey=0d58236c3758bc2928086a44a60a347b" % request.url)
         elif 'apikey' not in parse_qs(url.query):
-          request = request.replace(url = "%s&apikey=00d8ef49d1c2b3bb028acddd75481b31" % request.url)
+          request = request.replace(url = "%s&apikey=0d58236c3758bc2928086a44a60a347b" % request.url)
         else:
           return
         return request

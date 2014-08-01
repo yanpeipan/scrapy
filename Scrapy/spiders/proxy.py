@@ -13,9 +13,9 @@ class ProxySpider(Spider):
   middlewares = ['Selenium']
   start_urls = ['http://www.baidu.com']
   urls = {
-      #'Youdaili':'http://www.youdaili.cn/Daili/http/',
-      #'Hidemyass':'https://hidemyass.com/proxy-list/',
-      'Cnproxy':'http://www.cnproxy.com/proxy1.html'
+      'Youdaili':'http://www.youdaili.cn/Daili/http/',
+      'Hidemyass':'https://hidemyass.com/proxy-list/',
+      #'Cnproxy':'http://www.cnproxy.com/proxy1.html'
       }
 
   def __init__(self, *args, **kwargs):
