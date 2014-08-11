@@ -1,3 +1,4 @@
+#coding=utf-8
 from scrapy.contrib.spiders import CrawlSpider
 from scrapy.spider import Spider
 from scrapy.exceptions import CloseSpider
@@ -7,6 +8,8 @@ from scrapy.http import Request
 from Scrapy.items import *
 from urlparse import urlparse,parse_qs
 import json
+import os
+import tempfile
 from datetime import datetime, date, time
 from selenium import webdriver
 
@@ -18,30 +21,30 @@ class YoukuSpider(CrawlSpider):
 
   def __init__(self, category = None, *args, **kwargs):
       if (category == 'movie'):
-        pass
-        #self.start_urls = ['http://www.youku.com/v_olist/c_96.html']
+        self.start_urls = ['http://www.youku.com/v_olist/c_96.html']
       pass
-
-  def parseList(self, response):
-      dr=webdriver.PhantomJS()
-      dr.get(response.body)
-      pageSource = dr.page_source
-      dr.close()
-      sel = Selector(text = pageSource, type='html')
-      link = sel.xpath('//*[@id="getVideoList"]/div[1]/div[1]/div/div[3]/div[2]/a')
-      nexter = 'http://www.youku.com' + sel.xpath('//*[@id="getVideoList"]/div[3]/ul/li[contains(@class, "next")]/a/@href').extract().pop()
-      yield Request(url = nexter, callback = self.parseList)
-      pass
-
-  def parseFilter(self, response):
-      sel = Selector(response)
-      for item in sel.xpath('//div[@id="filter"]//div[contains(@class, "item")]'):
-          #print item.xpath('label/text()').extract().pop()
-          for li in item.xpath('.//label/text()').extract():
-              print li
-          pass
 
   def parse(self, response):
+      sel = Selector(response)
+      if sel.xpath('//div[@name="total_videonum"]'):
+          total = sel.xpath('//div[@name="total_videonum"]/text()').extract().pop()
+      #youku限制
+      if int(total) == 1200:
+          pass
+      tags = {}
+
+      for item in sel.xpath('//div[@id="filter"]//div[contains(@class, "item")]'):
+          tag = {}
+          print tag
+          if item.xpath('.//label/text()'):
+              tag['tag'] = item.xpath('.//label/text()').extract().pop()
+              #print tag
+          for index,link in enumerate(item.xpath('.//li/a')):
+              tag['items'][index] = {'name':link.xpath('text()').extract().pop(),'link':link.xpath('@href').extract().pop()}
+      print tags
+      print tag
+
+  def parseF(self, response):
     sel = Selector(response)
     category = []
     scrapyItem = ScrapyItem()
@@ -49,5 +52,4 @@ class YoukuSpider(CrawlSpider):
         if item.xpath('@href') and item.xpath('text()'):
             scrapyItem['link'] = 'http://www.youku.com/v_showlist/c0.html' + item.xpath('@href').extract().pop()
             scrapyItem['title'] = item.xpath('text()').extract().pop()
-            ##yield scrapyItem
             yield Request(url = scrapyItem['link'], callback = self.parseFilter)
