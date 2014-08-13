@@ -18,9 +18,9 @@ class TagItem(Item):
 class CelebrityItem(Item):
   mobile_url = Field()
   aka_en = Field()
-  name = Field()
-  works = Field()
-  gender = Field()
+  name = Field() 
+  works = Field() 
+  gender = Field() 
   avatars = Field()
   id = Field()
   aka = Field()
@@ -80,3 +80,20 @@ class ProxyItem(Item):
   anonymity = Field()
   status = Field()
   time = Field()
+
+class streamtypes(Item):
+  hd2=Field()
+  flv=Field()
+  hd=Field()
+  hd3gp=Field()
+  hd3=Field()
+
+class ShowItem(Item):
+  id=Field()
+  name=Field()
+  link=Field()
+  play_link=Field()
+  last_play_link=Field()
+  poster=Field()
+  thumbnail=Field()
+  streamtypes=Field()

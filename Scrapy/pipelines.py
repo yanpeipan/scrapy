@@ -19,6 +19,7 @@ class DoubanMoviePipeline(BasePipeline):
     try:
         spider.pipelines
     except NameError:
+        self.mongo.videos.save(dict(item))
         return item
 
     if 'ProxySpider' in spider.pipelines:
