@@ -16,16 +16,11 @@ class BasePipeline(object):
 class DoubanMoviePipeline(BasePipeline):
   def process_item(self, item, spider):
     self.mongo = MongoClient().scrapy
-    try:
-        spider.pipelines
-    except NameError:
-        self.mongo.videos.save(dict(item))
-        return item
 
-    if 'ProxySpider' in spider.pipelines:
+    if 'ProxyItem' == item.__class__.__name__:
       self.mongo.proxy.save(dict(item))
 
-    if 'DoubanMovie' in spider.pipelines:
+    if 'MovieItem' == item.__class__.__name__:
       if isinstance(item, MovieItem):
         if 'comments' in item:
           comments = item['comments']

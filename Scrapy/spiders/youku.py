@@ -4,35 +4,45 @@ from scrapy.spider import Spider
 from scrapy.exceptions import CloseSpider
 from scrapy.selector import Selector
 from scrapy.http import FormRequest
-from pymongo import MongoClient
 from scrapy.http import Request
 from Scrapy.items import *
 from urlparse import urlparse,parse_qs
 import json
 import os
-import tempfile
 from datetime import datetime, date, time
-from selenium import webdriver
 
 class YoukuSpider(CrawlSpider):
+
   name = 'youku'
-  pipelines = []
-  allowed_domins = ['http://www.youku.com', 'https://api.douban.com', 'https://openapi.youku.com']
-  start_urls = ['http://www.youku.com/v_showlist/c0.html']
+  download_delay=0.1
+  allowed_domins = ['http://www.youku.com', 'https://openapi.youku.com']
+  start_urls = []
+
+  client_id='696c961ded023528'
+  """
+  Apis
+  """
+  shows_by_category_url='https://openapi.youku.com/v2/shows/by_category.json'
+  video_category_url='https://openapi.youku.com/v2/schemas/video/category.json'
 
   def __init__(self, category = None, *args, **kwargs):
       if category:
           self.category=category
 
   def start_requests(self):
-      return [FormRequest('https://openapi.youku.com/v2/shows/by_category.json', formdata={'client_id':'696c961ded023528', 'category':self.category}, callback=self.parse)]
+      if self.category:
+          data={'client_id':self.client_id, 'category':self.category}
+          return [FormRequest(self.shows_by_category_url, formdata=data, callback=self.parseShowsByCategory)]
+      else:
+          return [Request(self.video_category_url)]
 
-  def parseCategory(self, response):
-      pass
-
-  def parse(self, response):
+  def parseShowsByCategory(self, response):
       showItem=ShowItem()
       shows=json.loads(response.body)
-      for show in shows['shows']:
-          showItem['id']=show['id']
+      for shows in shows['shows']:
+          for k in showItem.fields:
+              showItem[k]=shows[k]
           yield showItem
+
+  def parse(self, response):
+      pass
