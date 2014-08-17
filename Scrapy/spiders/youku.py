@@ -18,7 +18,11 @@ class YoukuSpider(CrawlSpider):
   allowed_domins = ['http://www.youku.com', 'https://openapi.youku.com']
   start_urls = []
 
+  """
+  clint_id of youku
+  """
   client_id='696c961ded023528'
+
   """
   Apis
   """
@@ -31,8 +35,8 @@ class YoukuSpider(CrawlSpider):
 
   def start_requests(self):
       if self.category:
-          data={'client_id':self.client_id, 'category':self.category}
-          return [FormRequest(self.shows_by_category_url, formdata=data, callback=self.parseShowsByCategory)]
+          data={'client_id':self.client_id, 'category':self.category, 'page':'1', 'count':'100'}
+          return [FormRequest(self.shows_by_category_url, formdata=data, callback=self.parseShowsByCategory, meta={'formdata':data})]
       else:
           return [Request(self.video_category_url)]
 
@@ -43,6 +47,17 @@ class YoukuSpider(CrawlSpider):
           for k in showItem.fields:
               showItem[k]=shows[k]
           yield showItem
+      #next page
+      if "formdata" in response.meta:
+          data={
+                  'client_id':self.client_id,
+                  'category':response.meta['formdata']['category'],
+                  'page':str(int(response.meta['formdata']['page'])+1),
+                  'count':response.meta['formdata']['count']
+                  }
+          yield FormRequest(response.url, formdata=data, callback=self.parseShowsByCategory)
+
+
 
   def parse(self, response):
       pass
