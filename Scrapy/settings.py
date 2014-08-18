@@ -12,8 +12,7 @@ SPIDER_MODULES = ['Scrapy.spiders']
 NEWSPIDER_MODULE = 'Scrapy.spiders'
 
 ITEM_PIPELINES = {
-    'Scrapy.pipelines.DoubanMoviePipeline': 100,
-    #'Scrapy.pipelines.ProxyCrawlerPipeline':'110'
+    'Scrapy.pipelines.MongoPipeline': 100,
     }
 
 DOWNLOADER_MIDDLEWARES = {

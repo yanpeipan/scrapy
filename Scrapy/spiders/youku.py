@@ -4,37 +4,120 @@ from scrapy.spider import Spider
 from scrapy.exceptions import CloseSpider
 from scrapy.selector import Selector
 from scrapy.http import FormRequest
-from pymongo import MongoClient
 from scrapy.http import Request
 from Scrapy.items import *
 from urlparse import urlparse,parse_qs
 import json
 import os
-import tempfile
 from datetime import datetime, date, time
-from selenium import webdriver
 
 class YoukuSpider(CrawlSpider):
+    name = 'youku'
+    download_delay=0.1
+    allowed_domins = ['http://www.youku.com', 'https://openapi.youku.com']
+    start_urls = []
+    """
+    config of youku
+    """
+    client_id='696c961ded023528'
+    max_matches=1500
+    #@link http://open.youku.com/docs/newbieguide.html#id4
+    rate=1000
+    #@link http://open.youku.com/docs/api_searches.html#schemas-unit
+    schemas_unit=['美国', '大陆', '香港', '日本', '韩国', '台湾', '俄罗斯', '英国', '意大利',
+'朝鲜',	'法国',	'泰国',	'加拿大', '新加坡', '印度', '伊朗', '澳大利亚', '南斯拉夫',
+'西班牙', '新西兰', '菲律宾', '丹麦', '捷克', '瑞典', '匈牙利',	'澳门',	'阿富汗',
+'阿根廷', '阿联酋', '埃及', '爱尔兰', '奥地利', '巴拉圭', '巴勒斯坦', '巴西', '德国',
+'保加利亚', '比利时', '冰岛', '波黑', '波兰', '芬兰', '哥伦比亚', '格鲁吉亚', '智利',
+'古巴', '荷兰', '柬埔寨', '克罗地亚', '黎巴嫩', '利比亚', '卢森堡', '罗马尼亚', '越南',
+'马来西亚', '马其顿', '蒙古', '秘鲁', '墨西哥', '南非', '尼日利亚', '挪威', '葡萄牙',
+'瑞士', '突尼斯', '土耳其', '乌拉圭', '希腊', '以色列', '印度尼西亚', '其他']
 
-    name='youku'
-    allowed_domins=['http://www.youku.com', 'https://openapi.youku.com']
-    start_urls=['http://www.youku.com/v_showlist/c0.html']
-
+    """
+    Apis
+    """
+    shows_by_category_url='https://openapi.youku.com/v2/shows/by_category.json'
+    show_category_url='https://openapi.youku.com/v2/schemas/show/category.json'
 
     def __init__(self, category = None, *args, **kwargs):
+        self.category=self.area=self.year=None
+        if self.rate:
+            self.download_delay=3600/self.rate
         if category:
-            self.category=category
+            self.category=unicode(category, 'utf-8')
+        if 'area' in kwargs:
+            self.area=unicode(kwargs['area'])
+        if 'year' in kwargs:
+            self.year=unicode(kwargs['year'])
+        if 'orderby' in kwargs:
+            self.orderby=unicode(kwargs['orderby'])
 
     def start_requests(self):
-      return [FormRequest('https://openapi.youku.com/v2/shows/by_category.json', formdata={'client_id':'696c961ded023528', 'category':self.category}, callback=self.parse)]
+        return [Request(self.show_category_url, callback=self.parseCategory)]
 
     def parseCategory(self, response):
-      pass
+        categories=json.loads(response.body)
+        if 'categories' in categories:
+            for category in categories['categories']:
+                category_label=category['label']
+                if self.category and self.category != category_label:
+                    continue
+                print category_label
+                if 'genre' in category:
+                    data={'client_id':self.client_id, 'category':category_label, 'page':'1', 'count':'100'}
+                    if self.year:
+                        data['release_year']=self.year
+                    if self.area:
+                        data['area']=self.area
+                    if self.orderby:
+                        data['orderby']=self.orderby
+                    for genre in category['genre']:
+                        data['genre']=genre['label']
+                        yield FormRequest(url=self.shows_by_category_url, callback=self.parseShowsByCategory, formdata=data, meta={'formdata':data})
+                    else:
+                        yield FormRequest(url=self.shows_by_category_url, callback=self.parseShowsByCategory, formdata=data, meta={'formdata':data})
+                else:
+                    print category
 
-    def parse(self, response):
-      showItem=ShowItem()
-      shows=json.loads(response.body)
-      for show in shows['shows']:
-          showItem['id']=show['id']
-          yield showItem
-
+    def parseShowsByCategory(self, response):
+        showItem=ShowItem()
+        shows=json.loads(response.body)
+        if 'total' in shows:
+            shows_total=int(shows['total'])
+            if shows_total == 0:
+                return
+            # add subclass(area, release_year),if total of shows greater than max_matches
+            elif shows_total > self.max_matches:
+                data=response.meta['formdata']
+                if 'area' not in response.meta['formdata']:
+                    for area in self.schemas_unit:
+                        data['area']=area
+                        yield FormRequest(url=self.shows_by_category_url, callback=self.parseShowsByCategory, formdata=data, meta={'formdata':data})
+                elif 'release_year' not in response.meta['formdata']:
+                    years=range(2008, datetime.now().year+1)
+                    years.append(9999)
+                    for year in years:
+                        data['release_year']=str(year)
+                        yield FormRequest(url=self.shows_by_category_url, callback=self.parseShowsByCategory, formdata=data, meta={'formdata':data})
+                else:
+                    #raise exception
+                    pass
+                return
+        if 'shows' in shows:
+            for shows in shows['shows']:
+                for k in shows:
+                    if k in showItem.fields:
+                        showItem[k]=shows[k]
+                yield showItem
+        else:
+            #raise exception here
+            pass
+        #next page
+        if "formdata" in response.meta and all(key in response.meta['formdata'] for key in ['page', 'count', 'category']):
+            page=int(response.meta['formdata']['page'])
+            next_page=page+1
+            count=int(response.meta['formdata']['count'])
+        if next_page*count < self.max_matches and page*count < shows_total:
+            data=response.meta['formdata']
+            data['page']=str(next_page)
+            yield FormRequest(response.url, formdata=data, callback=self.parseShowsByCategory, meta={'formdata':data})

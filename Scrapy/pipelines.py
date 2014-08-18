@@ -3,35 +3,40 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import os
-from pymongo import MongoClient
+import pymongo
 from Scrapy.items import *
 from os import path
 from datetime import datetime
 from scrapy import log
+
+
 class BasePipeline(object):
+
   def __init__(self):
-    self.mongo = MongoClient().scrapy
-  pass
+    pass
 
-class DoubanMoviePipeline(BasePipeline):
+
+class MongoPipeline(BasePipeline):
+
+  def __init__(self):
+    self.mongo = pymongo.MongoClient()
+
   def process_item(self, item, spider):
-    self.mongo = MongoClient().scrapy
-    try:
-        spider.pipelines
-    except NameError:
-        self.mongo.videos.save(dict(item))
-        return item
 
-    if 'ProxySpider' in spider.pipelines:
-      self.mongo.proxy.save(dict(item))
+    if isinstance(item, ShowItem):
+      if 'id' in item:
+        self.mongo.scrapy.videos.update({'id':item['id']}, {'$set':dict(item)}, upsert=True)
 
-    if 'DoubanMovie' in spider.pipelines:
+    if 'ProxyItem' == item.__class__.__name__:
+      self.mongo.Scrapy.proxy.save(dict(item))
+
+    if 'MovieItem' == item.__class__.__name__:
       if isinstance(item, MovieItem):
         if 'comments' in item:
           comments = item['comments']
           del(item['comments'])
-          self.mongo.movies.update({'id' : item['id']}, {'$push':{'comments': {'$each':comments}}})
-        self.mongo.movies.update({'id' : item['id']}, {'$set':dict(item)}, upsert = True)
+          self.mongo.Scrapy.movies.update({'id' : item['id']}, {'$push':{'comments': {'$each':comments}}})
+        self.mongo.Scrapy.movies.update({'id' : item['id']}, {'$set':dict(item)}, upsert = True)
       elif isinstance(item, CelebrityItem):
-        self.mongo.celebritys.update({'id' : item['id']}, {'$set':dict(item)}, upsert = True)
+        self.mongo.Scrapy.celebritys.update({'id' : item['id']}, {'$set':dict(item)}, upsert = True)
     return item
