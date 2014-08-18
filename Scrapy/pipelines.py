@@ -8,6 +8,7 @@ from Scrapy.items import *
 from os import path
 from datetime import datetime
 from scrapy import log
+from scrapy.contrib.exporter import BaseItemExporter
 
 
 class BasePipeline(object):
@@ -24,6 +25,8 @@ class MongoPipeline(BasePipeline):
   def process_item(self, item, spider):
 
     if isinstance(item, ShowItem):
+      exporter=BaseItemExporter()
+      #print type(exporter.serialize_field(item.fields['favorite_count'], 'favorite_count', '333'))
       if 'id' in item:
         self.mongo.scrapy.videos.update({'id':item['id']}, {'$set':dict(item)}, upsert=True)
 
