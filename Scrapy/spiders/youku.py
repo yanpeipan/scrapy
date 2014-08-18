@@ -40,17 +40,13 @@ class YoukuSpider(CrawlSpider):
     show_category_url='https://openapi.youku.com/v2/schemas/show/category.json'
 
     def __init__(self, category = None, *args, **kwargs):
-        self.category=self.area=self.year=None
         if self.rate:
             self.download_delay=3600/self.rate
         if category:
             self.category=unicode(category, 'utf-8')
-        if 'area' in kwargs:
-            self.area=unicode(kwargs['area'])
-        if 'year' in kwargs:
-            self.year=unicode(kwargs['year'])
-        if 'orderby' in kwargs:
-            self.orderby=unicode(kwargs['orderby'])
+        for k,v in enumerate(kwargs):
+            if not hasattr(self, v):
+                self.v=kwargs[v]
 
     def start_requests(self):
         return [Request(self.show_category_url, callback=self.parseCategory)]
@@ -60,17 +56,16 @@ class YoukuSpider(CrawlSpider):
         if 'categories' in categories:
             for category in categories['categories']:
                 category_label=category['label']
-                if self.category and self.category != category_label:
+                if hasattr(self, 'category') and self.category != category_label:
                     continue
-                print category_label
                 if 'genre' in category:
                     data={'client_id':self.client_id, 'category':category_label, 'page':'1', 'count':'100'}
-                    if self.year:
-                        data['release_year']=self.year
-                    if self.area:
-                        data['area']=self.area
-                    if self.orderby:
-                        data['orderby']=self.orderby
+                    if hasattr(self, 'year'):
+                        data['release_year']=getattr(self, 'year')
+                    if hasattr(self, 'area'):
+                        data['area']=getattr(self, 'area')
+                    if hasattr(self, 'orderby'):
+                        data['orderby']=getattr(self, 'orderby')
                     for genre in category['genre']:
                         data['genre']=genre['label']
                         yield FormRequest(url=self.shows_by_category_url, callback=self.parseShowsByCategory, formdata=data, meta={'formdata':data})
