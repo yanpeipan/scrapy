@@ -59,7 +59,7 @@ class YoukuSpider(CrawlSpider):
         elif hasattr(self, 'show_id'):
             return [self.queryShowsVideos({'show_id':getattr(self, 'show_id')})]
         else:
-            raise
+            return [Request(self.show_category_url, callback=self.parseCategory)]
 
     def parseCategory(self, response):
         categories=json.loads(response.body)
@@ -70,11 +70,11 @@ class YoukuSpider(CrawlSpider):
                     continue
                 if 'genre' in category:
                     data={'client_id':self.client_id, 'category':category_label, 'page':'1', 'count':'100'}
-                    if hasattr(self, 'year', False):
+                    if hasattr(self, 'year'):
                         data['release_year']=getattr(self, 'year')
-                    if hasattr(self, 'area', False):
+                    if hasattr(self, 'area'):
                         data['area']=getattr(self, 'area')
-                    if hasattr(self, 'orderby', False):
+                    if hasattr(self, 'orderby'):
                         data['orderby']=getattr(self, 'orderby')
                     for genre in category['genre']:
                         data['genre']=genre['label']
@@ -134,8 +134,8 @@ class YoukuSpider(CrawlSpider):
     def queryShowsByCategory(self, formdata):
         #check necessary keys
         if all(key in formdata for key in ['client_id', 'category']): return FormRequest(self.shows_by_category_url, formdata=formdata, callback=self.parseShowsByCategory, meta={'formdata':formdata}) 
+
     def queryShowsVideos(self, formdata):
-        print 'query'
         #check necessary keys
         if all(key in formdata for key in ['show_id']):
             formdata['count']=str(formdata['count']) if 'count' in formdata else '100'
@@ -146,7 +146,6 @@ class YoukuSpider(CrawlSpider):
             return FormRequest(self.shows_videos_url, formdata=formdata, callback=self.parseShowsVideos, meta={'formdata':formdata})
 
     def parseShowsVideos(self, response):
-        print 'parseShowsVideos'
         if 'formdata' not in response.meta or 'show_id' not in response.meta['formdata']:
             return
         #init variables

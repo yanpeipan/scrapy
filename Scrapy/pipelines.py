@@ -40,8 +40,10 @@ class MongoPipeline(BasePipeline):
     if isinstance(item, ShowItem):
       if 'id' in item:
         self.mongo.scrapy.videos.update({'id':item['id']}, {'$set':dict(item)}, upsert=True)
+    #upsert youku videos
     if isinstance(item, ShowVideoItem) and 'id' in item and 'show_id' in item:
-      self.mongo.scrapy.videos.update({'id':item['show_id'], 'videos.id':item['id']}, {'set':{'videos.$':dict(item)}}, False, True)
+      self.mongo.scrapy.videos.update({'id':item['show_id']}, {'$setOnInsert':{'videos':dict(item)}, '$set': {'videos':dict(item)}}, False, True)
+        #self.mongo.scrapy.videos.update({'id':item['show_id']}, {'$addToSet':{'videos':dict(item)}}, True, True)
     if 'ProxyItem' == item.__class__.__name__:
       self.mongo.Scrapy.proxy.save(dict(item))
     if 'MovieItem' == item.__class__.__name__:
