@@ -12,6 +12,7 @@ SPIDER_MODULES = ['Scrapy.spiders']
 NEWSPIDER_MODULE = 'Scrapy.spiders'
 
 ITEM_PIPELINES = {
+    #'Scrapy.pipelines.SerializerPipeline': 10,
     'Scrapy.pipelines.MongoPipeline': 100,
     }
 
@@ -29,7 +30,7 @@ COOKIES_ENABLED = False
 
 CONCURRENT_ITEMS = 1000
 
-#LOG_ENABLED = True
+LOG_ENABLED = True
 #LOG_FILE = 'ScrapyCrawl.log'
 #LOG_LEVEL = 'INFO'
 

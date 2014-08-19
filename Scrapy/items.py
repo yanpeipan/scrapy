@@ -3,7 +3,13 @@
 # See documentation in:
 # http://doc.scrapy.org/en/latest/topics/items.html
 
-from scrapy import Item, Field
+from scrapy.item import Item, Field
+from scrapy.contrib.loader import ItemLoader
+from scrapy.contrib.loader.processor import Join, MapCompose, TakeFirst,Identity,Compose
+from datetime import datetime
+
+class VideoItem(Item):
+  source=Field()
 
 class ScrapyItem(Item):
     title = Field()
@@ -88,7 +94,7 @@ class streamtypes(Item):
     hd3gp=Field()
     hd3=Field()
 
-class ShowItem(Item):
+class ShowItem(VideoItem):
     id=Field()
     name=Field()
     link=Field()
@@ -115,3 +121,38 @@ class ShowItem(Item):
     dct=Field()
     algInfo=Field()
     related=Field()
+
+class ShowLoader(ItemLoader):
+
+    default_output_processor=TakeFirst()
+    default_output_processor=TakeFirst()
+
+    streamtypes_out=Identity()
+    hasvideotype_out=Identity()
+    #published_out=Compose(lambda s:datetime.strptime(s[0], '%Y-%m-%d'))
+
+    favorite_count_in=MapCompose(int)
+    episode_count_in=MapCompose(int)
+    view_count_in=MapCompose(int)
+    comment_count_in=MapCompose(int)
+
+class ShowVideoItem(Item):
+    show_id=Field()
+    id=Field()
+    title=Field()
+    link=Field()
+    thumbnail=Field()
+    duration=Field()
+    category=Field()
+    view_count=Field()
+    favorite_count=Field()
+    comment_count=Field()
+    up_count=Field()
+    down_count=Field()
+    stage=Field()
+    seq=Field()
+    published=Field()
+    operation_limit=Field()
+    streamtypes=Field()
+    state=Field()
+    rc_title=Field()

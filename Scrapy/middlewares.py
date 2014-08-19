@@ -36,8 +36,8 @@ class ProxyMiddleware(object):
     if response.status != 200:
       pass
     return response
-  def process_exception(request, exception, spider):
-    print exception
+  def process_exception(self, request, exception, spider):
+    pass
 
 class UrlMiddleware(object):
   def process_request(self, request, spider):
@@ -89,6 +89,6 @@ class RotateUserAgentMiddleware(UserAgentMiddleware):
     elif self.user_agent:
       agent = self.user_agent
     else:
-      agent = random.choice(self.userAgentList)
+      agent = random.choice(getattr(self, 'user_agent_list'))
     if agent:
       request.headers.setdefault('User-Agent', agent)
