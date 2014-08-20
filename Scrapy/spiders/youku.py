@@ -54,11 +54,11 @@ class YoukuSpider(CrawlSpider):
                 setattr(self, v, kwargs[v])
 
     def start_requests(self):
-        if hasattr(self, 'category'):
-            return [Request(self.show_category_url, callback=self.parseCategory)]
-        elif hasattr(self, 'show_id'):
+        if hasattr(self, 'show_id') and hasattr(self, 'videos'):
+            #update videos of show which id is `show_id`
             return [self.queryShowsVideos({'show_id':getattr(self, 'show_id')})]
         else:
+            #update all
             return [Request(self.show_category_url, callback=self.parseCategory)]
 
     def parseCategory(self, response):
