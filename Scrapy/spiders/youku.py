@@ -10,6 +10,7 @@ from scrapy.http import Request
 from Scrapy.items import *
 from urlparse import urlparse,parse_qs
 import json
+import pymongo
 from datetime import datetime, date, time
 
 class YoukuSpider(CrawlSpider):
@@ -45,6 +46,7 @@ class YoukuSpider(CrawlSpider):
     shows_videos_url='https://openapi.youku.com/v2/shows/videos.json'
 
     def __init__(self, category = None, *args, **kwargs):
+        self.mongo=pymongo.MongoClient()
         if self.rate:
             self.download_delay=1/self.rate
         if category:
@@ -54,7 +56,12 @@ class YoukuSpider(CrawlSpider):
                 setattr(self, v, kwargs[v])
 
     def start_requests(self):
-        if hasattr(self, 'show_id') and hasattr(self, 'videos'):
+        if hasattr(self, 'type') and getattr(self, 'type') == 'uncompleted videos':
+            requests=[]
+            for show in self.mongo.scrapy.videos.find({'completed':0}):
+                requests.append(self.queryShowsVideos({'show_id':show['id']}))
+            return requests
+        elif hasattr(self, 'show_id') and hasattr(self, 'videos'):
             #update videos of show which id is `show_id`
             return [self.queryShowsVideos({'show_id':getattr(self, 'show_id')})]
         else:
@@ -144,6 +151,9 @@ class YoukuSpider(CrawlSpider):
             #formdata['show_videotype']=str(formdata['show_videotype']) if 'show_videotype' in formdata else '正片,预告片,花絮,MV,资讯,首映式'
             formdata['orderby']=str(formdata['orderby']) if 'orderby' in formdata else 'videoseq-asc'
             return FormRequest(self.shows_videos_url, formdata=formdata, callback=self.parseShowsVideos, meta={'formdata':formdata})
+        else:
+            pass
+
 
     def parseShowsVideos(self, response):
         if 'formdata' not in response.meta or 'show_id' not in response.meta['formdata']:

@@ -156,3 +156,6 @@ class ShowVideoItem(Item):
     streamtypes=Field()
     state=Field()
     rc_title=Field()
+
+class UncomplatedItem(Item):
+  id=Field()
