@@ -13,9 +13,10 @@ class DoubanSpider(CrawlSpider):
   name = 'douban'
   allowed_domins = ['http://www.douban.com', 'https://api.douban.com']
   start_urls = ['http://movie.douban.com/tag/']
+  rate = float(40)/60
 
   def __init__(self, test = None, *args, **kwargs):
-    pass
+    self.download_delay=1/self.rate
 
   def parseCollect(self, response):
     sel = Selector(response)
