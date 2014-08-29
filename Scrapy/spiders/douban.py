@@ -15,7 +15,7 @@ class DoubanSpider(CrawlSpider):
   start_urls = ['http://movie.douban.com/tag/']
   rate = float(40)/60
 
-  def __init__(self, test = None, *args, **kwargs):
+  def __init__(self, *args, **kwargs):
     self.download_delay=1/self.rate
 
   def parseCollect(self, response):
