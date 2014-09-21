@@ -24,6 +24,7 @@ class YoukuSpider(CrawlSpider):
     """
     client_id='696c961ded023528'
     max_matches=1500
+    parse_videos_after_show=False
     #1000/hour
     #@link http://open.youku.com/docs/newbieguide.html#id4
     rate=float(1000)/3600
@@ -47,8 +48,8 @@ class YoukuSpider(CrawlSpider):
 
     def __init__(self, category = None, *args, **kwargs):
         self.mongo=pymongo.MongoClient()
-        if self.rate:
-            self.download_delay=1/self.rate
+        if hasattr(self, 'rate'):
+            self.download_delay=1/getattr(self, 'rate')
         if category:
             self.category=unicode(category, 'utf-8')
         for k,v in enumerate(kwargs):
@@ -97,37 +98,20 @@ class YoukuSpider(CrawlSpider):
             shows_total=int(shows['total'])
             if shows_total == 0:
                 return
-            # add subclass(area, release_year),if total of shows greater than max_matches
-            elif shows_total > self.max_matches:
-                data=response.meta['formdata']
-                if 'area' not in response.meta['formdata']:
-                    for area in self.schemas_unit:
-                        data['area']=area
-                        yield self.queryShowsByCategory(data)
-                elif 'release_year' not in response.meta['formdata']:
-                    years=range(2008, datetime.now().year+1)
-                    years.append(9999)
-                    for year in years:
-                        data['release_year']=str(year)
-                        yield self.queryShowsByCategory(data)
-                else:
-                    raise
-                return
-        if 'shows' in shows:
-            for show in shows['shows']:
-                if 'id' in show:
-                    yield self.queryShowsVideos({'client_id':self.client_id, 'show_id':str(show['id'])})
-                else:
-                    continue
-                showItem=ShowItem(source='youku')
-                itemLoader = ShowLoader(item=showItem)
-                for k in show:
-                    if k in showItem.fields:
-                        showItem[k]=show[k]
-                        itemLoader.add_value(k, show[k])
-                yield itemLoader.load_item()
         else:
             raise
+        # add subclass(area, release_year),if total of shows greater than max_matches
+        for show in shows['shows']:
+            #parse videos of show
+            if 'id' in show and getattr(self, 'parse_videos_after_show'):
+                yield self.queryShowsVideos({'client_id':self.client_id, 'show_id':str(show['id'])})
+            showItem=ShowItem(source='youku')
+            itemLoader = ShowLoader(item=showItem)
+            for k in show:
+                if k in showItem.fields:
+                    showItem[k]=show[k]
+                    itemLoader.add_value(k, show[k])
+            yield itemLoader.load_item()
         #next page
         if "formdata" in response.meta and all(key in response.meta['formdata'] for key in ['page', 'count', 'category']):
             page=int(response.meta['formdata']['page'])
