@@ -11,15 +11,6 @@ from datetime import datetime
 class VideoItem(Item):
   source=Field()
 
-class ScrapyItem(Item):
-    title = Field()
-    link = Field()
-    desc = Field()
-
-class TagItem(Item):
-    tag = Field()
-    num = Field()
-    url = Field()
 
 class CelebrityItem(Item):
     mobile_url = Field()
@@ -41,7 +32,7 @@ class Person(Item):
     collect = Field()
     wish = Field()
 
-class MovieItem(Item):
+class MovieItem(VideoItem):
     rating = Field()
     title = Field()
     collect_count = Field()
@@ -124,7 +115,6 @@ class ShowItem(VideoItem):
 
 class ShowLoader(ItemLoader):
 
-    default_output_processor=TakeFirst()
     default_output_processor=TakeFirst()
 
     streamtypes_out=Identity()

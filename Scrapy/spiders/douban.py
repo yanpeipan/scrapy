@@ -5,9 +5,10 @@ from scrapy .selector import Selector
 from pymongo import MongoClient
 from scrapy.http import Request
 from Scrapy.items import *
-from urlparse import urlparse,parse_qs
+from urlparse import urlparse,parse_qs,parse_qsl,urlunparse
 import json
 from datetime import datetime, date, time
+from scrapy.contrib.loader import ItemLoader
 
 class DoubanSpider(CrawlSpider):
   name='douban'
@@ -138,14 +139,33 @@ class DoubanSpider(CrawlSpider):
   def parseMovieList(self, response):
     movies = json.loads(response.body_as_unicode())
     for movie in movies['subjects']:
+      movieItem = MovieItem(source='douban')
+      #itemLoader = ItemLoader(item=movieItem, default_output_processor=TakeFirst())
+      for key in movie:
+        if key in movieItem.fields:
+          movieItem[key] = movie[key]
+      yield movieItem
+      #parse movie subject, when self.parse_movie_subject == True
       if getattr(self, 'parse_movie_subject'):
         yield Request(url = 'https://api.douban.com/v2/movie/subject/' + movie['id'], callback = self.parseMovieSubject)
-      params = parse_qs(urlparse(response.url).query)
-      if 'start' in params:
-        start=(int)(params['start'].pop()) + 20 #also can be translated by request.meta
+      query = dict(parse_qsl(urlparse(response.url).query,  keep_blank_values=True))
+      if 'start' in query:
+        start=(int)(query['start']) + 20 #also can be translated by request.meta
       else:
-        start=20
-      tag = params['tag'].pop()
+        query['start']=20
+      parseResult.query=query
+      print urlunparse(parseResult)
+      url = "http://stackoverflow.com/search?q=question"
+params = {'lang':'en','tag':'python'}
+
+url_parts = list(urlparse.urlparse(url))
+query = dict(urlparse.parse_qsl(url_parts[4]))
+query.update(params)
+
+url_parts[4] = urllib.urlencode(query)
+
+print urlparse.urlunparse(url_parts)
+      return
       yield Request(url = 'https://api.douban.com/v2/movie/search?tag=' + tag + '&start=' + str(start), callback = self.parseMovieList)
 
   def parseMovieTag(self, response):

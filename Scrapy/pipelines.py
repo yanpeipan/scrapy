@@ -51,6 +51,7 @@ class MongoPipeline(BasePipeline):
       if 'comments' in item:
         self.mongo.scrapy.movies.update({'id' : item['id']}, {'$push':{'comments': {'$each': item['comments']}}})
         del(item['comments'])
+      print item
       self.mongo.scrapy.movies.update({'id' : item['id']}, {'$set':dict(item)}, upsert = True)
     if isinstance(item, CelebrityItem):
       self.mongo.scrapy.celebritys.update({'id' : item['id']}, {'$set':dict(item)}, upsert = True)
