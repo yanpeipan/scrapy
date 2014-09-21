@@ -49,10 +49,9 @@ class MongoPipeline(BasePipeline):
     #upsert douban movie
     if isinstance(item, MovieItem):
       if 'comments' in item:
-        self.mongo.scrapy.movies.update({'id' : item['id']}, {'$push':{'comments': {'$each': item['comments']}}})
+        self.mongo.scrapy.videos.update({'id' : item['id']}, {'$push':{'comments': {'$each': item['comments']}}})
         del(item['comments'])
-      print item
-      self.mongo.scrapy.movies.update({'id' : item['id']}, {'$set':dict(item)}, upsert = True)
+      self.mongo.scrapy.videos.update({'id' : item['id']}, {'$set':dict(item)}, upsert = True)
     if isinstance(item, CelebrityItem):
       self.mongo.scrapy.celebritys.update({'id' : item['id']}, {'$set':dict(item)}, upsert = True)
     return item
