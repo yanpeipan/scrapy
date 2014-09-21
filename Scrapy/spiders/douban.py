@@ -144,13 +144,10 @@ class DoubanSpider(CrawlSpider):
             yield movieItem
             for celebrity in (movie['casts'] + movie['directors']):
                 if id in celebrity:
-                    pass
-                    # yield Request(url = 'https://api.douban.com/v2/movie/celebrity/' + celebrity['id'], callback = self.parseCelebrity)
-            # yield Request(url = 'http://movie.douban.com/subject/' + movie['id'], callback = self.parseSubject, meta = {'id':movie['id']})
-            # yield Request(url = 'http://movie.douban.com/subject/' + movie['id'] + '/comments', callback = self.parseComment, meta = {'id':movie['id']})
-            # yield Request(url = 'http://movie.douban.com/subject/' +
-            # movie['id'] + '/reviews', callback = self.parseReview, meta =
-            # {'id':movie['id']})
+                    yield Request(url = 'https://api.douban.com/v2/movie/celebrity/' + celebrity['id'], callback = self.parseCelebrity)
+            yield Request(url = 'http://movie.douban.com/subject/' + movie['id'], callback = self.parseSubject, meta = {'id':movie['id']})
+            yield Request(url = 'http://movie.douban.com/subject/' + movie['id'] + '/comments', callback = self.parseComment, meta = {'id':movie['id']})
+            yield Request(url = 'http://movie.douban.com/subject/' + movie['id'] + '/reviews', callback = self.parseReview, meta = {'id':movie['id']})
 
     def parseMovieList(self, response):
         movies = json.loads(response.body_as_unicode())
@@ -166,7 +163,7 @@ class DoubanSpider(CrawlSpider):
                 yield Request(url='https://api.douban.com/v2/movie/subject/' + movie['id'], callback=self.parseMovieSubject)
         if len(movies['subjects']) <= 0:
           return
-          # next page
+        # next page
         url_parts = list(urlparse.urlparse(response.url))
         query = dict(urlparse.parse_qsl(url_parts[4]))
         if 'start' in query:
@@ -182,6 +179,5 @@ class DoubanSpider(CrawlSpider):
         items = sel.xpath('//table[@class="tagCol"]//td')
         for item in items:
             tag = item.xpath('a/text()').extract().pop()
-            # num=item.xpath('b/text()').re(r"\d+").pop()
+            #num=item.xpath('b/text()').re(r"\d+").pop()
             yield Request(url=getattr(self, 'movie_search_url') + '?tag=' + tag, callback=self.parseMovieList)
-            return
