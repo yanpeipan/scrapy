@@ -10,13 +10,25 @@ import json
 from datetime import datetime, date, time
 
 class DoubanSpider(CrawlSpider):
-  name = 'douban'
+  name='douban'
   allowed_domins = ['http://www.douban.com', 'https://api.douban.com']
-  start_urls = ['http://movie.douban.com/tag/']
-  rate = float(40)/60
+  start_urls=['http://movie.douban.com/tag/']
+  movie_tag_url='http://movie.douban.com/tag/'
+  movie_search_url='https://api.douban.com/v2/movie/search'
+  movei_subject_url='https://api.douban.com/v2/movie/subject/'
+  #parse movei subject after search movie
+  parse_movie_subject=False
+  #rate: 40page/min
+  rate = 40.0/60.0
 
   def __init__(self, *args, **kwargs):
-    self.download_delay=1/self.rate
+    for k,v in enumerate(kwargs):
+      setattr(self, v, kwargs[v])
+    if hasattr(self, 'rate'):
+      self.download_delay=1/getattr(self, 'rate')
+
+  def start_requests(self):
+    return [Request(self.movie_tag_url, callback=self.parseMovieTag)]
 
   def parseCollect(self, response):
     sel = Selector(response)
@@ -108,7 +120,7 @@ class DoubanSpider(CrawlSpider):
       yield Request(url = 'https://api.douban.com/v2/movie/subject/' + movieId, callback = self.parseMovie)
     yield movieItem
 
-  def parseMovie(self, response):
+  def parseMovieSubject(self, response):
     movie = json.loads(response.body_as_unicode())
     if len(movie)>0:
       movieItem = MovieItem()
@@ -123,22 +135,24 @@ class DoubanSpider(CrawlSpider):
       #yield Request(url = 'http://movie.douban.com/subject/' + movie['id'] + '/comments', callback = self.parseComment, meta = {'id':movie['id']})
       #yield Request(url = 'http://movie.douban.com/subject/' + movie['id'] + '/reviews', callback = self.parseReview, meta = {'id':movie['id']})
 
-  def parseList(self, response):
+  def parseMovieList(self, response):
     movies = json.loads(response.body_as_unicode())
-    if len(movies['subjects'])>0:
-      for movie in movies['subjects']:
-        yield Request(url = 'https://api.douban.com/v2/movie/subject/' + movie['id'], callback = self.parseMovie)
+    for movie in movies['subjects']:
+      if getattr(self, 'parse_movie_subject'):
+        yield Request(url = 'https://api.douban.com/v2/movie/subject/' + movie['id'], callback = self.parseMovieSubject)
       params = parse_qs(urlparse(response.url).query)
-      start = (int)(params['start'].pop()) + 20 #also can be translated by request.meta
+      if 'start' in params:
+        start=(int)(params['start'].pop()) + 20 #also can be translated by request.meta
+      else:
+        start=20
       tag = params['tag'].pop()
-      yield Request(url = 'https://api.douban.com/v2/movie/search?tag=' + tag + '&start=' + str(start), callback = self.parseList)
+      yield Request(url = 'https://api.douban.com/v2/movie/search?tag=' + tag + '&start=' + str(start), callback = self.parseMovieList)
 
-  def parse(self, response):
+  def parseMovieTag(self, response):
     sel = Selector(response)
     items = sel.xpath('//table[@class="tagCol"]//td')
     for item in items:
-      tagItem = TagItem()
-      tagItem['tag'] = item.xpath('a/text()').extract().pop()
-      tagItem['num'] = item.xpath('b/text()').re(r"\d+").pop()
-      yield tagItem
-      yield Request(url = 'https://api.douban.com/v2/movie/search?tag=' + tagItem['tag'] + '&start=0', callback = self.parseList)
+      tag=item.xpath('a/text()').extract().pop()
+      #num=item.xpath('b/text()').re(r"\d+").pop()
+      yield Request(url = 'https://api.douban.com/v2/movie/search?tag=' + tag, callback = self.parseMovieList)
+      return

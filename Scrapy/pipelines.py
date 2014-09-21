@@ -36,24 +36,22 @@ class MongoPipeline(BasePipeline):
     self.mongo = pymongo.MongoClient()
 
   def process_item(self, item, spider):
-
-    if isinstance(item, ShowItem):
-      if 'id' in item:
-        self.mongo.scrapy.videos.update({'id':item['id']}, {'$set':dict(item)}, upsert=True)
-    #upsert youku videos
+    #upsert youku show
+    if isinstance(item, ShowItem) and getattr(item, 'id'):
+        result=self.mongo.scrapy.videos.update({'id':item['id']}, {'$set':dict(item)}, upsert=True)
+    #upsert youku videos when 'ShowVideoItem' == item.__class__.__name__
     if isinstance(item, ShowVideoItem) and 'id' in item and 'show_id' in item:
       result = self.mongo.scrapy.videos.update({'id':item['show_id'], 'videos.id':item['id']}, {'$set':{'videos.$':dict(item)}}, False, True)
       if result['updatedExisting'] == False:
         self.mongo.scrapy.videos.update({'id':item['show_id']}, {'$addToSet':{'videos':dict(item)}}, False, True)
     if 'ProxyItem' == item.__class__.__name__:
-      self.mongo.Scrapy.proxy.save(dict(item))
-    if 'MovieItem' == item.__class__.__name__:
-      if isinstance(item, MovieItem):
-        if 'comments' in item:
-          comments = item['comments']
-          del(item['comments'])
-          self.mongo.Scrapy.movies.update({'id' : item['id']}, {'$push':{'comments': {'$each':comments}}})
-        self.mongo.Scrapy.movies.update({'id' : item['id']}, {'$set':dict(item)}, upsert = True)
-      elif isinstance(item, CelebrityItem):
-        self.mongo.Scrapy.celebritys.update({'id' : item['id']}, {'$set':dict(item)}, upsert = True)
+      self.mongo.scrapy.proxy.save(dict(item))
+    #upsert douban movie
+    if isinstance(item, MovieItem):
+      if 'comments' in item:
+        self.mongo.scrapy.movies.update({'id' : item['id']}, {'$push':{'comments': {'$each': item['comments']}}})
+        del(item['comments'])
+      self.mongo.scrapy.movies.update({'id' : item['id']}, {'$set':dict(item)}, upsert = True)
+    if isinstance(item, CelebrityItem):
+      self.mongo.scrapy.celebritys.update({'id' : item['id']}, {'$set':dict(item)}, upsert = True)
     return item
