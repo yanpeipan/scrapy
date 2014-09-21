@@ -46,11 +46,12 @@ class MongoPipeline(BasePipeline):
         self.mongo.scrapy.videos.update({'id':item['show_id']}, {'$addToSet':{'videos':dict(item)}}, False, True)
     if 'ProxyItem' == item.__class__.__name__:
       self.mongo.scrapy.proxy.save(dict(item))
+    #upsert douban movie
     if isinstance(item, MovieItem):
       if 'comments' in item:
         self.mongo.scrapy.movies.update({'id' : item['id']}, {'$push':{'comments': {'$each': item['comments']}}})
         del(item['comments'])
       self.mongo.scrapy.movies.update({'id' : item['id']}, {'$set':dict(item)}, upsert = True)
-    elif isinstance(item, CelebrityItem):
+    if isinstance(item, CelebrityItem):
       self.mongo.scrapy.celebritys.update({'id' : item['id']}, {'$set':dict(item)}, upsert = True)
     return item
