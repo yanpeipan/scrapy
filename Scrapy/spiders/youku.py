@@ -116,7 +116,8 @@ class YoukuSpider(CrawlSpider):
         if 'shows' in shows:
             for show in shows['shows']:
                 if 'id' in show:
-                    yield self.queryShowsVideos({'client_id':self.client_id, 'show_id':str(show['id'])})
+                    pass
+                    #yield self.queryShowsVideos({'client_id':self.client_id, 'show_id':str(show['id'])})
                 else:
                     continue
                 showItem=ShowItem(source='youku')
