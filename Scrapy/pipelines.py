@@ -37,7 +37,7 @@ class MongoPipeline(BasePipeline):
 
   def process_item(self, item, spider):
     #upsert youku show
-    if isinstance(item, ShowItem) and getattr(item, 'id'):
+    if isinstance(item, ShowItem) and 'id' in item:
         result=self.mongo.scrapy.videos.update({'id':item['id']}, {'$set':dict(item)}, upsert=True)
     #upsert youku videos when 'ShowVideoItem' == item.__class__.__name__
     if isinstance(item, ShowVideoItem) and 'id' in item and 'show_id' in item:

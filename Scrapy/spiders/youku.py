@@ -23,6 +23,7 @@ class YoukuSpider(CrawlSpider):
     config of youku
     """
     client_id='696c961ded023528'
+    count='100'
     max_matches=1500
     parse_videos_after_show=False
     #1000/hour
