@@ -11,7 +11,7 @@ class ProxyMiddleware(object):
     self.proxys = list(mongo.proxy.find({'status':200}))
 
   def process_request(self, request, spider):
-    if 'DoubanApiKey' in getattr(spider, 'middlewares', []):
+    if spider.__class__.__name__ == 'DoubanSpider':
       url = urlparse(request.url)
       params = parse_qs(url.query)
       if url.scheme == 'https':
@@ -23,12 +23,9 @@ class ProxyMiddleware(object):
           return
         return request
       elif url.scheme == 'http':
-        proxy = self.proxys.pop()
-        proxy['time'] = time.time()
-        self.proxys.insert(0, proxy)
-        request.meta['proxy'] = proxy['ip']
-    elif 'Selenium' in getattr(spider, 'middlewares', []):
-      pass
+	pass
+      elif 'Selenium' in getattr(spider, 'middlewares', []):
+        pass
       #browser = webdriver.Firefox()
       #browser.get(request.url)
 

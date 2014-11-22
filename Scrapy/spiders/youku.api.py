@@ -7,6 +7,7 @@ from scrapy.exceptions import CloseSpider
 from scrapy.selector import Selector
 from scrapy.http import FormRequest
 from scrapy.http import Request
+from scrapy import log
 from Scrapy.items import *
 from urlparse import urlparse,parse_qs
 import json
@@ -14,7 +15,7 @@ import pymongo
 from datetime import datetime, date, time
 
 class YoukuSpider(CrawlSpider):
-    name = 'youku'
+    name = 'youkuapi'
     #download_delay=3600/1000
     allowed_domins = ['http://www.youku.com', 'https://openapi.youku.com']
     start_urls = []
@@ -75,10 +76,13 @@ class YoukuSpider(CrawlSpider):
         if 'categories' in categories:
             for category in categories['categories']:
                 category_label=category['label']
+		log.msg(category_label, log.INFO)
+		data={'client_id':self.client_id, 'category':category_label, 'page':'1', 'count':'100'}
+		yield self.queryShowsByCategory(data)
+		continue
                 if hasattr(self, 'category') and self.category != category_label:
                     continue
                 if 'genre' in category:
-                    data={'client_id':self.client_id, 'category':category_label, 'page':'1', 'count':'100'}
                     if hasattr(self, 'year'):
                         data['release_year']=getattr(self, 'year')
                     if hasattr(self, 'area'):
@@ -95,6 +99,8 @@ class YoukuSpider(CrawlSpider):
 
     def parseShowsByCategory(self, response):
         shows=json.loads(response.body)
+	print shows['total']
+	return
         if 'total' in shows:
             shows_total=int(shows['total'])
             if shows_total == 0:
@@ -154,6 +160,7 @@ class YoukuSpider(CrawlSpider):
             yield self.queryShowsByCategory(data)
 
     def queryShowsByCategory(self, formdata):
+	log.msg(formdata, level=log.INFO)
         #check necessary keys
         if all(key in formdata for key in ['client_id', 'category']): return FormRequest(self.shows_by_category_url, formdata=formdata, callback=self.parseShowsByCategory, meta={'formdata':formdata}) 
 
