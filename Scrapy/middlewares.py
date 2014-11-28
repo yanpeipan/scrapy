@@ -11,6 +11,7 @@ class ProxyMiddleware(object):
     self.proxys = list(mongo.proxy.find({'status':200}))
 
   def process_request(self, request, spider):
+    print request.meta
     if spider.__class__.__name__ == 'DoubanSpider':
       url = urlparse(request.url)
       params = parse_qs(url.query)
