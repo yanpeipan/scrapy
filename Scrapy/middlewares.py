@@ -2,7 +2,7 @@ from urlparse import urlparse,parse_qs
 from pymongo import MongoClient
 import time
 import random
-from scrapy.contrib.downloadermiddleware.useragent import UserAgentMiddleware
+from scrapy.downloadermiddlewares.useragent import UserAgentMiddleware
 from selenium import webdriver
 
 class ProxyMiddleware(object):

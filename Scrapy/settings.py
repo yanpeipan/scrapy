@@ -19,6 +19,7 @@ ITEM_PIPELINES = {
 DOWNLOADER_MIDDLEWARES = {
     'Scrapy.middlewares.ProxyMiddleware': 100,
     'Scrapy.middlewares.DownloadTimer': 100,
+    'scrapy.spidermiddlewares.depth.DepthMiddleware': 100
     }
 
 #SPIDER_MIDDLEWARES = {
@@ -39,3 +40,6 @@ DOWNLOAD_DELAY = 0.25
 GRAPHITE_HOST = '127.0.0.1'
 GRAPHITE_PORT = 2003
 #STATS_CLASS = 'Scrapy.graphite.RedisGraphiteStatsCollector'
+DEPTH_LIMIT = 7
+DEPTH_PRIORITY = 1
+DEPTH_STATS = True

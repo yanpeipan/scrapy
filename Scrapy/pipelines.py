@@ -8,7 +8,8 @@ from Scrapy.items import *
 from os import path
 from datetime import datetime
 from scrapy import log
-from scrapy.contrib.exporter import BaseItemExporter
+from scrapy.exporters import BaseItemExporter
+from elasticsearch import Elasticsearch
 
 class BasePipeline(object):
 
@@ -34,6 +35,12 @@ class MongoPipeline(BasePipeline):
 
   def __init__(self):
     self.mongo = pymongo.MongoClient()
+    self.es = Elasticsearch([
+        {'host': '127.0.0.1'},
+    ])
+
+    self.es.indices.create(index='baidupan', ignore=400)
+
 
   def process_item(self, item, spider):
     #upsert youku show
@@ -54,4 +61,10 @@ class MongoPipeline(BasePipeline):
       self.mongo.scrapy.videos.update({'id' : item['id']}, {'$set':dict(item)}, upsert = True)
     if isinstance(item, CelebrityItem):
       self.mongo.scrapy.celebritys.update({'id' : item['id']}, {'$set':dict(item)}, upsert = True)
+    if isinstance(item, BaiduPanShareItem):
+      self.es.update('baidupan', 'sharelist', item['shareid'], {
+            'doc': dict(item),
+            'doc_as_upsert': True
+            }
+        )
     return item

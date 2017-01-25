@@ -4,20 +4,60 @@
 # http://doc.scrapy.org/en/latest/topics/items.html
 
 from scrapy.item import Item, Field
-from scrapy.contrib.loader import ItemLoader
+from scrapy.loader import ItemLoader
 from scrapy.contrib.loader.processor import Join, MapCompose, TakeFirst,Identity,Compose
 from datetime import datetime
 
 class VideoItem(Item):
   source=Field()
 
+class BaiduPanFansItem(Item):
+    uname = Field()
+class BaiduPanFollwItem(Item):
+    uname = Field()
+class BaiduPanShareItem(Item):
+    album_id = Field()
+    feed_type = Field()
+    category = Field()
+    public = Field()
+    shareid = Field()
+    data_id = Field()
+    title = Field()
+    third = Field()
+    clienttype = Field()
+    filecount = Field()
+    uk = Field()
+    username = Field()
+    feed_time = Field()
+    desc = Field()
+    avatar_url = Field()
+    category_1_cnt = Field()
+    category_2_cnt = Field()
+    category_3_cnt = Field()
+    category_4_cnt = Field()
+    category_5_cnt = Field()
+    category_6_cnt = Field()
+    category_7_cnt = Field()
+    category_8_cnt = Field()
+    category_9_cnt = Field()
+    dir_cnt = Field()
+    filelist = Field()
+    source_uid = Field()
+    source_id = Field()
+    shorturl = Field()
+    vCnt = Field()
+    dCnt = Field()
+    tCnt = Field()
+    like_status = Field()
+    like_count = Field()
+    comment_count = Field()
 
 class CelebrityItem(Item):
     mobile_url = Field()
     aka_en = Field()
-    name = Field() 
-    works = Field() 
-    gender = Field() 
+    name = Field()
+    works = Field()
+    gender = Field()
     avatars = Field()
     id = Field()
     aka = Field()
