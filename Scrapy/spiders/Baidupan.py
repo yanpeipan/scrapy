@@ -16,6 +16,10 @@ class BaidupanSpider(CrawlSpider):
   name = 'baidupan'
   uks = ['286353630']
   allowed_domins = ['https://pan.baidu.com']
+  URL_HOT = 'https://pan.baidu.com/pcloud/friend/gethotuserlist?start={start}&limit=24'
+  """
+  {"errno":0,"request_id":3296180617,"hotuser_list":[{"type":-1,"hot_uname":"\u6700\u7ec8***4\u4e91\u76d8","avatar_url":"https:\/\/ss0.bdstatic.com\/7Ls0a8Sm1A5BphGlnYG\/sys\/portrait\/item\/50424c4f.jpg","intro":"\u767e\u5ea6\u300a\u6700\u7ec8\u5e7b\u60f314\u300b\u4e91\u5e73\u53f0\u30028\u670825\u65e5\u5f00\u653e\u6027\u6d4b\u8bd5\u5f00\u542f\uff0c\u656c\u8bf7\u671f\u5f85\u3002","follow_count":0,"fans_count":1278735,"user_type":4,"is_vip":0,"pubshare_count":2,"hot_uk":1112219283,"album_count":3},{"type":-1,"hot_uname":"\u8273*\u90ed\u9759","avatar_url":"https:\/\/ss0.bdstatic.com\/7Ls0a8Sm1A5BphGlnYG\/sys\/portrait\/item\/7a567d4d.jpg","intro":"\u90ed\u9759\u4e0e15\u4e2a\u57ce\u5e02\u7684\u8273\u9047","follow_count":0,"fans_count":1370108,"user_type":4,"is_vip":0,"pubshare_count":0,"hot_uk":1447638178,"album_count":0}]}
+  """
   URL_INFO = 'https://pan.baidu.com/pcloud/user/getinfo?&query_uk={uk}'
   """
   {"errno":0,"request_id":456845460,"user_info":{"avatar_url":"https:\/\/ss0.bdstatic.com\/7Ls0a8Sm1A5BphGlnYG\/sys\/portrait\/item\/decad705.jpg","fans_count":1,"follow_count":1,"intro":"","uname":"\u65adVS\u5f26","uk":3389100040,"album_count":0,"pubshare_count":0,"tui_user_count":0,"c2c_user_sell_count":0,"c2c_user_buy_count":0,"c2c_user_product_count":0,"pair_follow_type":-1}}
@@ -44,7 +48,7 @@ class BaidupanSpider(CrawlSpider):
   avatar_url：头像
   fans_uname：用户名
   """
-  # rate: 40page/min
+  # rate: 20page/min
   rate = 20.0 / 60.0
 
   def __init__(self, *args, **kwargs):
@@ -80,32 +84,40 @@ class BaidupanSpider(CrawlSpider):
 
     return requests
   """
-  请求分享列表
+  解析热门用户列表
   """
-  def requestShareList(self, uk, start, limit):
-      yield Request(
-          url=self.URL_FANS.format(uk=uk, start=start, limit=limit),
-          callback=self.parseShareList,
-          meta={'uk': uk, 'start': start, 'limit': limit}
-      )
-  """
-  请求粉丝列表
-  """
-  def requestFans(self, uk, start, limit):
-      yield Request(
-          url=self.URL_FANS.format(uk=uk, start=start, limit=limit),
-          callback=self.parseFans,
-          meta={'uk': uk, 'start': start, 'limit': limit}
-      )
-  """
-  请求关注列表
-  """
-  def requestFollow(self, uk, start, limit):
-      yield Request(
-          url=self.URL_FOLLOW.format(uk=uk, start=start, limit=limit),
-          callback=self.parseFollow,
-          meta={'uk': uk, 'start': start, 'limit': limit}
-      )
+  def parseHotUserList(self, response):
+      list = json.loads(response.body_as_unicode())
+      if list['errno'] == 0:
+          for _, record in enumerate(list):
+              yield BaidupanHotUserItem(record)
+              uk = record['hot_uk']
+              if record['pubshare_count'] > 0 or record['album_count'] > 0:
+                  yield Request(
+                      url=self.URL_SHARE.format(uk=uk, start=0, limit=self.URL_SHARE_LIMIT),
+                      callback=self.parseShareList,
+                      headers={'Referer':'https://pan.baidu.com/share/home'},
+                      meta={'uk': uk, 'start': 0, 'limit': self.URL_SHARE_LIMIT},
+                      priority=0
+                  )
+              if record['fans_count'] > 0:
+                  yield Request(
+                      url=self.URL_FANS.format(uk=uk, start=0, limit=self.URL_FANS_LIMIT),
+                      callback=self.parseFans,
+                      meta={'uk': uk, 'start': 0, 'limit': self.URL_FANS_LIMIT}
+                  )
+              if record['follow_count'] > 0:
+                  yield Request(
+                      url=self.URL_FOLLOW.format(uk=uk, start=0, limit=self.URL_FOLLOW_LIMIT),
+                      callback=self.parseFollow,
+                      meta={'uk': uk, 'start': 0, 'limit': self.URL_FOLLOW_LIMIT}
+                  )
+          if len(list) > 0:
+              start = response.meta['start'] + 24
+              yield Request(
+                url=URL_HOT.format(start=start),
+                meta={'start': start}
+              )
   """
   解析分享列表
   """
@@ -144,7 +156,7 @@ class BaidupanSpider(CrawlSpider):
                       url=self.URL_SHARE.format(uk=uk, start=0, limit=self.URL_SHARE_LIMIT),
                       callback=self.parseShareList,
                       headers={'Referer':'https://pan.baidu.com/share/home'},
-                      meta={'uk': record['fans_uk'], 'start': 0, 'limit': self.URL_SHARE_LIMIT},
+                      meta={'uk': uk, 'start': 0, 'limit': self.URL_SHARE_LIMIT},
                       priority=0
                   )
               if record['fans_count'] > 0:

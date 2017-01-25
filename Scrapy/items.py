@@ -10,6 +10,21 @@ from datetime import datetime
 
 class VideoItem(Item):
   source=Field()
+class BaidupanHotUserItem(Item):
+    uk = Field()
+    uname = Field()
+    type = Field()
+    hot_uname = Field()
+    avatar_url = Field()
+    intro = Field()
+    user_type = Field()
+    is_vip = Field()
+    follow_count = Field()
+    fans_count = Field()
+    follow_time = Field()
+    pubshare_count = Field()
+    hot_uk = Field()
+    album_count = Field()
 class BaiduPanFansItem(Item):
     uk = Field()
     uname = Field()
@@ -41,6 +56,7 @@ class BaiduPanFollwItem(Item):
     follow_uk = Field()
     album_count = Field()
 class BaiduPanShareItem(Item):
+    cover_thumb = Field()
     operation = Field()
     album_id = Field()
     feed_type = Field()

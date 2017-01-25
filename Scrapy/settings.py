@@ -17,7 +17,7 @@ ITEM_PIPELINES = {
     }
 
 DOWNLOADER_MIDDLEWARES = {
-    'Scrapy.middlewares.ProxyMiddleware': 100,
+    'Scrapy.middlewares.BaiduyunMiddleware': 100,
     # 'Scrapy.middlewares.DownloadTimer': 100,
     'scrapy.spidermiddlewares.referer.RefererMiddleware': 100,
     'scrapy.spidermiddlewares.depth.DepthMiddleware': 100
