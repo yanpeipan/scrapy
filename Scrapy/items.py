@@ -5,7 +5,7 @@
 
 from scrapy.item import Item, Field
 from scrapy.loader import ItemLoader
-from scrapy.contrib.loader.processor import Join, MapCompose, TakeFirst,Identity,Compose
+from scrapy.loader.processors import Join, MapCompose, TakeFirst,Identity,Compose
 from datetime import datetime
 
 class VideoItem(Item):

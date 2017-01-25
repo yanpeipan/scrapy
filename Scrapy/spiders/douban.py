@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from scrapy.spiders import CrawlSpider
-from scrapy.spider import Spider
+from scrapy.spiders import CrawlSpider, Spider
 from scrapy.exceptions import CloseSpider
 from scrapy .selector import Selector
 from pymongo import MongoClient

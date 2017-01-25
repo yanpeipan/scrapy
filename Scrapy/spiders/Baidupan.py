@@ -2,7 +2,7 @@
 
 from scrapy.spiders import CrawlSpider
 from scrapy.exceptions import CloseSpider
-from scrapy .selector import Selector
+from scrapy.selector import Selector
 from pymongo import MongoClient
 from scrapy.http import Request
 from Scrapy.items import *

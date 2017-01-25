@@ -1,7 +1,6 @@
-from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
+from scrapy.linkextractors.sgml import SgmlLinkExtractor
 from scrapy.contrib.spiders import CrawlSpider, Rule
 from Scrapy.items import ProxyItem
-from scrapy import log
 import re
 
 
@@ -23,19 +22,13 @@ class Windj007Spider(CrawlSpider):
     )
 
     def parse_proxylist(self, response):
-        log.msg("Got response on %s" % response.url, log.INFO)
 
         if response.status >= 400:
-            log.msg("Will not process page because status code is %d" % response.status_code, log.ERROR)
-            return
 
-        log.msg("Body is:", log.DEBUG)
-        log.msg(response.body, log.DEBUG)
+            return
 
         addresses_parsed = ProxySpider._address_re.finditer(response.body)
         for row in addresses_parsed:
             res = ProxyItem()
             res['ip'] = '%s:%s' % tuple(row.groups())
-            log.msg("Extracted %s from %s" % (res['address'], response.url), log.DEBUG)
             yield res
-
