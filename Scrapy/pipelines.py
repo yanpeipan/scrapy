@@ -67,4 +67,24 @@ class MongoPipeline(BasePipeline):
             'doc_as_upsert': True
             }
         )
+    if isinstance(item, BaiduPanFansItem):
+        item['uk'] = item['fans_uk']
+        item['uname'] = item['fans_uname']
+        item.pop('fans_uk', None)
+        item.pop('fans_uname', None)
+        self.es.update('baidupan', 'user', item['uk'], {
+              'doc': dict(item),
+              'doc_as_upsert': True
+              }
+          )
+    if isinstance(item, BaiduPanFollwItem):
+        item['uk'] = item['follow_uk']
+        item['uname'] = item['follow_uname']
+        item.pop('follow_uk', None)
+        item.pop('follow_uname', None)
+        self.es.update('baidupan', 'user', item['uk'], {
+              'doc': dict(item),
+              'doc_as_upsert': True
+              }
+          )
     return item

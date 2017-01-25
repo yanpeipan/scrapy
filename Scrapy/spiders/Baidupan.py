@@ -12,10 +12,9 @@ import json
 from datetime import datetime, date, time
 from scrapy.contrib.loader import ItemLoader
 
-
 class BaidupanSpider(CrawlSpider):
   name = 'baidupan'
-  uks = ['286353630', '3842858568']
+  uks = ['286353630']
   allowed_domins = ['https://pan.baidu.com']
   URL_INFO = 'https://pan.baidu.com/pcloud/user/getinfo?&query_uk={uk}'
   """
@@ -45,10 +44,8 @@ class BaidupanSpider(CrawlSpider):
   avatar_url：头像
   fans_uname：用户名
   """
-  # parse movei subject after search movie
-  parse_movie_subject = False
   # rate: 40page/min
-  rate = 40.0 / 60.0
+  rate = 20.0 / 60.0
 
   def __init__(self, *args, **kwargs):
       for k, v in enumerate(kwargs):
@@ -65,7 +62,7 @@ class BaidupanSpider(CrawlSpider):
             callback=self.parseShareList,
             headers={'Referer':'https://pan.baidu.com/share/home'},
             meta={'uk': uk, 'start': start, 'limit': self.URL_SHARE_LIMIT},
-            priority=100
+            priority=0
         )
         fansRequest = Request(
             url=self.URL_FANS.format(uk=uk, start=start, limit=self.URL_FANS_LIMIT),
@@ -77,8 +74,8 @@ class BaidupanSpider(CrawlSpider):
             callback=self.parseFollow,
             meta={'uk': uk, 'start': start, 'limit': self.URL_FOLLOW_LIMIT}
         )
-        requests.append(shareListRequest)
-        requests.append(fansRequest)
+        #requests.append(shareListRequest)
+        #requests.append(fansRequest)
         requests.append(followRequest)
 
     return requests
@@ -119,8 +116,8 @@ class BaidupanSpider(CrawlSpider):
               yield BaiduPanShareItem(record)
           # next page
           start = response.meta['start']
-          totalCount = list['total_count']
-          if start * self.URL_SHARE_LIMIT < totalCount:
+          totalCount = (int)(list['total_count'])
+          if (start + 1) < totalCount:
               uk = response.meta['uk']
               start = start + self.URL_SHARE_LIMIT
               limit = self.URL_SHARE_LIMIT
@@ -128,7 +125,7 @@ class BaidupanSpider(CrawlSpider):
                   url=self.URL_SHARE.format(uk=uk, start=start, limit=limit),
                   callback=self.parseShareList,
                   meta={'uk': uk, 'start': start, 'limit': limit},
-                  priority=100
+                  priority=0
               )
 
   """
@@ -140,32 +137,40 @@ class BaidupanSpider(CrawlSpider):
           start = response.meta['start']
           for _,record in enumerate(list['fans_list']):
               # 解析粉丝的关注，粉丝，分享列表（start从0开始
+              yield BaiduPanFansItem(record)
               uk = record['fans_uk']
-              yield Request(
-                  url=self.URL_SHARE.format(uk=uk, start=0, limit=self.URL_SHARE_LIMIT),
-                  callback=self.parseShareList,
-                  headers={'Referer':'https://pan.baidu.com/share/home'},
-                  meta={'uk': record['fans_uk'], 'start': 0, 'limit': self.URL_SHARE_LIMIT},
-                  priority=100
-              )
-              yield Request(
-                  url=self.URL_FANS.format(uk=uk, start=0, limit=self.URL_FANS_LIMIT),
-                  callback=self.parseFans,
-                  meta={'uk': uk, 'start': 0, 'limit': self.URL_FANS_LIMIT}
-              )
-              yield Request(
-                  url=self.URL_FOLLOW.format(uk=uk, start=0, limit=self.URL_FOLLOW_LIMIT),
-                  callback=self.parseFollow,
-                  meta={'uk': uk, 'start': 0, 'limit': self.URL_FOLLOW_LIMIT}
-              )
+              if record['pubshare_count'] > 0 or record['album_count'] > 0:
+                  yield Request(
+                      url=self.URL_SHARE.format(uk=uk, start=0, limit=self.URL_SHARE_LIMIT),
+                      callback=self.parseShareList,
+                      headers={'Referer':'https://pan.baidu.com/share/home'},
+                      meta={'uk': record['fans_uk'], 'start': 0, 'limit': self.URL_SHARE_LIMIT},
+                      priority=0
+                  )
+              if record['fans_count'] > 0:
+                  yield Request(
+                      url=self.URL_FANS.format(uk=uk, start=0, limit=self.URL_FANS_LIMIT),
+                      callback=self.parseFans,
+                      meta={'uk': uk, 'start': 0, 'limit': self.URL_FANS_LIMIT}
+                  )
+              if record['follow_count'] > 0:
+                  yield Request(
+                      url=self.URL_FOLLOW.format(uk=uk, start=0, limit=self.URL_FOLLOW_LIMIT),
+                      callback=self.parseFollow,
+                      meta={'uk': uk, 'start': 0, 'limit': self.URL_FOLLOW_LIMIT}
+                  )
 
           # next page
           start = response.meta['start']
-          totalCount = list['total_count']
-          if start * self.URL_FANS_LIMIT < totalCount:
+          totalCount = (int)(list['total_count'])
+          if (start + 1) < totalCount:
               uk = response.meta['uk']
               start = start + self.URL_FANS_LIMIT
-              self.requestFans(uk, start, self.URL_FANS_LIMIT)
+              yield Request(
+                  url=self.URL_FANS.format(uk=uk, start=start, limit=self.URL_FANS_LIMIT),
+                  callback=self.parseFans,
+                  meta={'uk': uk, 'start': start, 'limit': self.URL_FANS_LIMIT}
+              )
   """
   解析关注
   """
@@ -174,30 +179,36 @@ class BaidupanSpider(CrawlSpider):
       start = response.meta['start']
       if list['errno'] == 0:
           for _,record in enumerate(list['follow_list']):
-            # 请求分享列表
-            yield Request(
-                url=self.URL_SHARE.format(uk=record['follow_uk'], start=0, limit=self.URL_SHARE_LIMIT),
-                callback=self.parseShareList,
-                headers={'Referer':'https://pan.baidu.com/share/home'},
-                meta={'uk': record['follow_uk'], 'start': 0, 'limit': self.URL_SHARE_LIMIT},
-                priority=100
-            )
-            yield Request(
-                url=self.URL_FANS.format(uk=record['follow_uk'], start=0, limit=self.URL_FANS_LIMIT),
-                callback=self.parseFans,
-                meta={'uk': record['follow_uk'], 'start': 0, 'limit': self.URL_FANS_LIMIT}
-            )
-            yield Request(
-                url=self.URL_FOLLOW.format(uk=record['follow_uk'], start=0, limit=self.URL_FOLLOW_LIMIT),
-                callback=self.parseFollow,
-                meta={'uk': record['follow_uk'], 'start': 0, 'limit': self.URL_FOLLOW_LIMIT}
-            )
-
+              yield BaiduPanFollwItem(record)
+              # 请求分享列表
+              if record['pubshare_count'] > 0 or record['album_count'] > 0:
+                  yield Request(
+                      url=self.URL_SHARE.format(uk=record['follow_uk'], start=0, limit=self.URL_SHARE_LIMIT),
+                      callback=self.parseShareList,
+                      headers={'Referer':'https://pan.baidu.com/share/home'},
+                      meta={'uk': record['follow_uk'], 'start': 0, 'limit': self.URL_SHARE_LIMIT},
+                      priority=0
+                  )
+              if record['fans_count'] > 0:
+                  yield Request(
+                      url=self.URL_FANS.format(uk=record['follow_uk'], start=0, limit=self.URL_FANS_LIMIT),
+                      callback=self.parseFans,
+                      meta={'uk': record['follow_uk'], 'start': 0, 'limit': self.URL_FANS_LIMIT}
+                  )
+              if record['follow_count'] > 0:
+                  yield Request(
+                      url=self.URL_FOLLOW.format(uk=record['follow_uk'], start=0, limit=self.URL_FOLLOW_LIMIT),
+                      callback=self.parseFollow,
+                      meta={'uk': record['follow_uk'], 'start': 0, 'limit': self.URL_FOLLOW_LIMIT}
+                  )
           # next page
           start = response.meta['start']
-          totalCount = list['total_count']
-          if start * self.URL_FOLLOW < totalCount:
+          totalCount = (int)(list['total_count'])
+          if (start + 1) < totalCount:
               uk = response.meta['uk']
-              start = start + self.URL_FOLLOW
-              self.requestFans(uk, start, self.URL_FOLLOW)
-      pass
+              start = start + self.URL_FOLLOW_LIMIT
+              yield Request(
+                  url=self.URL_FOLLOW.format(uk=uk, start=start, limit=self.URL_FOLLOW_LIMIT),
+                  callback=self.parseFollow,
+                  meta={'uk': uk, 'start': start, 'limit': self.URL_FOLLOW_LIMIT}
+              )

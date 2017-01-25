@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from scrapy.contrib.spiders import CrawlSpider
+from scrapy.spiders import CrawlSpider
 from scrapy.spider import Spider
 from scrapy.exceptions import CloseSpider
 from scrapy .selector import Selector
@@ -11,7 +11,7 @@ import urlparse
 import urllib
 import json
 from datetime import datetime, date, time
-from scrapy.contrib.loader import ItemLoader
+from scrapy.loader import ItemLoader
 
 
 class DoubanSpider(CrawlSpider):
