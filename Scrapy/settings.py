@@ -27,6 +27,8 @@ DOWNLOADER_MIDDLEWARES = {
 #    'Scrapy.middlewares.UrlMiddleware':1
 #    }
 
+CONCURRENT_REQUESTS = 100
+REACTOR_THREADPOOL_MAXSIZE = 20
 
 COOKIES_ENABLED = False
 
