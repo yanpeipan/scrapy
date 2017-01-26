@@ -1,5 +1,5 @@
 from scrapy.linkextractors import LinkExtractor
-from scrapy.contrib.spiders import CrawlSpider, Rule
+from scrapy.spiders import CrawlSpider, Rule
 from Scrapy.items import ProxyItem
 import re
 

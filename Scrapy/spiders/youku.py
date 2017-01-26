@@ -1,8 +1,8 @@
 #coding=utf-8
 from scrapy.contrib.spiders import CrawlSpider
 from scrapy.spider import Spider
-from scrapy.contrib.loader import ItemLoader
-from scrapy.contrib.loader.processor import TakeFirst, MapCompose, Join
+from scrapy.loader import ItemLoader
+from scrapy.loader.processors import TakeFirst, MapCompose, Join
 from scrapy.exceptions import CloseSpider
 from scrapy.selector import Selector
 from scrapy.http import FormRequest
@@ -149,7 +149,7 @@ class YoukuSpider(CrawlSpider):
     def queryShowsByCategory(self, formdata):
 	scrapy.log.msg(formdata, level=scrapy.log.INFO)
         #check necessary keys
-        if all(key in formdata for key in ['client_id', 'category']): return FormRequest(self.shows_by_category_url, formdata=formdata, callback=self.parseShowsByCategory, meta={'formdata':formdata}) 
+        if all(key in formdata for key in ['client_id', 'category']): return FormRequest(self.shows_by_category_url, formdata=formdata, callback=self.parseShowsByCategory, meta={'formdata':formdata})
 
     def queryShowsVideos(self, formdata):
         #check necessary keys

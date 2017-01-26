@@ -1,5 +1,4 @@
-from scrapy.spider import Spider
-from scrapy.spider import Request
+from scrapy.spiders import Spider, Request
 from scrapy.selector import Selector
 from Scrapy.items import ProxyItem
 from selenium import webdriver
@@ -66,4 +65,3 @@ class ProxySpider(Spider):
     proxyItem['status'] = response.status
     proxyItem['time'] = time.time()
     yield proxyItem
-
