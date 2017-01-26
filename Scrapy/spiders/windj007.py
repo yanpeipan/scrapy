@@ -1,4 +1,4 @@
-from scrapy.linkextractors.sgml import SgmlLinkExtractor
+from scrapy.linkextractors import LinkExtractor
 from scrapy.contrib.spiders import CrawlSpider, Rule
 from Scrapy.items import ProxyItem
 import re
@@ -15,7 +15,7 @@ class Windj007Spider(CrawlSpider):
 
     _address_re = re.compile(r'(\d{1,4}\.\d{1,4}\.\d{1,4}\.\d{1,4})[^0-9]+(\d+)')
     rules = (
-        Rule(SgmlLinkExtractor(restrict_xpaths = '//h3[@class="r"]'),
+        Rule(LinkExtractor(restrict_xpaths = '//h3[@class="r"]'),
              callback = 'parse_proxylist',
              follow = True
              ),

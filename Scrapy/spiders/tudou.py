@@ -1,8 +1,7 @@
 #coding=utf-8
-from scrapy.contrib.spiders import CrawlSpider
-from scrapy.spider import Spider
-from scrapy.contrib.loader import ItemLoader
-from scrapy.contrib.loader.processor import TakeFirst, MapCompose, Join
+from scrapy.spiders import CrawlSpider, Spider
+from scrapy.loader import ItemLoader
+from scrapy.loader.processors import TakeFirst, MapCompose, Join
 from scrapy.exceptions import CloseSpider
 from scrapy.selector import Selector
 from scrapy.http import FormRequest
@@ -31,9 +30,8 @@ class TudouSpider(CrawlSpider):
 	return [Request(getattr(self, 'list_url'), callback=self.parseList)]
 
     def parseList(self, response):
-	channels=response.xpath('//*[@id="secMenu"]/ul/li')	
+	channels=response.xpath('//*[@id="secMenu"]/ul/li')
 	for channel in channels:
 	    id=channel.xpath('@data-id').extract()
 	    url=channel.xpath('.//a/@href').extract()
 	    name=channel.xpath('.//a/text()').extract()
-	

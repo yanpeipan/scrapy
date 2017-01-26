@@ -7,7 +7,6 @@ import pymongo
 from Scrapy.items import *
 from os import path
 from datetime import datetime
-from scrapy import log
 from scrapy.exporters import BaseItemExporter
 from elasticsearch import Elasticsearch
 
