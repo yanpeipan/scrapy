@@ -1,6 +1,5 @@
 #coding=utf-8
-from scrapy.contrib.spiders import CrawlSpider
-from scrapy.spider import Spider
+from scrapy.spiders import CrawlSpider, Spider
 from scrapy.loader import ItemLoader
 from scrapy.loader.processors import TakeFirst, MapCompose, Join
 from scrapy.exceptions import CloseSpider

@@ -7,7 +7,7 @@ import json
 
 class BaidupanSpider(CrawlSpider):
   name = 'baidupan'
-  uks = ['286353630']
+  uks = []
   allowed_domins = ['https://pan.baidu.com']
   URL_HOT = 'https://pan.baidu.com/pcloud/friend/gethotuserlist?start={start}&limit=24'
   """
@@ -43,6 +43,7 @@ class BaidupanSpider(CrawlSpider):
   """
   # rate: 20page/min
   rate = 20.0 / 60.0
+  parse_fans = False
 
   def __init__(self, *args, **kwargs):
       for k, v in enumerate(kwargs):
@@ -53,6 +54,12 @@ class BaidupanSpider(CrawlSpider):
   def start_requests(self):
     requests = []
     start = 0
+    hotUserRequest = Request(
+        url=self.URL_HOT.format(start=start),
+        callback=self.parseHotUserList,
+        meta={'start': start}
+    )
+    requests.append(hotUserRequest)
     for _,uk in enumerate(self.uks):
         shareListRequest = Request(
             url=self.URL_SHARE.format(uk=uk, start=start, limit=self.URL_SHARE_LIMIT),
@@ -72,8 +79,8 @@ class BaidupanSpider(CrawlSpider):
             meta={'uk': uk, 'start': start, 'limit': self.URL_FOLLOW_LIMIT}
         )
         #requests.append(shareListRequest)
-        #requests.append(fansRequest)
-        requests.append(followRequest)
+        # requests.append(fansRequest)
+        #requests.append(followRequest)
 
     return requests
   """
@@ -82,7 +89,7 @@ class BaidupanSpider(CrawlSpider):
   def parseHotUserList(self, response):
       list = json.loads(response.body_as_unicode())
       if list['errno'] == 0:
-          for _, record in enumerate(list):
+          for _, record in enumerate(list['hotuser_list']):
               yield BaidupanHotUserItem(record)
               uk = record['hot_uk']
               if record['pubshare_count'] > 0 or record['album_count'] > 0:
@@ -93,7 +100,7 @@ class BaidupanSpider(CrawlSpider):
                       meta={'uk': uk, 'start': 0, 'limit': self.URL_SHARE_LIMIT},
                       priority=0
                   )
-              if record['fans_count'] > 0:
+              if record['fans_count'] > 0 and self.parse_fans:
                   yield Request(
                       url=self.URL_FANS.format(uk=uk, start=0, limit=self.URL_FANS_LIMIT),
                       callback=self.parseFans,
@@ -108,7 +115,8 @@ class BaidupanSpider(CrawlSpider):
           if len(list) > 0:
               start = response.meta['start'] + 24
               yield Request(
-                url=URL_HOT.format(start=start),
+                url=self.URL_HOT.format(start=start),
+                callback=self.parseHotUserList,
                 meta={'start': start}
               )
   """
@@ -138,6 +146,7 @@ class BaidupanSpider(CrawlSpider):
   """
   def parseFans(self, response):
       list = json.loads(response.body_as_unicode())
+      print(list)
       if list['errno'] == 0:
           start = response.meta['start']
           for _,record in enumerate(list['fans_list']):
@@ -152,7 +161,7 @@ class BaidupanSpider(CrawlSpider):
                       meta={'uk': uk, 'start': 0, 'limit': self.URL_SHARE_LIMIT},
                       priority=0
                   )
-              if record['fans_count'] > 0:
+              if record['fans_count'] > 0 and self.parse_fans:
                   yield Request(
                       url=self.URL_FANS.format(uk=uk, start=0, limit=self.URL_FANS_LIMIT),
                       callback=self.parseFans,
@@ -168,7 +177,8 @@ class BaidupanSpider(CrawlSpider):
           # next page
           start = response.meta['start']
           totalCount = (int)(list['total_count'])
-          if (start + 1) < totalCount:
+          if (start + 1) < totalCount and self.parse_fans:
+              print('next')
               uk = response.meta['uk']
               start = start + self.URL_FANS_LIMIT
               yield Request(
@@ -194,7 +204,7 @@ class BaidupanSpider(CrawlSpider):
                       meta={'uk': record['follow_uk'], 'start': 0, 'limit': self.URL_SHARE_LIMIT},
                       priority=0
                   )
-              if record['fans_count'] > 0:
+              if record['fans_count'] > 0 and self.parse_fans:
                   yield Request(
                       url=self.URL_FANS.format(uk=record['follow_uk'], start=0, limit=self.URL_FANS_LIMIT),
                       callback=self.parseFans,
@@ -209,7 +219,7 @@ class BaidupanSpider(CrawlSpider):
           # next page
           start = response.meta['start']
           totalCount = (int)(list['total_count'])
-          if (start + 1) < totalCount:
+          if (start + 1) < totalCount and self.parse_fans:
               uk = response.meta['uk']
               start = start + self.URL_FOLLOW_LIMIT
               yield Request(

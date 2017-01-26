@@ -1,9 +1,10 @@
 from urlparse import urlparse,parse_qs
 from pymongo import MongoClient
-import time
-import random
 from scrapy.downloadermiddlewares.useragent import UserAgentMiddleware
 from selenium import webdriver
+import time
+import random
+import json
 
 class ProxyMiddleware(object):
   def __init__(self):
@@ -37,10 +38,9 @@ class ProxyMiddleware(object):
     pass
 
 class BaiduyunMiddleware(object):
-  def process_spider_output(self, response, result, spider):
-      if spider.__class__.__name__ == 'DoubanSpider':
+  def process_response(self, request, response, spider):
+      if spider.__class__.__name__ == 'BaidupanSpider':
           list = json.loads(response.body_as_unicode())
           if list['errno'] != 0:
-              print(list)
               return response.replace(status=500)
       return response

@@ -12,20 +12,15 @@ SPIDER_MODULES = ['Scrapy.spiders']
 NEWSPIDER_MODULE = 'Scrapy.spiders'
 
 ITEM_PIPELINES = {
-    #'Scrapy.pipelines.SerializerPipeline': 10,
     'Scrapy.pipelines.MongoPipeline': 100,
     }
 
 DOWNLOADER_MIDDLEWARES = {
     'Scrapy.middlewares.BaiduyunMiddleware': 100,
-    # 'Scrapy.middlewares.DownloadTimer': 100,
-    'scrapy.spidermiddlewares.referer.RefererMiddleware': 100,
-    'scrapy.spidermiddlewares.depth.DepthMiddleware': 100
     }
 
-#SPIDER_MIDDLEWARES = {
-#    'Scrapy.middlewares.UrlMiddleware':1
-#    }
+SPIDER_MIDDLEWARES = {
+   }
 CONCURRENT_ITEMS = 100
 CONCURRENT_REQUESTS = 16
 CONCURRENT_REQUESTS_PER_DOMAIN = 8
@@ -51,3 +46,8 @@ DEPTH_STATS = True
 
 AUTOTHROTTLE_ENABLED = True
 AUTOTHROTTLE_DEBUG = True
+AUTOTHROTTLE_START_DELAY = 5
+AUTOTHROTTLE_MAX_DELAY = 300
+
+RETRY_ENABLED = True
+RETRY_TIMES = 2

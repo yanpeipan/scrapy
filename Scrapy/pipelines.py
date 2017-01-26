@@ -61,11 +61,18 @@ class MongoPipeline(BasePipeline):
     if isinstance(item, CelebrityItem):
       self.mongo.scrapy.celebritys.update({'id' : item['id']}, {'$set':dict(item)}, upsert = True)
     if isinstance(item, BaiduPanShareItem):
-      self.es.update('baidupan', 'sharelist', item['shareid'], {
-            'doc': dict(item),
-            'doc_as_upsert': True
-            }
-        )
+        if 'shareid' in item:
+          self.es.update('baidupan', 'sharelist', item['shareid'], {
+                'doc': dict(item),
+                'doc_as_upsert': True
+                }
+            )
+        elif 'album_id' in item:
+            self.es.update('baidupan', 'album', item['album_id'], {
+                  'doc': dict(item),
+                  'doc_as_upsert': True
+                  }
+              )
     if isinstance(item, BaiduPanFansItem):
         item['uk'] = item['fans_uk']
         item['uname'] = item['fans_uname']
@@ -81,6 +88,16 @@ class MongoPipeline(BasePipeline):
         item['uname'] = item['follow_uname']
         item.pop('follow_uk', None)
         item.pop('follow_uname', None)
+        self.es.update('baidupan', 'user', item['uk'], {
+              'doc': dict(item),
+              'doc_as_upsert': True
+              }
+          )
+    if isinstance(item, BaidupanHotUserItem):
+        item['uk'] = item['hot_uk']
+        item['uname'] = item['hot_uname']
+        item.pop('hot_uk', None)
+        item.pop('hot_uname', None)
         self.es.update('baidupan', 'user', item['uk'], {
               'doc': dict(item),
               'doc_as_upsert': True
