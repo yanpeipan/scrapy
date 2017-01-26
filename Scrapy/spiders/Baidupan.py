@@ -42,7 +42,7 @@ class BaidupanSpider(CrawlSpider):
   fans_uname：用户名
   """
   # rate: 20page/min
-  rate = 20.0 / 60.0
+  rate = 60.0 / 60.0
   parse_fans = False
   parse_share_list = False
   parse_share_priority = 0
