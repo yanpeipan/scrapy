@@ -42,5 +42,6 @@ class BaiduyunMiddleware(object):
       if spider.__class__.__name__ == 'BaidupanSpider':
           list = json.loads(response.body_as_unicode())
           if list['errno'] != 0:
+              time.sleep(300)
               return response.replace(status=500)
       return response
