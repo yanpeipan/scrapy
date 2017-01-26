@@ -44,8 +44,8 @@ class BaidupanSpider(CrawlSpider):
   # rate: 20page/min
   rate = 20.0 / 60.0
   parse_fans = False
-  parse_share_list = True
-  parse_share_priority = -100
+  parse_share_list = False
+  parse_share_priority = 0
 
   def __init__(self, *args, **kwargs):
       for k, v in enumerate(kwargs):
@@ -80,9 +80,11 @@ class BaidupanSpider(CrawlSpider):
             callback=self.parseFollow,
             meta={'uk': uk, 'start': start, 'limit': self.URL_FOLLOW_LIMIT}
         )
-        #requests.append(shareListRequest)
-        # requests.append(fansRequest)
-        #requests.append(followRequest)
+        if self.parse_share_list:
+            requests.append(shareListRequest)
+        if self.parse_fans:
+            requests.append(fansRequest)
+        requests.append(followRequest)
 
     return requests
   """
