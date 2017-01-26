@@ -44,6 +44,8 @@ class BaidupanSpider(CrawlSpider):
   # rate: 20page/min
   rate = 20.0 / 60.0
   parse_fans = False
+  parse_share_list = True
+  parse_share_priority = -100
 
   def __init__(self, *args, **kwargs):
       for k, v in enumerate(kwargs):
@@ -66,7 +68,7 @@ class BaidupanSpider(CrawlSpider):
             callback=self.parseShareList,
             headers={'Referer':'https://pan.baidu.com/share/home'},
             meta={'uk': uk, 'start': start, 'limit': self.URL_SHARE_LIMIT},
-            priority=0
+            priority=self.parse_share_priority
         )
         fansRequest = Request(
             url=self.URL_FANS.format(uk=uk, start=start, limit=self.URL_FANS_LIMIT),
@@ -92,13 +94,13 @@ class BaidupanSpider(CrawlSpider):
           for _, record in enumerate(list['hotuser_list']):
               yield BaidupanHotUserItem(record)
               uk = record['hot_uk']
-              if record['pubshare_count'] > 0 or record['album_count'] > 0:
+              if (record['pubshare_count'] > 0 or record['album_count'] > 0) and self.parse_share_list:
                   yield Request(
                       url=self.URL_SHARE.format(uk=uk, start=0, limit=self.URL_SHARE_LIMIT),
                       callback=self.parseShareList,
                       headers={'Referer':'https://pan.baidu.com/share/home'},
                       meta={'uk': uk, 'start': 0, 'limit': self.URL_SHARE_LIMIT},
-                      priority=0
+                      priority=self.parse_share_priority
                   )
               if record['fans_count'] > 0 and self.parse_fans:
                   yield Request(
@@ -130,7 +132,7 @@ class BaidupanSpider(CrawlSpider):
           # next page
           start = response.meta['start']
           totalCount = (int)(list['total_count'])
-          if (start + 1) < totalCount:
+          if (start + 1) < totalCount and self.parse_share_list:
               uk = response.meta['uk']
               start = start + self.URL_SHARE_LIMIT
               limit = self.URL_SHARE_LIMIT
@@ -138,7 +140,7 @@ class BaidupanSpider(CrawlSpider):
                   url=self.URL_SHARE.format(uk=uk, start=start, limit=limit),
                   callback=self.parseShareList,
                   meta={'uk': uk, 'start': start, 'limit': limit},
-                  priority=0
+                  priority=self.parse_share_priority
               )
 
   """
@@ -153,13 +155,13 @@ class BaidupanSpider(CrawlSpider):
               # 解析粉丝的关注，粉丝，分享列表（start从0开始
               yield BaiduPanFansItem(record)
               uk = record['fans_uk']
-              if record['pubshare_count'] > 0 or record['album_count'] > 0:
+              if (record['pubshare_count'] > 0 or record['album_count'] > 0) and self.parse_share_list :
                   yield Request(
                       url=self.URL_SHARE.format(uk=uk, start=0, limit=self.URL_SHARE_LIMIT),
                       callback=self.parseShareList,
                       headers={'Referer':'https://pan.baidu.com/share/home'},
                       meta={'uk': uk, 'start': 0, 'limit': self.URL_SHARE_LIMIT},
-                      priority=0
+                      priority=self.parse_share_priority
                   )
               if record['fans_count'] > 0 and self.parse_fans:
                   yield Request(
@@ -196,13 +198,13 @@ class BaidupanSpider(CrawlSpider):
           for _,record in enumerate(list['follow_list']):
               yield BaiduPanFollwItem(record)
               # 请求分享列表
-              if record['pubshare_count'] > 0 or record['album_count'] > 0:
+              if (record['pubshare_count'] > 0 or record['album_count'] > 0) and self.parse_share_list :
                   yield Request(
                       url=self.URL_SHARE.format(uk=record['follow_uk'], start=0, limit=self.URL_SHARE_LIMIT),
                       callback=self.parseShareList,
                       headers={'Referer':'https://pan.baidu.com/share/home'},
                       meta={'uk': record['follow_uk'], 'start': 0, 'limit': self.URL_SHARE_LIMIT},
-                      priority=0
+                      priority=self.parse_share_priority
                   )
               if record['fans_count'] > 0 and self.parse_fans:
                   yield Request(
