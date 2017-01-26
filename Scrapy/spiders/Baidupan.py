@@ -1,16 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from scrapy.spiders import CrawlSpider
-from scrapy.exceptions import CloseSpider
-from scrapy.selector import Selector
-from pymongo import MongoClient
 from scrapy.http import Request
 from Scrapy.items import *
-import urlparse
-import urllib
 import json
-from datetime import datetime, date, time
-from scrapy.contrib.loader import ItemLoader
 
 class BaidupanSpider(CrawlSpider):
   name = 'baidupan'
