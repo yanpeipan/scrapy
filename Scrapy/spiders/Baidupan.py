@@ -44,7 +44,7 @@ class BaidupanSpider(CrawlSpider):
   # rate: 40page/min
   rate = 40.0 / 60.0
   parse_fans = False
-  parse_share_list = False
+  parse_share_list = True
   parse_share_priority = 0
 
   def __init__(self, *args, **kwargs):
