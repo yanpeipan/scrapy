@@ -7,6 +7,15 @@ import random
 import json
 
 class ProxyMiddleware(object):
+    def process_request(self, request, spider):
+        url = urlparse(request.url)
+        if url.path == '/pcloud/friend/gethotuserlist':
+            request.meta.pop('proxy', None)
+        elif url.path == '/pcloud/friend/getfollowlist':
+            request.meta.pop('proxy', None)
+
+
+class DoubanMiddleware(object):
   def __init__(self):
     mongo = MongoClient().scrapy
     self.proxys = list(mongo.proxy.find({'status':200}))
@@ -20,11 +29,8 @@ class ProxyMiddleware(object):
           request = request.replace(url = "%s?apikey=0d58236c3758bc2928086a44a60a347b" % request.url)
         elif 'apikey' not in parse_qs(url.query):
           request = request.replace(url = "%s&apikey=0d58236c3758bc2928086a44a60a347b" % request.url)
-        else:
-          return
-        return request
       elif url.scheme == 'http':
-	pass
+        pass
       elif 'Selenium' in getattr(spider, 'middlewares', []):
         pass
       #browser = webdriver.Firefox()
