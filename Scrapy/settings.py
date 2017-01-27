@@ -16,6 +16,9 @@ ITEM_PIPELINES = {
     }
 
 DOWNLOADER_MIDDLEWARES = {
+    'scrapy.downloadermiddlewares.retry.RetryMiddleware': 90,
+    'scrapy_proxies.RandomProxy': 100,
+    'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 110,
     'Scrapy.middlewares.BaiduyunMiddleware': 560,
     }
 
@@ -23,7 +26,7 @@ SPIDER_MIDDLEWARES = {
    }
 CONCURRENT_ITEMS = 100
 CONCURRENT_REQUESTS = 16
-CONCURRENT_REQUESTS_PER_DOMAIN = 4
+CONCURRENT_REQUESTS_PER_DOMAIN = 8
 
 REACTOR_THREADPOOL_MAXSIZE = 10
 
@@ -46,8 +49,10 @@ DEPTH_STATS = True
 
 AUTOTHROTTLE_ENABLED = True
 AUTOTHROTTLE_DEBUG = True
-AUTOTHROTTLE_START_DELAY = 5
+AUTOTHROTTLE_START_DELAY = 1
 AUTOTHROTTLE_MAX_DELAY = 300
 
 RETRY_ENABLED = True
-RETRY_TIMES = 2
+RETRY_TIMES = 3
+
+PROXY_LIST = '/tmp/ip-good.txt'

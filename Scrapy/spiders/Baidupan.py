@@ -42,7 +42,7 @@ class BaidupanSpider(CrawlSpider):
   fans_uname：用户名
   """
   # rate: 40page/min
-  rate = 10.0 / 60.0
+  rate = 1200.0 / 60.0
   parse_fans = False
   parse_share_list = True
   parse_share_priority = 0
@@ -59,7 +59,8 @@ class BaidupanSpider(CrawlSpider):
     hotUserRequest = Request(
         url=self.URL_HOT.format(start=start),
         callback=self.parseHotUserList,
-        meta={'start': start}
+        meta={'start': start},
+        dont_filter=True
     )
     requests.append(hotUserRequest)
     for _,uk in enumerate(self.uks):
@@ -114,14 +115,16 @@ class BaidupanSpider(CrawlSpider):
                   yield Request(
                       url=self.URL_FOLLOW.format(uk=uk, start=0, limit=self.URL_FOLLOW_LIMIT),
                       callback=self.parseFollow,
-                      meta={'uk': uk, 'start': 0, 'limit': self.URL_FOLLOW_LIMIT}
+                      meta={'uk': uk, 'start': 0, 'limit': self.URL_FOLLOW_LIMIT},
+                      dont_filter=True
                   )
           if len(list) > 0:
               start = response.meta['start'] + 24
               yield Request(
                 url=self.URL_HOT.format(start=start),
                 callback=self.parseHotUserList,
-                meta={'start': start}
+                meta={'start': start},
+                dont_filter=True
               )
   """
   解析分享列表
@@ -140,6 +143,7 @@ class BaidupanSpider(CrawlSpider):
               limit = self.URL_SHARE_LIMIT
               yield Request(
                   url=self.URL_SHARE.format(uk=uk, start=start, limit=limit),
+                  headers={'Referer':'https://pan.baidu.com/share/home'},
                   callback=self.parseShareList,
                   meta={'uk': uk, 'start': start, 'limit': limit},
                   priority=self.parse_share_priority

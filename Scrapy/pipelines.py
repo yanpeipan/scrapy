@@ -4,7 +4,6 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html import os
 import pymongo
-import redis
 from Scrapy.items import *
 from os import path
 from datetime import datetime
@@ -39,7 +38,6 @@ class MongoPipeline(BasePipeline):
         {'host': '127.0.0.1'},
     ])
     self.es.indices.create(index='baidupan', ignore=400)
-    self.redis = redis.Redis(unix_socket_path='/tmp/redis.sock')
 
   def process_item(self, item, spider):
     #upsert youku show
