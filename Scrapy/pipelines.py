@@ -11,16 +11,13 @@ from scrapy.exporters import BaseItemExporter
 from elasticsearch import Elasticsearch
 
 class BasePipeline(object):
-
   def __init__(self):
     pass
-
 
 """
 Serializer
 """
 class SerializerPipeline(BasePipeline):
-
   def process_item(self, item, spider):
     itemExporter=BaseItemExporter()
     for k,v in enumerate(item):
@@ -31,7 +28,6 @@ class SerializerPipeline(BasePipeline):
 MongoDB
 """
 class MongoPipeline(BasePipeline):
-
   def __init__(self):
     self.mongo = pymongo.MongoClient()
     self.es = Elasticsearch([
